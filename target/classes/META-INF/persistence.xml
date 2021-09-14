@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="com.tt_travel_war_1.0-SNAPSHOTPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>com.tt.pojos.Tour</class>
+    <class>com.tt.pojos.Post</class>
+    <class>com.tt.pojos.Room</class>
+    <class>com.tt.pojos.Hotel</class>
+    <class>com.tt.pojos.Receipt</class>
+    <class>com.tt.pojos.UserInfo</class>
+    <class>com.tt.pojos.TourImg</class>
+    <class>com.tt.pojos.Image</class>
+    <class>com.tt.pojos.Role</class>
+    <class>com.tt.pojos.Cmt</class>
+    <class>com.tt.pojos.User</class>
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/touragency?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
+      <property name="javax.persistence.jdbc.user" value="root"/>
+      <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+      <property name="javax.persistence.jdbc.password" value="A11111aaaaa@"/>
+    </properties>
+  </persistence-unit>
+</persistence>
