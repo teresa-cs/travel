@@ -47,7 +47,7 @@ public class Role implements Serializable {
     @Size(min = 1, max = 45)
     @Column(name = "position")
     private String position;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "role")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "roleId")
     private Collection<User> userCollection;
 
     public Role() {

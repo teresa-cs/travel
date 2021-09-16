@@ -14,6 +14,7 @@
 
 
 
+
 <!DOCTYPE HTML>
 <html>
 	<head>
@@ -99,7 +100,16 @@
 								<li><a href="blog.html">Blog</a></li>
 								<li><a href="about.html">About</a></li>
 								<li><a href="contact.html">Contact</a></li>
-                                                                <li><a href="login">Sign up</a></li>
+                                                                <c:if test="${pageContext.request.userPrincipal.name == null}">
+                                                                 <li><a href="login">Sign up</a></li>
+                                                                </c:if>
+                                                                 <c:if test="${pageContext.request.userPrincipal.name != null}">
+                                                                 <li><a href="index">${pageContext.request.userPrincipal.name}</a></li>
+                                                                 <li><a href="<c:url value="/logout"/>">Logout</a></li>
+                                                                </c:if>
+                                                                 
+                                                                
+                                                               
 							</ul>
 						</div>
 					</div>

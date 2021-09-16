@@ -24,15 +24,15 @@ public class TourImgPK implements Serializable {
     private int idtour;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "id_img")
-    private int idImg;
+    @Column(name = "idimg")
+    private int idimg;
 
     public TourImgPK() {
     }
 
-    public TourImgPK(int idtour, int idImg) {
+    public TourImgPK(int idtour, int idimg) {
         this.idtour = idtour;
-        this.idImg = idImg;
+        this.idimg = idimg;
     }
 
     public int getIdtour() {
@@ -43,19 +43,19 @@ public class TourImgPK implements Serializable {
         this.idtour = idtour;
     }
 
-    public int getIdImg() {
-        return idImg;
+    public int getIdimg() {
+        return idimg;
     }
 
-    public void setIdImg(int idImg) {
-        this.idImg = idImg;
+    public void setIdimg(int idimg) {
+        this.idimg = idimg;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
         hash += (int) idtour;
-        hash += (int) idImg;
+        hash += (int) idimg;
         return hash;
     }
 
@@ -69,7 +69,7 @@ public class TourImgPK implements Serializable {
         if (this.idtour != other.idtour) {
             return false;
         }
-        if (this.idImg != other.idImg) {
+        if (this.idimg != other.idimg) {
             return false;
         }
         return true;
@@ -77,7 +77,7 @@ public class TourImgPK implements Serializable {
 
     @Override
     public String toString() {
-        return "com.tt.pojos.TourImgPK[ idtour=" + idtour + ", idImg=" + idImg + " ]";
+        return "com.tt.pojos.TourImgPK[ idtour=" + idtour + ", idimg=" + idimg + " ]";
     }
     
 }

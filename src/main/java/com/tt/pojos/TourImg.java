@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "TourImg.findAll", query = "SELECT t FROM TourImg t"),
     @NamedQuery(name = "TourImg.findByIdtour", query = "SELECT t FROM TourImg t WHERE t.tourImgPK.idtour = :idtour"),
-    @NamedQuery(name = "TourImg.findByIdImg", query = "SELECT t FROM TourImg t WHERE t.tourImgPK.idImg = :idImg"),
+    @NamedQuery(name = "TourImg.findByIdimg", query = "SELECT t FROM TourImg t WHERE t.tourImgPK.idimg = :idimg"),
     @NamedQuery(name = "TourImg.findByDescription", query = "SELECT t FROM TourImg t WHERE t.description = :description")})
 public class TourImg implements Serializable {
 
@@ -37,7 +37,7 @@ public class TourImg implements Serializable {
     @Size(max = 45)
     @Column(name = "description")
     private String description;
-    @JoinColumn(name = "id_img", referencedColumnName = "id", insertable = false, updatable = false)
+    @JoinColumn(name = "idimg", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Image image;
     @JoinColumn(name = "idtour", referencedColumnName = "id", insertable = false, updatable = false)
@@ -51,8 +51,8 @@ public class TourImg implements Serializable {
         this.tourImgPK = tourImgPK;
     }
 
-    public TourImg(int idtour, int idImg) {
-        this.tourImgPK = new TourImgPK(idtour, idImg);
+    public TourImg(int idtour, int idimg) {
+        this.tourImgPK = new TourImgPK(idtour, idimg);
     }
 
     public TourImgPK getTourImgPK() {

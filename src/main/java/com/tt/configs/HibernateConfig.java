@@ -51,6 +51,7 @@ public class HibernateConfig {
         return d;
     }
     
+    @Bean
     public Properties hibernateProperties(){
         Properties props = new Properties();
         

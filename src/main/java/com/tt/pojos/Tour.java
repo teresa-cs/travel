@@ -15,16 +15,17 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -37,13 +38,28 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Tour.findAll", query = "SELECT t FROM Tour t"),
     @NamedQuery(name = "Tour.findById", query = "SELECT t FROM Tour t WHERE t.id = :id"),
     @NamedQuery(name = "Tour.findByName", query = "SELECT t FROM Tour t WHERE t.name = :name"),
+    @NamedQuery(name = "Tour.findByDestination", query = "SELECT t FROM Tour t WHERE t.destination = :destination"),
+    @NamedQuery(name = "Tour.findByDays", query = "SELECT t FROM Tour t WHERE t.days = :days"),
+    @NamedQuery(name = "Tour.findByUnitprice", query = "SELECT t FROM Tour t WHERE t.unitprice = :unitprice"),
     @NamedQuery(name = "Tour.findByBegindate", query = "SELECT t FROM Tour t WHERE t.begindate = :begindate"),
     @NamedQuery(name = "Tour.findByEnddate", query = "SELECT t FROM Tour t WHERE t.enddate = :enddate"),
     @NamedQuery(name = "Tour.findByMeetingplace", query = "SELECT t FROM Tour t WHERE t.meetingplace = :meetingplace"),
-    @NamedQuery(name = "Tour.findByUnitprice", query = "SELECT t FROM Tour t WHERE t.unitprice = :unitprice"),
-    @NamedQuery(name = "Tour.findByDiscount", query = "SELECT t FROM Tour t WHERE t.discount = :discount"),
-    @NamedQuery(name = "Tour.findByTotal", query = "SELECT t FROM Tour t WHERE t.total = :total")})
+    @NamedQuery(name = "Tour.findByAvt", query = "SELECT t FROM Tour t WHERE t.avt = :avt")})
 public class Tour implements Serializable {
+
+    /**
+     * @return the file
+     */
+    public MultipartFile getFile() {
+        return file;
+    }
+
+    /**
+     * @param file the file to set
+     */
+    public void setFile(MultipartFile file) {
+        this.file = file;
+    }
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -54,6 +70,14 @@ public class Tour implements Serializable {
     @Size(max = 45)
     @Column(name = "name")
     private String name;
+    @Size(max = 45)
+    @Column(name = "destination")
+    private String destination;
+    @Column(name = "days")
+    private Integer days;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(name = "unitprice")
+    private Double unitprice;
     @Column(name = "begindate")
     @Temporal(TemporalType.DATE)
     private Date begindate;
@@ -63,19 +87,18 @@ public class Tour implements Serializable {
     @Size(max = 45)
     @Column(name = "meetingplace")
     private String meetingplace;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "unitprice")
-    private Double unitprice;
-    @Column(name = "discount")
-    private Integer discount;
-    @Column(name = "total")
-    private Double total;
-    @ManyToMany(mappedBy = "tourCollection")
-    private Collection<Hotel> hotelCollection;
+    @Size(max = 45)
+    @Column(name = "avt")
+    private String avt;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tour")
+    private Collection<TourHotel> tourHotelCollection;
     @OneToMany(mappedBy = "idtour")
     private Collection<Receipt> receiptCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tour")
     private Collection<TourImg> tourImgCollection;
+    
+      @Transient
+    private MultipartFile file;
 
     public Tour() {
     }
@@ -98,6 +121,30 @@ public class Tour implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDestination() {
+        return destination;
+    }
+
+    public void setDestination(String destination) {
+        this.destination = destination;
+    }
+
+    public Integer getDays() {
+        return days;
+    }
+
+    public void setDays(Integer days) {
+        this.days = days;
+    }
+
+    public Double getUnitprice() {
+        return unitprice;
+    }
+
+    public void setUnitprice(Double unitprice) {
+        this.unitprice = unitprice;
     }
 
     public Date getBegindate() {
@@ -124,37 +171,21 @@ public class Tour implements Serializable {
         this.meetingplace = meetingplace;
     }
 
-    public Double getUnitprice() {
-        return unitprice;
+    public String getAvt() {
+        return avt;
     }
 
-    public void setUnitprice(Double unitprice) {
-        this.unitprice = unitprice;
-    }
-
-    public Integer getDiscount() {
-        return discount;
-    }
-
-    public void setDiscount(Integer discount) {
-        this.discount = discount;
-    }
-
-    public Double getTotal() {
-        return total;
-    }
-
-    public void setTotal(Double total) {
-        this.total = total;
+    public void setAvt(String avt) {
+        this.avt = avt;
     }
 
     @XmlTransient
-    public Collection<Hotel> getHotelCollection() {
-        return hotelCollection;
+    public Collection<TourHotel> getTourHotelCollection() {
+        return tourHotelCollection;
     }
 
-    public void setHotelCollection(Collection<Hotel> hotelCollection) {
-        this.hotelCollection = hotelCollection;
+    public void setTourHotelCollection(Collection<TourHotel> tourHotelCollection) {
+        this.tourHotelCollection = tourHotelCollection;
     }
 
     @XmlTransient

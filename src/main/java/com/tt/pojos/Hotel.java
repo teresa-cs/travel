@@ -8,12 +8,10 @@ package com.tt.pojos;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -53,11 +51,8 @@ public class Hotel implements Serializable {
     @Size(max = 45)
     @Column(name = "rate")
     private String rate;
-    @JoinTable(name = "tour_hotel", joinColumns = {
-        @JoinColumn(name = "idhotel", referencedColumnName = "id")}, inverseJoinColumns = {
-        @JoinColumn(name = "idtour", referencedColumnName = "id")})
-    @ManyToMany
-    private Collection<Tour> tourCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "hotel")
+    private Collection<TourHotel> tourHotelCollection;
     @OneToMany(mappedBy = "idhotel")
     private Collection<Room> roomCollection;
 
@@ -101,12 +96,12 @@ public class Hotel implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Tour> getTourCollection() {
-        return tourCollection;
+    public Collection<TourHotel> getTourHotelCollection() {
+        return tourHotelCollection;
     }
 
-    public void setTourCollection(Collection<Tour> tourCollection) {
-        this.tourCollection = tourCollection;
+    public void setTourHotelCollection(Collection<TourHotel> tourHotelCollection) {
+        this.tourHotelCollection = tourHotelCollection;
     }
 
     @XmlTransient
