@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author trang
+ * @author anhtu
  */
 @Entity
 @Table(name = "user")
@@ -41,28 +41,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "User.findByStatus", query = "SELECT u FROM User u WHERE u.status = :status")})
 public class User implements Serializable {
 
-    /**
-     * @return the confirmPassword
-     */
-    public String getConfirmPassword() {
-        return confirmPassword;
-    }
-
-    /**
-     * @param confirmPassword the confirmPassword to set
-     */
-    public void setConfirmPassword(String confirmPassword) {
-        this.confirmPassword = confirmPassword;
-    }
-    public static final String USER="5";
-    public static final String ADMIN="1";
-    public static final String CSKH="7";
-    public static final String QTVIEN="6";
-    public static final String HDV="8";
-    public static final String QUANLY="9";
-    
-
-    private static final long serialVersionUID = 1L;
+    private static long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -94,7 +73,8 @@ public class User implements Serializable {
     
     @Transient
     private String confirmPassword;
-
+    
+    
     public User() {
     }
 
@@ -199,6 +179,34 @@ public class User implements Serializable {
     @Override
     public String toString() {
         return "com.tt.pojos.User[ id=" + id + " ]";
+    }
+
+    /**
+     * @return the serialVersionUID
+     */
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    /**
+     * @param aSerialVersionUID the serialVersionUID to set
+     */
+    public static void setSerialVersionUID(long aSerialVersionUID) {
+        serialVersionUID = aSerialVersionUID;
+    }
+
+    /**
+     * @return the confirmPassword
+     */
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    /**
+     * @param confirmPassword the confirmPassword to set
+     */
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
     }
     
 }

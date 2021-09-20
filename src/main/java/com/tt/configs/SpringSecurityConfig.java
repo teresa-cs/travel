@@ -21,7 +21,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
  *
- * @author trang
+ * @author anhtu
  */
 @Configuration
 @EnableWebSecurity
@@ -29,7 +29,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @ComponentScan(basePackages = {
     "com.tt.repository",
     "com.tt.service"
-
 })
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
@@ -37,9 +36,10 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     
     @Bean
     public BCryptPasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder()  ;
+        return new BCryptPasswordEncoder();
     }
-      @Bean
+    
+    @Bean
     public Cloudinary cloudinary(){
          Cloudinary cloudinary  = new Cloudinary(ObjectUtils.asMap(
                         "cloud_name", "dzjvjpopn",
@@ -48,12 +48,11 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                         "secure", true));
         return cloudinary;
     }
-
+    
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
-    
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -71,6 +70,4 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
       
     }
-
-
 }

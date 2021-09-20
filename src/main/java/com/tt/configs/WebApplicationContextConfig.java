@@ -5,7 +5,6 @@
  */
 package com.tt.configs;
 
-
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import org.springframework.context.MessageSource;
@@ -28,7 +27,6 @@ import org.springframework.web.servlet.view.JstlView;
  *
  * @author anhtu
  */
-
 @Configuration
 @EnableWebMvc
 @EnableTransactionManagement
@@ -38,7 +36,6 @@ import org.springframework.web.servlet.view.JstlView;
     "com.tt.service"
 })
 public class WebApplicationContextConfig implements WebMvcConfigurer{
-
     @Override
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
        configurer.enable();
@@ -55,46 +52,38 @@ public class WebApplicationContextConfig implements WebMvcConfigurer{
         return resource;
     }
     
-
     @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+    public void addResourceHandlers(ResourceHandlerRegistry registry){
         registry.addResourceHandler("/css/**").addResourceLocations("/template/css");
         registry.addResourceHandler("/fonts/**").addResourceLocations("/template/fonts");
         registry.addResourceHandler("/images/**").addResourceLocations("/template/images");
-        registry.addResourceHandler("/js/**").addResourceLocations("/template/js");
-        registry.addResourceHandler("/sass/**").addResourceLocations("/template/sass");
+        registry.addResourceHandler("/js/**").addResourceLocations("/template/js");             
     }
-
-    @Bean
-    public CommonsMultipartResolver multipartResolver() {
-        CommonsMultipartResolver resolver
-                = new CommonsMultipartResolver();
-        resolver.setDefaultEncoding("UTF-8");
-        return resolver;
-    }
-    
-  
-
 
     @Override
     public Validator getValidator() {
-        return validator();//To change body of generated methods, choose Tools | Templates.
+        return validator();
     }
-
+    
     @Bean
-    public LocalValidatorFactoryBean validator() {
-        LocalValidatorFactoryBean bean
-                = new LocalValidatorFactoryBean();
-        bean.setValidationMessageSource(messageSource());
-        return bean;
+    public LocalValidatorFactoryBean validator(){
+        LocalValidatorFactoryBean v = new LocalValidatorFactoryBean();
+        v.setValidationMessageSource(messageSource());
+        return v;
     }
     
     @Bean
     public MessageSource messageSource(){
-        ResourceBundleMessageSource source= new ResourceBundleMessageSource();
-        source.setBasename("message");
+        ResourceBundleMessageSource source = new ResourceBundleMessageSource();
+        source.setBasename("messages");
         return source;
     }
-   
-
+    
+    @Bean
+    public CommonsMultipartResolver multipartResolver(){
+        CommonsMultipartResolver resolver = new CommonsMultipartResolver();
+        resolver.setDefaultEncoding("UTF-8");
+        return resolver;
+    }
+    
 }

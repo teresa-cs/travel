@@ -29,7 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
- * @author trang
+ * @author anhtu
  */
 @Entity
 @Table(name = "tour")
@@ -47,21 +47,7 @@ import org.springframework.web.multipart.MultipartFile;
     @NamedQuery(name = "Tour.findByAvt", query = "SELECT t FROM Tour t WHERE t.avt = :avt")})
 public class Tour implements Serializable {
 
-    /**
-     * @return the file
-     */
-    public MultipartFile getFile() {
-        return file;
-    }
-
-    /**
-     * @param file the file to set
-     */
-    public void setFile(MultipartFile file) {
-        this.file = file;
-    }
-
-    private static final long serialVersionUID = 1L;
+    private static long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -99,7 +85,8 @@ public class Tour implements Serializable {
     
       @Transient
     private MultipartFile file;
-
+      
+      
     public Tour() {
     }
 
@@ -230,5 +217,30 @@ public class Tour implements Serializable {
     public String toString() {
         return "com.tt.pojos.Tour[ id=" + id + " ]";
     }
+
+    /**
+     * @return the serialVersionUID
+     */
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    /**
+     * @param aSerialVersionUID the serialVersionUID to set
+     */
+    public static void setSerialVersionUID(long aSerialVersionUID) {
+        serialVersionUID = aSerialVersionUID;
+    }
+
+    public MultipartFile getFile() {
+        return file;
+    }
+    /**
+     * @param file the file to set
+     */
+    public void setFile(MultipartFile file) {
+        this.file = file;
+    }
+    
     
 }

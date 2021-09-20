@@ -35,6 +35,7 @@ public class UserRepositoryImpl implements UserRepository {
         Session session= this.sessionFactory.getObject().getCurrentSession();
         try {
             session.save(user);
+            
             return true;
         } catch (Exception e) {
             System.err.print(e.getMessage());
