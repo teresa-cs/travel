@@ -10,15 +10,9 @@ import com.cloudinary.utils.ObjectUtils;
 import com.tt.pojos.Tour;
 import com.tt.service.TourService;
 import java.io.IOException;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.validation.Valid;
-import net.bytebuddy.implementation.bind.MethodDelegationBinder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,11 +21,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  *
- * @author trang
+ * @author anhtu
  */
 @Controller
 public class TourController {
-
     @Autowired
     private TourService tourService;
     
@@ -68,5 +61,4 @@ public class TourController {
         }
         return "signup";
     }
-   
 }
