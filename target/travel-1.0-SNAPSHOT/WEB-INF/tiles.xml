@@ -5,42 +5,61 @@
        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">  
 
 <tiles-definitions>  
-    <definition name="baseLayout" template="/WEB-INF/layout/base.jsp">
-        <put-attribute name="title" value=""/>
-        <put-attribute name="content" value="" />
-        <put-attribute name="header" value="/WEB-INF/layout/header.jsp" />  
-        <put-attribute name="footer" value="/WEB-INF/layout/footer.jsp" />
-        <put-attribute name="css" value="/WEB-INF/layout/css.jsp" />  
-        <put-attribute name="js" value="/WEB-INF/layout/js.jsp" />
-    </definition>
     
-    <definition name="index" extends="baseLayout">
-        <put-attribute name="title" value="Trang chu"/>
-        <put-attribute name="content" value="/WEB-INF/jsp/index.jsp" />
+    <!-- ======================= WEB ================================= -->
+    <definition name="baseLayout" template="/WEB-INF/layout/web/base.jsp">
+        <put-attribute name="title" value="" />  
+        <put-attribute name="content" value="" />  
+        <put-attribute name="header" value="/WEB-INF/layout/web/header.jsp" />  
+        <put-attribute name="footer" value="/WEB-INF/layout/web/footer.jsp" />
+        <put-attribute name="css" value="/WEB-INF/layout/web/css.jsp" /> 
+        <put-attribute name="js" value="/WEB-INF/layout/web/js.jsp" />         
     </definition>
-    
-    <definition name="login" extends="baseLayout">
-        <put-attribute name="title" value="Dang nhap"/>
-        <put-attribute name="content" value="/WEB-INF/jsp/login.jsp" />
+    <definition name="index" extends= "baseLayout">
+        <put-attribute name="title" value="Home" />  
+        <put-attribute name="content" value="/WEB-INF/jsp/web/index.jsp" />        
+    </definition>
+    <definition name="login" extends= "baseLayout">
+        <put-attribute name="title" value="Login" />  
+        <put-attribute name="content" value="/WEB-INF/jsp/login.jsp" />    
         <put-attribute name="header" value="" />  
-        <put-attribute name="footer" value="" />
+        <put-attribute name="footer" value="" />  
         <put-attribute name="css" value="" />  
-        <put-attribute name="js" value="" />
+        <put-attribute name="js" value="" />      
     </definition>
-    
-    <definition name="register" extends="baseLayout">
-        <put-attribute name="title" value="Dang ky"/>
-        <put-attribute name="content" value="/WEB-INF/jsp/register.jsp" />
+    <definition name="register" extends= "baseLayout">
+        <put-attribute name="title" value="Register" />  
+        <put-attribute name="content" value="/WEB-INF/jsp/register.jsp" />   
         <put-attribute name="header" value="" />  
-        <put-attribute name="footer" value="" />
+        <put-attribute name="footer" value="" />  
         <put-attribute name="css" value="" />  
-        <put-attribute name="js" value="" />
+        <put-attribute name="js" value="" />      
+    </definition>
+    <definition name="signup" extends= "baseLayout">
+        <put-attribute name="content" value="/WEB-INF/jsp/signup.jsp" />  
+    </definition>
+    <definition name="tour" extends= "baseLayout">
+        <put-attribute name="title" value="Tour" />  
+        <put-attribute name="content" value="/WEB-INF/jsp/web/tour.jsp" />  
+    </definition>
+    <definition name="tour-place" extends= "baseLayout">
+        <put-attribute name="title" value="Tour-place" />  
+        <put-attribute name="content" value="/WEB-INF/jsp/web/tour-place.jsp" />  
+        <put-attribute name="header" value="" />  
+        <put-attribute name="footer" value="" />  
+        <put-attribute name="css" value="" />  
+        <put-attribute name="js" value="" />     
     </definition>
     
-    <definition name="index" extends="baseLayout">
-        <put-attribute name="title" value="Tour"/>
-        <put-attribute name="content" value="/WEB-INF/jsp/tour.jsp" />
+    <!-- ======================= ADMIN ================================= -->
+    <definition name="admin" template="/WEB-INF/layout/admin/baseAdmin.jsp">
+        <put-attribute name="title" value="" /> 
+        <put-attribute name="content" value="" /> 
+        <put-attribute name="header" value="/WEB-INF/layout/admin/header.jsp" />
+        <put-attribute name="menu" value="/WEB-INF/layout/admin/menu.jsp" />  
     </definition>
-                                                           
+    <definition name="addtour" extends="admin">
+         <put-attribute name="title" value="AddTour" />  
+        <put-attribute name="content" value="/WEB-INF/jsp/admin/addtour.jsp" />
+    </definition>
 </tiles-definitions>
-

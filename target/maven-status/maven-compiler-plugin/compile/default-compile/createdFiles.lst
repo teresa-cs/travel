@@ -1,10 +1,8 @@
 com\tt\repository\impl\RoleRepositoryImpl.class
-com\tt\pojos\TourImgPK_.class
 com\tt\controllers\HomeController.class
 com\tt\controllers\UserController.class
 com\tt\service\UserService.class
 com\tt\configs\SecurityWebAppInitializer.class
-com\tt\pojos\TourImg_.class
 com\tt\pojos\Cmt_.class
 com\tt\configs\WebApplicationContextConfig.class
 com\tt\pojos\TourHotel_.class
@@ -22,7 +20,6 @@ com\tt\pojos\Room.class
 com\tt\repository\UserRepository.class
 com\tt\pojos\Hotel_.class
 com\tt\pojos\Role.class
-com\tt\pojos\TourImg.class
 com\tt\service\RoleService.class
 com\tt\configs\SpringSecurityConfig.class
 com\tt\pojos\UserInfo.class
@@ -37,14 +34,11 @@ com\tt\repository\TourRepository.class
 com\tt\pojos\Receipt.class
 com\tt\pojos\TourHotelPK_.class
 com\tt\pojos\TourHotelPK.class
-com\tt\pojos\Image_.class
 com\tt\service\impl\TourServiceImpl.class
 com\tt\pojos\TourHotel.class
 com\tt\pojos\Post_.class
-com\tt\pojos\Image.class
 com\tt\pojos\CmtPK.class
 com\tt\configs\TilesConfig.class
 com\tt\pojos\Post.class
-com\tt\pojos\TourImgPK.class
 com\tt\service\impl\RoleServiceImpl.class
 com\tt\pojos\Room_.class
