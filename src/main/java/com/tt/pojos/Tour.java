@@ -47,7 +47,7 @@ import org.springframework.web.multipart.MultipartFile;
     @NamedQuery(name = "Tour.findByAvt", query = "SELECT t FROM Tour t WHERE t.avt = :avt")})
 public class Tour implements Serializable {
 
-    private static long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -78,15 +78,27 @@ public class Tour implements Serializable {
     private String avt;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tour")
     private Collection<TourHotel> tourHotelCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idtour")
+    private Collection<TourDetail> tourDetailCollection;
     @OneToMany(mappedBy = "idtour")
     private Collection<Receipt> receiptCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tour")
-    private Collection<TourImg> tourImgCollection;
-    
-      @Transient
+    @Transient
     private MultipartFile file;
-      
-      
+
+    /**
+     * @return the file
+     */
+    public MultipartFile getFile() {
+        return file;
+    }
+
+    /**
+     * @param file the file to set
+     */
+    public void setFile(MultipartFile file) {
+        this.file = file;
+    }
+
     public Tour() {
     }
 
@@ -176,21 +188,21 @@ public class Tour implements Serializable {
     }
 
     @XmlTransient
+    public Collection<TourDetail> getTourDetailCollection() {
+        return tourDetailCollection;
+    }
+
+    public void setTourDetailCollection(Collection<TourDetail> tourDetailCollection) {
+        this.tourDetailCollection = tourDetailCollection;
+    }
+
+    @XmlTransient
     public Collection<Receipt> getReceiptCollection() {
         return receiptCollection;
     }
 
     public void setReceiptCollection(Collection<Receipt> receiptCollection) {
         this.receiptCollection = receiptCollection;
-    }
-
-    @XmlTransient
-    public Collection<TourImg> getTourImgCollection() {
-        return tourImgCollection;
-    }
-
-    public void setTourImgCollection(Collection<TourImg> tourImgCollection) {
-        this.tourImgCollection = tourImgCollection;
     }
 
     @Override
@@ -218,29 +230,4 @@ public class Tour implements Serializable {
         return "com.tt.pojos.Tour[ id=" + id + " ]";
     }
 
-    /**
-     * @return the serialVersionUID
-     */
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
-
-    /**
-     * @param aSerialVersionUID the serialVersionUID to set
-     */
-    public static void setSerialVersionUID(long aSerialVersionUID) {
-        serialVersionUID = aSerialVersionUID;
-    }
-
-    public MultipartFile getFile() {
-        return file;
-    }
-    /**
-     * @param file the file to set
-     */
-    public void setFile(MultipartFile file) {
-        this.file = file;
-    }
-    
-    
 }

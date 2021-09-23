@@ -5,7 +5,9 @@
  */
 package com.tt.service.impl;
 
+import com.tt.pojos.Place;
 import com.tt.pojos.Tour;
+import com.tt.pojos.TourDetail;
 import com.tt.repository.TourRepository;
 import com.tt.service.TourService;
 import java.util.List;
@@ -22,8 +24,27 @@ public class TourServiceImpl implements TourService{
     private TourRepository tourRepository;
 
     @Override
-    public List<Tour> getTours(String kw) {
-        return this.tourRepository.getTours(kw);
+    public List<Tour> getTours(String kw, int page) {
+        return this.tourRepository.getTours(kw,page);
     }
     
+    @Override
+    public long countTour() {
+        return this.tourRepository.countTour();
+    }
+
+    @Override
+    public Tour getTourbyId(int id) {
+        return this.tourRepository.getTourbyId(id);
+    }
+
+    @Override
+    public Place getPlacebyId(int id) {
+        return this.tourRepository.getPlacebyId(id);
+    }
+
+    @Override
+    public List<TourDetail> getTourDetail(int id) {
+        return this.tourRepository.getTourDetail(id);
+    }
 }

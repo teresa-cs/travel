@@ -5,7 +5,9 @@
  */
 package com.tt.repository;
 
+import com.tt.pojos.Place;
 import com.tt.pojos.Tour;
+import com.tt.pojos.TourDetail;
 import java.util.List;
 
 /**
@@ -13,8 +15,14 @@ import java.util.List;
  * @author trang
  */
 public interface TourRepository {
-    List<Tour> getTours(String kw);
-//    Tour getTourbyId(int tourId);
-//    long countTour();
-//    boolean addOrUpdate(Tour tour);
+
+    List<Tour> getTours(String kw, int page);
+
+    Tour getTourbyId(int id);
+
+    Place getPlacebyId(int id);
+
+    long countTour();
+
+    List<TourDetail> getTourDetail(int id);
 }

@@ -5,7 +5,9 @@
  */
 package com.tt.service;
 
+import com.tt.pojos.Place;
 import com.tt.pojos.Tour;
+import com.tt.pojos.TourDetail;
 import java.util.List;
 
 /**
@@ -13,6 +15,11 @@ import java.util.List;
  * @author trang
  */
 public interface TourService {
-    List<Tour> getTours(String kw);
+    List<Tour> getTours(String kw, int page);
+    Tour getTourbyId(int id);
+    Place getPlacebyId(int id);
+    long countTour();
+    List<TourDetail> getTourDetail(int id) ;
+    
     
 }
