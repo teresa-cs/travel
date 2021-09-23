@@ -7,16 +7,15 @@ package com.tt.configs;
 
 import java.util.Properties;
 import javax.sql.DataSource;
-import static org.hibernate.cfg.AvailableSettings.DIALECT;
-import static org.hibernate.cfg.AvailableSettings.SHOW_SQL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import static org.hibernate.cfg.Environment.*;
+import org.springframework.orm.hibernate5.HibernateTransactionManager;
 
 /**
  *
@@ -52,6 +51,7 @@ public class HibernateConfig {
         return d;
     }
     
+    @Bean
     public Properties hibernateProperties(){
         Properties props = new Properties();
         
@@ -69,5 +69,4 @@ public class HibernateConfig {
         
         return h;
     }
-    
 }

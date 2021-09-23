@@ -43,6 +43,7 @@
                     <form:input path="confirmPassword" type="password" placeholder="Confirm password"/>
                   <input type="Submit" value="Register">
                 </div>
+              
                 <div class="form-control">
                   <p>Or continue with</p>
                   <div class="icons">

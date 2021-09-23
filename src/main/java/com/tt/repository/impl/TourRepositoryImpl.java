@@ -5,7 +5,9 @@
  */
 package com.tt.repository.impl;
 
+import com.tt.pojos.Place;
 import com.tt.pojos.Tour;
+import com.tt.pojos.TourDetail;
 import com.tt.repository.TourRepository;
 import java.util.List;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -25,26 +27,29 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Repository
 @Transactional
-public class TourRepositoryImpl implements TourRepository{
+public class TourRepositoryImpl implements TourRepository {
+
     @Autowired
     private LocalSessionFactoryBean sessionFactory;
-    
-        @Override
-    public List<Tour> getTours(String kw) {
-        Session session= this.sessionFactory.getObject().getCurrentSession();
-        CriteriaBuilder builder= session.getCriteriaBuilder();
+
+    @Override
+    public List<Tour> getTours(String kw, int page) {
+        Session session = this.sessionFactory.getObject().getCurrentSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<Tour> query = builder.createQuery(Tour.class);
-        Root root= query.from(Tour.class);
-        query= query.select(root);
-        
-        if(!kw.isEmpty() && kw!= null){
-            Predicate p= builder.like(root.get("name").as(String.class),String.format("%%%s%%", kw));
+        Root root = query.from(Tour.class);
+        query = query.select(root);
+
+        if (kw != null) {
+            Predicate p = builder.like(root.get("name").as(String.class), String.format("%%%s%%", kw));
+            query = query.where(p);
         }
-        
-        Query q= session.createQuery(query);
+        int max = 2;
+        Query q = session.createQuery(query);
+        q.setMaxResults(max);
+        q.setFirstResult((page - 1) * max);
         return q.getResultList();
     }
-
 
 //    @Override
 //    public Tour getTourbyId(int tourId) {
@@ -61,7 +66,42 @@ public class TourRepositoryImpl implements TourRepository{
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 //    }
 //    
+    @Override
+    public Tour getTourbyId(int id) {
+        Session session = this.sessionFactory.getObject().getCurrentSession();
+        return session.get(Tour.class, id);
+    }
 
+    @Override
+    public Place getPlacebyId(int id) {
+        Session session = this.sessionFactory.getObject().getCurrentSession();
+        return session.get(Place.class, id);
+    }
 
-    
+    @Override
+    public long countTour() {
+        Session session = this.sessionFactory.getObject().getCurrentSession();
+        Query q = session.createQuery("Select Count(*) From Tour");
+        return Long.parseLong(q.getSingleResult().toString());
+    }
+
+    @Override
+    public List<TourDetail> getTourDetail(int id) {
+        Session session = this.sessionFactory.getObject().getCurrentSession();
+//        CriteriaBuilder builder = session.getCriteriaBuilder();
+//        CriteriaQuery query = builder.createQuery(Object[].class);
+//        Root rootT = query.from(Tour.class);
+//        Root rootTD = query.from(TourDetail.class);
+//        query = query.multiselect(rootTD.get("id"), rootT.get("id"), rootTD.get("image"));
+//
+//        Predicate p = builder.equal(rootT.get("id"), rootTD.get("idtour"));
+//
+//        Predicate p1 = builder.equal(rootT.get("id"), id);
+//        query = query.where(builder.and(p, p1));
+
+        Query q = session.createQuery("SELECT t FROM TourDetail t WHERE t.idtour = :id");
+        q.setParameter("id",getTourbyId(id));
+        return q.getResultList();
+    }
+
 }

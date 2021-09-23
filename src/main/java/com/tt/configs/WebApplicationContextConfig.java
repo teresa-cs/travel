@@ -5,8 +5,13 @@
  */
 package com.tt.configs;
 
+
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
+import com.tt.validator.TourNameValidator;
+import com.tt.validator.WebAppValidator;
+import java.util.HashSet;
+import java.util.Set;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -27,15 +32,18 @@ import org.springframework.web.servlet.view.JstlView;
  *
  * @author anhtu
  */
+
 @Configuration
 @EnableWebMvc
 @EnableTransactionManagement
 @ComponentScan(basePackages = {
     "com.tt.controllers",
     "com.tt.repository",
-    "com.tt.service"
+    "com.tt.service",
+    "com.tt.validator"
 })
 public class WebApplicationContextConfig implements WebMvcConfigurer{
+
     @Override
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
        configurer.enable();
@@ -52,13 +60,25 @@ public class WebApplicationContextConfig implements WebMvcConfigurer{
         return resource;
     }
     
+
     @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry){
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/css/**").addResourceLocations("/template/css");
         registry.addResourceHandler("/fonts/**").addResourceLocations("/template/fonts");
         registry.addResourceHandler("/images/**").addResourceLocations("/template/images");
-        registry.addResourceHandler("/js/**").addResourceLocations("/template/js");             
+        registry.addResourceHandler("/js/**").addResourceLocations("/template/js");
     }
+
+    @Bean
+    public CommonsMultipartResolver multipartResolver() {
+        CommonsMultipartResolver resolver
+                = new CommonsMultipartResolver();
+        resolver.setDefaultEncoding("UTF-8");
+        return resolver;
+    }
+    
+    
+
 
     @Override
     public Validator getValidator() {
@@ -66,24 +86,28 @@ public class WebApplicationContextConfig implements WebMvcConfigurer{
     }
     
     @Bean
-    public LocalValidatorFactoryBean validator(){
-        LocalValidatorFactoryBean v = new LocalValidatorFactoryBean();
-        v.setValidationMessageSource(messageSource());
+    public WebAppValidator tourValidator(){
+        Set<Validator> springValidators = new HashSet<>();
+        springValidators.add(new TourNameValidator());
+        WebAppValidator v = new WebAppValidator();
+        v.setSpringValidator(springValidators);
         return v;
+    }
+
+    @Bean
+    public LocalValidatorFactoryBean validator() {
+        LocalValidatorFactoryBean bean
+                = new LocalValidatorFactoryBean();
+        bean.setValidationMessageSource(messageSource());
+        return bean;
     }
     
     @Bean
     public MessageSource messageSource(){
-        ResourceBundleMessageSource source = new ResourceBundleMessageSource();
-        source.setBasename("messages");
+        ResourceBundleMessageSource source= new ResourceBundleMessageSource();
+        source.setBasename("message");
         return source;
     }
-    
-    @Bean
-    public CommonsMultipartResolver multipartResolver(){
-        CommonsMultipartResolver resolver = new CommonsMultipartResolver();
-        resolver.setDefaultEncoding("UTF-8");
-        return resolver;
-    }
-    
+   
+
 }
