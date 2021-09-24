@@ -111,5 +111,14 @@ public class TourRepositoryImpl implements TourRepository {
         }
         return false;
     }
+    
+    @Override
+    public long countDetail(int id) {
+        Session session = this.sessionFactory.getObject().getCurrentSession();
+        Query q = session.createQuery("Select Count(*) FROM TourDetail t WHERE t.idtour = :id");
+        q.setParameter("id",getTourbyId(id));
+        return Long.parseLong(q.getSingleResult().toString());
+    }
+
 
 }

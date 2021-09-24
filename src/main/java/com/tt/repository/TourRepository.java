@@ -23,6 +23,8 @@ public interface TourRepository {
     Place getPlacebyId(int id);
 
     long countTour();
+    
+    long countDetail(int id);
 
     List<TourDetail> getTourDetail(int id);
     
