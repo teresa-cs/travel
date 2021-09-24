@@ -62,13 +62,13 @@ public class TourController {
         return "tour";
     }
 
-    @RequestMapping("/tour/{tourId}")
+    @RequestMapping("/tour/tour-{tourId}")
     public String tour_place(Model model, @PathVariable(value = "tourId") int tourId) {
         Tour t = this.tourService.getTourbyId(tourId);
         Place c = this.tourService.getPlacebyId(tourId);
-//        t.getTourDetailCollection();
-
-        model.addAttribute("tour", this.tourService.getTourDetail(tourId));
+        model.addAttribute("tour", t);
+        model.addAttribute("counter", this.tourService.countDetail(tourId));
+        model.addAttribute("tourdetail", this.tourService.getTourDetail(tourId));
         return "tour-place";
     }
 

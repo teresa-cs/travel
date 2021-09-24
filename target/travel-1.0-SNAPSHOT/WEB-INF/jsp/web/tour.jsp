@@ -78,12 +78,13 @@
 
 
                                             <div class="tour">
-                                                <a href="tour/tour-place" class="tour-img" style="background-image: url(template/images/tour-1.jpg);">
+                                                <a href="<c:url value="/tour/tour-${t.id}"/>" class="tour-img" style="background-image: url(template/images/tour-1.jpg);">
                                                     <p class="price"><span>${t.unitprice}$</span> <small>/ ${t.days} days</small></p>
                                                 </a>
+
                                                 <span class="desc">
                                                     <p class="star"><span><i class="icon-star-full"></i><i class="icon-star-full"></i><i class="icon-star-full"></i><i class="icon-star-full"></i><i class="icon-star-full"></i></span> 545 Reviews</p>
-                                                    <h2><a href="tour/tour-place">${t.name}</a></h2>
+                                                    <h2><a>${t.name}</a></h2>
                                                     <span class="city">${t.destination}</span>
                                                 </span>
                                             </div>
