@@ -75,20 +75,12 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-xs-2">
-                                <div id="colorlib-logo"><a href="index">Tour</a></div>
+                                <div id="colorlib-logo"><a href="<c:url value="/"/>">Tour</a></div>
                             </div>
                             <div class="col-xs-10 text-right menu-1">
                                 <ul>
-                                    <li><a href="index">Home</a></li>
-                                    <li class="has-dropdown active">
-                                        <a href="tour">Tours</a>
-                                        <ul class="dropdown">
-                                            <li><a href="#">Destination</a></li>
-                                            <li><a href="#">Cruises</a></li>
-                                            <li><a href="#">Hotels</a></li>
-                                            <li><a href="#">Booking</a></li>
-                                        </ul>
-                                    </li>
+                                    <li><a href="<c:url value="/"/>">Home</a></li>
+                                    <li>   <a href="tour">Tours</a></li>       
                                     <li><a href="hotels.html">Hotels</a></li>
                                     <li><a href="services.html">Services</a></li>
                                     <li><a href="blog.html">Blog</a></li>
@@ -128,34 +120,37 @@
                                 <div class="col-md-12">
                                     <div class="wrap-division">
                                         <div class="col-md-12 col-md-offset-0 heading2 animate-box">
-                                            <h2>Athens, Greece Tour</h2>
+                                            <h2>${tour.name}</h2>
                                         </div>
                                         <div class="row">
-                                            <c:forEach var="t" items="${tour}" >
+                                            <c:forEach var="u" begin="1" end="${Math.ceil(counter)}" >
 
-                                                <div class="col-md-12 animate-box">
-                                                    <div class="room-wrap">
-                                                        <div class="row">
+                                                <c:forEach var="t" items="${tourdetail}" >
 
-                                                            <div class="col-md-6 col-sm-6">
-                                                                <div class="room-img" style="background-image: url(../template/images/tour-1.jpg);"></div>
-                                                            </div>
-                                                            <div class="col-md-6 col-sm-6">
-                                                                <div class="desc">
-                                                                    <span class="day-tour">${t.image}</span>
-                                                                    <h2></h2>
-                                                                    <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar.</p>
+                                                    <div class="col-md-12 animate-box">
+                                                        <div class="room-wrap">
+                                                            <div class="row">
+                                                                <div class="col-md-6 col-sm-6">
+                                                                    <div class="room-img" style="background-image: url(${t.image});"></div>
                                                                 </div>
-                                                            </div>      
+                                                                <div class="col-md-6 col-sm-6">
+                                                                    <div class="desc">
+                                                                        <span class="day-tour">Day ${u}</span>
+                                                                        <h2>${t.name}</h2>
+                                                                        <p>${t.description}</p>
+                                                                    </div>
+                                                                </div>      
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
+
+                                                </c:forEach>
                                             </c:forEach>
 
 
 
 
-                                                <div class="col-md-12 animate-box text-center">
+                                            <div class="col-md-12 animate-box text-center">
                                                     <p><a href="#" class="btn btn-primary">Book Now!</a></p>
                                                 </div>
                                             </div>

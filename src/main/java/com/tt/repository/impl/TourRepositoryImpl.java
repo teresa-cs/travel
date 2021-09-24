@@ -42,7 +42,10 @@ public class TourRepositoryImpl implements TourRepository {
 
         if (kw != null) {
             Predicate p = builder.like(root.get("name").as(String.class), String.format("%%%s%%", kw));
-            query = query.where(p);
+            Predicate p1 = builder.like(root.get("destination").as(String.class), String.format("%%%s%%", kw));
+            query = query.where(builder.or(p, p1));
+//            query = query.where(p1);
+
         }
         int max = 2;
         Query q = session.createQuery(query);
@@ -110,6 +113,14 @@ public class TourRepositoryImpl implements TourRepository {
             ex.printStackTrace();
         }
         return false;
+    }
+
+    @Override
+    public long countDetail(int id) {
+        Session session = this.sessionFactory.getObject().getCurrentSession();
+        Query q = session.createQuery("Select Count(*) FROM TourDetail t WHERE t.idtour = :id");
+        q.setParameter("id",getTourbyId(id));
+        return Long.parseLong(q.getSingleResult().toString());
     }
 
 }

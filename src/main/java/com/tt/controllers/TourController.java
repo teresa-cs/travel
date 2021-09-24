@@ -52,23 +52,24 @@ public class TourController {
     }
 
     @GetMapping("/tour")
-    public String tour(Model model, @RequestParam(required = false) Map<String, String> params) {
+    public String tour(Model model, @RequestParam(required = false) Map<String, String> params,
+            @RequestParam(value="kw", required = false) String kw) {
 //        String kw= params.getOrDefault("kw", null);
         int page = Integer.parseInt(params.getOrDefault("page", "1"));
-        model.addAttribute("tour", this.tourService.getTours(params.get("kw"), page));
+        model.addAttribute("tour", this.tourService.getTours(kw, page));
         model.addAttribute("counter", this.tourService.countTour());
         model.addAttribute("detail", "helo");
 
         return "tour";
     }
 
-    @RequestMapping("/tour/{tourId}")
+    @RequestMapping("/tour/tour-{tourId}")
     public String tour_place(Model model, @PathVariable(value = "tourId") int tourId) {
         Tour t = this.tourService.getTourbyId(tourId);
         Place c = this.tourService.getPlacebyId(tourId);
-//        t.getTourDetailCollection();
-
-        model.addAttribute("tour", this.tourService.getTourDetail(tourId));
+        model.addAttribute("tour", t);
+        model.addAttribute("counter", this.tourService.countDetail(tourId));
+        model.addAttribute("tourdetail", this.tourService.getTourDetail(tourId));
         return "tour-place";
     }
 
@@ -89,7 +90,6 @@ public class TourController {
                 model.addAttribute("errMsg", "Something wrong!");
             }
         }
-
         return "addtour";
     }
 

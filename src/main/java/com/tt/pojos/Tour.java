@@ -30,7 +30,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
- * @author anhtu
+ * @author trang
  */
 @Entity
 @Table(name = "tour")
@@ -57,7 +57,7 @@ public class Tour implements Serializable {
     @Size(max = 45)
     @Column(name = "name")
     private String name;
-    @Size(max = 2000)
+    @Size(max = 45)
     @Column(name = "destination")
     private String destination;
     @Column(name = "days")
@@ -76,6 +76,7 @@ public class Tour implements Serializable {
     @Size(max = 45)
     @Column(name = "meetingplace")
     private String meetingplace;
+    @Size(max = 45)
     @Column(name = "avt")
     private String avt;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tour")
@@ -84,22 +85,9 @@ public class Tour implements Serializable {
     private Collection<TourDetail> tourDetailCollection;
     @OneToMany(mappedBy = "idtour")
     private Collection<Receipt> receiptCollection;
+    
     @Transient
     private MultipartFile file;
-
-    /**
-     * @return the file
-     */
-    public MultipartFile getFile() {
-        return file;
-    }
-
-    /**
-     * @param file the file to set
-     */
-    public void setFile(MultipartFile file) {
-        this.file = file;
-    }
 
     public Tour() {
     }
@@ -232,4 +220,18 @@ public class Tour implements Serializable {
         return "com.tt.pojos.Tour[ id=" + id + " ]";
     }
 
+    /**
+     * @return the file
+     */
+    public MultipartFile getFile() {
+        return file;
+    }
+
+    /**
+     * @param file the file to set
+     */
+    public void setFile(MultipartFile file) {
+        this.file = file;
+    }
+    
 }

@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author anhtu
+ * @author trang
  */
 @Entity
 @Table(name = "user")
@@ -41,7 +41,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "User.findByStatus", query = "SELECT u FROM User u WHERE u.status = :status")})
 public class User implements Serializable {
 
-    private static long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -61,19 +61,17 @@ public class User implements Serializable {
     @NotNull
     @Column(name = "status")
     private short status;
-    @OneToMany(mappedBy = "iduser")
-    private Collection<UserInfo> userInfoCollection;
-    @OneToMany(mappedBy = "iduser")
-    private Collection<Receipt> receiptCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private Collection<Cmt> cmtCollection;
+    @OneToMany(mappedBy = "iduser")
+    private Collection<Receipt> receiptCollection;
     @JoinColumn(name = "role_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Role roleId;
+
     
     @Transient
     private String confirmPassword;
-    
     
     public User() {
     }
@@ -122,12 +120,12 @@ public class User implements Serializable {
     }
 
     @XmlTransient
-    public Collection<UserInfo> getUserInfoCollection() {
-        return userInfoCollection;
+    public Collection<Cmt> getCmtCollection() {
+        return cmtCollection;
     }
 
-    public void setUserInfoCollection(Collection<UserInfo> userInfoCollection) {
-        this.userInfoCollection = userInfoCollection;
+    public void setCmtCollection(Collection<Cmt> cmtCollection) {
+        this.cmtCollection = cmtCollection;
     }
 
     @XmlTransient
@@ -137,15 +135,6 @@ public class User implements Serializable {
 
     public void setReceiptCollection(Collection<Receipt> receiptCollection) {
         this.receiptCollection = receiptCollection;
-    }
-
-    @XmlTransient
-    public Collection<Cmt> getCmtCollection() {
-        return cmtCollection;
-    }
-
-    public void setCmtCollection(Collection<Cmt> cmtCollection) {
-        this.cmtCollection = cmtCollection;
     }
 
     public Role getRoleId() {
@@ -179,20 +168,6 @@ public class User implements Serializable {
     @Override
     public String toString() {
         return "com.tt.pojos.User[ id=" + id + " ]";
-    }
-
-    /**
-     * @return the serialVersionUID
-     */
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
-
-    /**
-     * @param aSerialVersionUID the serialVersionUID to set
-     */
-    public static void setSerialVersionUID(long aSerialVersionUID) {
-        serialVersionUID = aSerialVersionUID;
     }
 
     /**

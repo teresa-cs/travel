@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 
 /**
  *
- * @author anhtu
+ * @author trang
  */
 @Embeddable
 public class TourHotelPK implements Serializable {
