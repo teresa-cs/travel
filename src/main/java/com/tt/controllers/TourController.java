@@ -13,6 +13,8 @@ import com.tt.pojos.TourDetail;
 import com.tt.service.TourService;
 import com.tt.validator.WebAppValidator;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import javax.validation.Valid;
@@ -21,6 +23,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -35,19 +38,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author trang
  */
 @Controller
+@ControllerAdvice
 public class TourController {
 
     @Autowired
     private TourService tourService;
-
     @Autowired
     private WebAppValidator tourValidator;
-    
-    @Autowired
-    private Cloudinary cloudinary;
-    
+
     @InitBinder
-    public void initBinder(WebDataBinder binder){
+    public void initBinder(WebDataBinder binder) {
         binder.setValidator(tourValidator);
     }
 
@@ -57,41 +57,19 @@ public class TourController {
         int page = Integer.parseInt(params.getOrDefault("page", "1"));
         model.addAttribute("tour", this.tourService.getTours(params.get("kw"), page));
         model.addAttribute("counter", this.tourService.countTour());
-        model.addAttribute("detail","helo");
+        model.addAttribute("detail", "helo");
 
         return "tour";
     }
 
-    
     @RequestMapping("/tour/{tourId}")
     public String tour_place(Model model, @PathVariable(value = "tourId") int tourId) {
-        Tour t= this.tourService.getTourbyId(tourId);
-        Place c= this.tourService.getPlacebyId(tourId);
+        Tour t = this.tourService.getTourbyId(tourId);
+        Place c = this.tourService.getPlacebyId(tourId);
 //        t.getTourDetailCollection();
-       
-        model.addAttribute("tour",this.tourService.getTourDetail(tourId));
+
+        model.addAttribute("tour", this.tourService.getTourDetail(tourId));
         return "tour-place";
-    }
-    
-    @GetMapping("/signup")
-    public String signup(Model model) {
-        model.addAttribute("signup", new Tour());
-        return "signup";
-    }
-
-    @PostMapping("/signup")
-    public @ResponseBody
-    String add(@ModelAttribute(value = "signup") Tour tour) {
-
-        try {
-            this.cloudinary.uploader().upload(tour.getFile().getBytes(),
-                    ObjectUtils.asMap("resource_type", "auto"));
-//            String img = (String) r.get("secure_url");
-            return "redirect:/index";
-        } catch (IOException ex) {
-            System.err.print("===ADD TOUR===" + ex.getMessage());
-        }
-        return "signup";
     }
 
     @GetMapping("/addtour")
@@ -101,19 +79,18 @@ public class TourController {
     }
 
     @PostMapping("/addtour")
-    public String addtour(@ModelAttribute(value = "tour") @Valid Tour tour,
+    public String addtour(Model model,@ModelAttribute(value = "tour") @Valid Tour tour,
             BindingResult result) {
-
         if (!result.hasErrors()) {
-            try {
-                this.cloudinary.uploader().upload(tour.getFile().getBytes(),
-                        ObjectUtils.asMap("resource_type", "auto"));
-//            String img = (String) r.get("secure_url");
+           
+            if (this.tourService.addOrUpdate(tour) == true) {
                 return "redirect:/";
-            } catch (IOException ex) {
-                System.err.print("===ADD TOUR===" + ex.getMessage());
+            }else{
+                model.addAttribute("errMsg", "Something wrong!");
             }
         }
+
         return "addtour";
     }
+
 }

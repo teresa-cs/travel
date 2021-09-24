@@ -25,6 +25,7 @@ import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -56,7 +57,7 @@ public class Tour implements Serializable {
     @Size(max = 45)
     @Column(name = "name")
     private String name;
-    @Size(max = 45)
+    @Size(max = 2000)
     @Column(name = "destination")
     private String destination;
     @Column(name = "days")
@@ -66,14 +67,15 @@ public class Tour implements Serializable {
     private Double unitprice;
     @Column(name = "begindate")
     @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date begindate;
     @Column(name = "enddate")
     @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date enddate;
     @Size(max = 45)
     @Column(name = "meetingplace")
     private String meetingplace;
-    @Size(max = 45)
     @Column(name = "avt")
     private String avt;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tour")

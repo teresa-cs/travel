@@ -25,8 +25,12 @@ public class TourNameValidator implements Validator {
     @Override
     public void validate(Object target, Errors err) {
         Tour t = (Tour) target;
-        if (!t.getName().contains("TT"))
-            err.rejectValue("name", "tour.name.Err");
+        if (t.getName().length() > 45)
+            err.rejectValue("name", "tour.name.maxErr");
+        if(t.getName().length() == 0)
+            err.rejectValue("name", "tour.name.nullErr");
+        if(t.getDestination().length() > 2000)
+            err.reject("destination", "tour.destination.maxErr");
     }
     
 }
