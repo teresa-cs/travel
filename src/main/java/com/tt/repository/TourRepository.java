@@ -25,4 +25,6 @@ public interface TourRepository {
     long countTour();
 
     List<TourDetail> getTourDetail(int id);
+    
+    boolean addOrUpdate(Tour tour);
 }

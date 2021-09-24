@@ -20,6 +20,6 @@ public interface TourService {
     Place getPlacebyId(int id);
     long countTour();
     List<TourDetail> getTourDetail(int id) ;
-    
+    boolean addOrUpdate(Tour tour);
     
 }
