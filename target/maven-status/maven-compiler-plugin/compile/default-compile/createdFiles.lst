@@ -22,10 +22,8 @@ com\tt\pojos\Hotel_.class
 com\tt\pojos\Role.class
 com\tt\service\RoleService.class
 com\tt\configs\SpringSecurityConfig.class
-com\tt\pojos\UserInfo.class
 com\tt\repository\RoleRepository.class
 com\tt\pojos\User.class
-com\tt\pojos\UserInfo_.class
 com\tt\pojos\CmtPK_.class
 com\tt\service\TourService.class
 com\tt\controllers\TourController.class
