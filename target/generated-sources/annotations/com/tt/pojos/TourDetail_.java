@@ -6,13 +6,15 @@ import javax.annotation.Generated;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="EclipseLink-2.7.7.v20200504-rNA", date="2021-09-24T12:36:05")
+@Generated(value="EclipseLink-2.7.7.v20200504-rNA", date="2021-09-25T15:10:21")
 @StaticMetamodel(TourDetail.class)
 public class TourDetail_ { 
 
     public static volatile SingularAttribute<TourDetail, String> image;
     public static volatile SingularAttribute<TourDetail, Place> idplace;
     public static volatile SingularAttribute<TourDetail, Tour> idtour;
+    public static volatile SingularAttribute<TourDetail, String> name;
+    public static volatile SingularAttribute<TourDetail, String> description;
     public static volatile SingularAttribute<TourDetail, Integer> id;
 
 }

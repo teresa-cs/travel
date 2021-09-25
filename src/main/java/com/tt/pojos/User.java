@@ -62,8 +62,6 @@ public class User implements Serializable {
     @Column(name = "status")
     private short status;
     @OneToMany(mappedBy = "iduser")
-    private Collection<UserInfo> userInfoCollection;
-    @OneToMany(mappedBy = "iduser")
     private Collection<Receipt> receiptCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private Collection<Cmt> cmtCollection;
@@ -121,14 +119,6 @@ public class User implements Serializable {
         this.status = status;
     }
 
-    @XmlTransient
-    public Collection<UserInfo> getUserInfoCollection() {
-        return userInfoCollection;
-    }
-
-    public void setUserInfoCollection(Collection<UserInfo> userInfoCollection) {
-        this.userInfoCollection = userInfoCollection;
-    }
 
     @XmlTransient
     public Collection<Receipt> getReceiptCollection() {
