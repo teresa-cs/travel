@@ -66,7 +66,6 @@
     <body>
         <div class="colorlib-loader"></div>
 
-        <div id="page">
             <div class="colorlib-wrap">
                 <div class="container">
                     <div class="row">
@@ -99,7 +98,7 @@
                                 <div class="col-md-12 text-center">
 
                                     <ul class="pagination">
-                                        <c:forEach begin="1" end="${Math.ceil(counter/2)}" var="i">   
+                                        <c:forEach begin="1" end="${Math.ceil(counter/4)}" var="i">   
                                             <li class="active"><a class="page-link" href="<c:url value="/tour"/>?page=${i}">${i}</a></li>                                            
                                             </c:forEach>
                                     </ul>

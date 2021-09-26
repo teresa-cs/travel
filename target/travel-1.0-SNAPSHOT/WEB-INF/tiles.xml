@@ -51,6 +51,11 @@
         <put-attribute name="js" value="" />     
     </definition>
     
+    <definition name="hotel" extends= "baseLayout">
+        <put-attribute name="title" value="Hotel" />  
+        <put-attribute name="content" value="/WEB-INF/jsp/web/hotel.jsp" />  
+    </definition>
+    
     <!-- ======================= ADMIN ================================= -->
     <definition name="admin" template="/WEB-INF/layout/admin/baseAdmin.jsp">
         <put-attribute name="title" value="" /> 

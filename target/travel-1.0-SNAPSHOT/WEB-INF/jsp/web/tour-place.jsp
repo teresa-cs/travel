@@ -130,8 +130,8 @@
                                         <div class="col-md-12 col-md-offset-0 heading2 animate-box">
                                             <h2>${tour.name}</h2>
                                         </div>
-                                        <div class="row">
-                                            <c:forEach var="u" begin="1" end="${Math.ceil(counter)}" >
+                                            <div class="row">
+                                                <c:set var="day" value= "${0}"></c:set>
 
                                                 <c:forEach var="t" items="${tourdetail}" >
 
@@ -143,7 +143,9 @@
                                                                 </div>
                                                                 <div class="col-md-6 col-sm-6">
                                                                     <div class="desc">
-                                                                        <span class="day-tour">Day ${u}</span>
+                                                                        <c:if test="${day>day-1}">
+                                                                            <c:set var="day" value="${day+1}"></c:set>
+                                                                            <span class="day-tour">Day ${day}</span></c:if>
                                                                         <h2>${t.name}</h2>
                                                                         <p>${t.description}</p>
                                                                     </div>
@@ -153,7 +155,6 @@
                                                     </div>
 
                                                 </c:forEach>
-                                            </c:forEach>
 
 
 
