@@ -78,8 +78,6 @@ public class Tour implements Serializable {
     private String meetingplace;
     @Column(name = "avt")
     private String avt;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tour")
-    private Collection<TourHotel> tourHotelCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idtour")
     private Collection<TourDetail> tourDetailCollection;
     @OneToMany(mappedBy = "idtour")
@@ -180,14 +178,8 @@ public class Tour implements Serializable {
         this.avt = avt;
     }
 
-    @XmlTransient
-    public Collection<TourHotel> getTourHotelCollection() {
-        return tourHotelCollection;
-    }
 
-    public void setTourHotelCollection(Collection<TourHotel> tourHotelCollection) {
-        this.tourHotelCollection = tourHotelCollection;
-    }
+ 
 
     @XmlTransient
     public Collection<TourDetail> getTourDetailCollection() {

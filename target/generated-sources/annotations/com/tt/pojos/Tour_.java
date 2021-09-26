@@ -2,14 +2,13 @@ package com.tt.pojos;
 
 import com.tt.pojos.Receipt;
 import com.tt.pojos.TourDetail;
-import com.tt.pojos.TourHotel;
 import java.util.Date;
 import javax.annotation.Generated;
 import javax.persistence.metamodel.CollectionAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="EclipseLink-2.7.7.v20200504-rNA", date="2021-09-25T15:10:21")
+@Generated(value="EclipseLink-2.7.7.v20200504-rNA", date="2021-09-26T01:00:13")
 @StaticMetamodel(Tour.class)
 public class Tour_ { 
 
@@ -24,6 +23,5 @@ public class Tour_ {
     public static volatile SingularAttribute<Tour, Double> unitprice;
     public static volatile SingularAttribute<Tour, String> meetingplace;
     public static volatile SingularAttribute<Tour, String> avt;
-    public static volatile CollectionAttribute<Tour, TourHotel> tourHotelCollection;
 
 }

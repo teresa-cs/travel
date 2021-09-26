@@ -11,6 +11,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -21,7 +22,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author anhtu
+ * @author trang
  */
 @Entity
 @Table(name = "room")
@@ -29,9 +30,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Room.findAll", query = "SELECT r FROM Room r"),
     @NamedQuery(name = "Room.findById", query = "SELECT r FROM Room r WHERE r.id = :id"),
-    @NamedQuery(name = "Room.findByRoomNumber", query = "SELECT r FROM Room r WHERE r.roomNumber = :roomNumber"),
+    @NamedQuery(name = "Room.findByPrice", query = "SELECT r FROM Room r WHERE r.price = :price"),
     @NamedQuery(name = "Room.findByType", query = "SELECT r FROM Room r WHERE r.type = :type"),
-    @NamedQuery(name = "Room.findByStatus", query = "SELECT r FROM Room r WHERE r.status = :status")})
+    @NamedQuery(name = "Room.findByStatus", query = "SELECT r FROM Room r WHERE r.status = :status"),
+    @NamedQuery(name = "Room.findByImage", query = "SELECT r FROM Room r WHERE r.image = :image")})
 public class Room implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -41,16 +43,22 @@ public class Room implements Serializable {
     @Column(name = "id")
     private Integer id;
     @Size(max = 45)
-    @Column(name = "room_number")
-    private String roomNumber;
+    @Column(name = "price")
+    private String price;
     @Size(max = 45)
     @Column(name = "type")
     private String type;
-    @Size(max = 45)
     @Column(name = "status")
-    private String status;
+    private Boolean status;
+    @Lob
+    @Size(max = 65535)
+    @Column(name = "description")
+    private String description;
+    @Size(max = 100)
+    @Column(name = "image")
+    private String image;
     @JoinColumn(name = "idhotel", referencedColumnName = "id")
-    @ManyToOne
+    @ManyToOne(optional = false)
     private Hotel idhotel;
 
     public Room() {
@@ -68,12 +76,12 @@ public class Room implements Serializable {
         this.id = id;
     }
 
-    public String getRoomNumber() {
-        return roomNumber;
+    public String getPrice() {
+        return price;
     }
 
-    public void setRoomNumber(String roomNumber) {
-        this.roomNumber = roomNumber;
+    public void setPrice(String price) {
+        this.price = price;
     }
 
     public String getType() {
@@ -84,12 +92,28 @@ public class Room implements Serializable {
         this.type = type;
     }
 
-    public String getStatus() {
+    public Boolean getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Boolean status) {
         this.status = status;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public Hotel getIdhotel() {

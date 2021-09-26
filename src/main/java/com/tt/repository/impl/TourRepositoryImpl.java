@@ -44,7 +44,7 @@ public class TourRepositoryImpl implements TourRepository {
             Predicate p = builder.like(root.get("name").as(String.class), String.format("%%%s%%", kw));
             query = query.where(p);
         }
-        int max = 2;
+        int max = 4;
         Query q = session.createQuery(query);
         q.setMaxResults(max);
         q.setFirstResult((page - 1) * max);
