@@ -6,7 +6,9 @@
 package com.tt.pojos;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,13 +17,17 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
- * @author trang
+ * @author anhtu
  */
 @Entity
 @Table(name = "hotel")
@@ -57,7 +63,12 @@ public class Hotel implements Serializable {
     @Size(max = 100)
     @Column(name = "avt")
     private String avt;
-
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idhotel")
+    private Collection<Room> roomCollection;
+    
+    @Transient
+    private MultipartFile file;
+    
     public Hotel() {
     }
 
@@ -113,6 +124,15 @@ public class Hotel implements Serializable {
         this.avt = avt;
     }
 
+    @XmlTransient
+    public Collection<Room> getRoomCollection() {
+        return roomCollection;
+    }
+
+    public void setRoomCollection(Collection<Room> roomCollection) {
+        this.roomCollection = roomCollection;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -137,5 +157,20 @@ public class Hotel implements Serializable {
     public String toString() {
         return "com.tt.pojos.Hotel[ id=" + id + " ]";
     }
+
+    /**
+     * @return the file
+     */
+    public MultipartFile getFile() {
+        return file;
+    }
+
+    /**
+     * @param file the file to set
+     */
+    public void setFile(MultipartFile file) {
+        this.file = file;
+    }
+    
     
 }

@@ -6,23 +6,28 @@
 package com.tt.pojos;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author trang
+ * @author anhtu
  */
 @Entity
 @Table(name = "room")
@@ -32,14 +37,19 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Room.findById", query = "SELECT r FROM Room r WHERE r.id = :id"),
     @NamedQuery(name = "Room.findByPrice", query = "SELECT r FROM Room r WHERE r.price = :price"),
     @NamedQuery(name = "Room.findByType", query = "SELECT r FROM Room r WHERE r.type = :type"),
-    @NamedQuery(name = "Room.findByStatus", query = "SELECT r FROM Room r WHERE r.status = :status"),
     @NamedQuery(name = "Room.findByImage", query = "SELECT r FROM Room r WHERE r.image = :image")})
 public class Room implements Serializable {
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idroom")
+    private Collection<Orders> bookingCollection;
+
+    
+
+
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "id")
     private Integer id;
     @Size(max = 45)
@@ -48,8 +58,6 @@ public class Room implements Serializable {
     @Size(max = 45)
     @Column(name = "type")
     private String type;
-    @Column(name = "status")
-    private Boolean status;
     @Lob
     @Size(max = 65535)
     @Column(name = "description")
@@ -60,6 +68,9 @@ public class Room implements Serializable {
     @JoinColumn(name = "idhotel", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Hotel idhotel;
+    @Size(max = 45)
+    @Column(name = "maximum")
+    private String maximum;
 
     public Room() {
     }
@@ -92,13 +103,6 @@ public class Room implements Serializable {
         this.type = type;
     }
 
-    public Boolean getStatus() {
-        return status;
-    }
-
-    public void setStatus(Boolean status) {
-        this.status = status;
-    }
 
     public String getDescription() {
         return description;
@@ -148,5 +152,27 @@ public class Room implements Serializable {
     public String toString() {
         return "com.tt.pojos.Room[ id=" + id + " ]";
     }
+
+
+
+
+
+    public String getMaximum() {
+        return maximum;
+    }
+
+    public void setMaximum(String maximum) {
+        this.maximum = maximum;
+    }
+
+    @XmlTransient
+    public Collection<Orders> getBookingCollection() {
+        return bookingCollection;
+    }
+
+    public void setBookingCollection(Collection<Orders> bookingCollection) {
+        this.bookingCollection = bookingCollection;
+    }
+
     
 }

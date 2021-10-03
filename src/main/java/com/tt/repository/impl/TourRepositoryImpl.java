@@ -44,7 +44,7 @@ public class TourRepositoryImpl implements TourRepository {
             Predicate p = builder.like(root.get("name").as(String.class), String.format("%%%s%%", kw));
             query = query.where(p);
         }
-        int max = 4;
+        int max = 10;
         Query q = session.createQuery(query);
         q.setMaxResults(max);
         q.setFirstResult((page - 1) * max);
@@ -60,7 +60,6 @@ public class TourRepositoryImpl implements TourRepository {
 //    public long countTour() {
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 //    }
-
     @Override
     public Tour getTourbyId(int id) {
         Session session = this.sessionFactory.getObject().getCurrentSession();
@@ -111,14 +110,26 @@ public class TourRepositoryImpl implements TourRepository {
         }
         return false;
     }
-    
+
     @Override
     public long countDetail(int id) {
         Session session = this.sessionFactory.getObject().getCurrentSession();
         Query q = session.createQuery("Select Count(*) FROM TourDetail t WHERE t.idtour = :id");
-        q.setParameter("id",getTourbyId(id));
+        q.setParameter("id", getTourbyId(id));
         return Long.parseLong(q.getSingleResult().toString());
     }
 
+    @Override
+    public boolean deleteTour(int id) {
+        Session session = this.sessionFactory.getObject().getCurrentSession();
+        try {
+            Tour tour = getTourbyId(id);
+            session.remove(tour);
+            return true;
+        } catch (Exception e) {
+            e.getMessage();
+        }
+        return false;
 
+    }
 }
