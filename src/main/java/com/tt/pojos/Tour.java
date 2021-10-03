@@ -76,30 +76,16 @@ public class Tour implements Serializable {
     @Size(max = 45)
     @Column(name = "meetingplace")
     private String meetingplace;
+    @Size(max = 200)
     @Column(name = "avt")
     private String avt;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tour")
-    private Collection<TourHotel> tourHotelCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idtour")
     private Collection<TourDetail> tourDetailCollection;
     @OneToMany(mappedBy = "idtour")
     private Collection<Receipt> receiptCollection;
+
     @Transient
     private MultipartFile file;
-
-    /**
-     * @return the file
-     */
-    public MultipartFile getFile() {
-        return file;
-    }
-
-    /**
-     * @param file the file to set
-     */
-    public void setFile(MultipartFile file) {
-        this.file = file;
-    }
 
     public Tour() {
     }
@@ -181,15 +167,6 @@ public class Tour implements Serializable {
     }
 
     @XmlTransient
-    public Collection<TourHotel> getTourHotelCollection() {
-        return tourHotelCollection;
-    }
-
-    public void setTourHotelCollection(Collection<TourHotel> tourHotelCollection) {
-        this.tourHotelCollection = tourHotelCollection;
-    }
-
-    @XmlTransient
     public Collection<TourDetail> getTourDetailCollection() {
         return tourDetailCollection;
     }
@@ -230,6 +207,20 @@ public class Tour implements Serializable {
     @Override
     public String toString() {
         return "com.tt.pojos.Tour[ id=" + id + " ]";
+    }
+
+    /**
+     * @return the file
+     */
+    public MultipartFile getFile() {
+        return file;
+    }
+
+    /**
+     * @param file the file to set
+     */
+    public void setFile(MultipartFile file) {
+        this.file = file;
     }
 
 }

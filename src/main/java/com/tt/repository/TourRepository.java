@@ -29,4 +29,6 @@ public interface TourRepository {
     List<TourDetail> getTourDetail(int id);
     
     boolean addOrUpdate(Tour tour);
+    
+    boolean deleteTour(int id);
 }

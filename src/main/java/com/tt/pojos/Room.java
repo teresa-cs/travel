@@ -6,18 +6,24 @@
 package com.tt.pojos;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -29,29 +35,42 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Room.findAll", query = "SELECT r FROM Room r"),
     @NamedQuery(name = "Room.findById", query = "SELECT r FROM Room r WHERE r.id = :id"),
-    @NamedQuery(name = "Room.findByRoomNumber", query = "SELECT r FROM Room r WHERE r.roomNumber = :roomNumber"),
+    @NamedQuery(name = "Room.findByPrice", query = "SELECT r FROM Room r WHERE r.price = :price"),
     @NamedQuery(name = "Room.findByType", query = "SELECT r FROM Room r WHERE r.type = :type"),
-    @NamedQuery(name = "Room.findByStatus", query = "SELECT r FROM Room r WHERE r.status = :status")})
+    @NamedQuery(name = "Room.findByImage", query = "SELECT r FROM Room r WHERE r.image = :image")})
 public class Room implements Serializable {
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idroom")
+    private Collection<Orders> bookingCollection;
+
+    
+
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "id")
     private Integer id;
     @Size(max = 45)
-    @Column(name = "room_number")
-    private String roomNumber;
+    @Column(name = "price")
+    private String price;
     @Size(max = 45)
     @Column(name = "type")
     private String type;
-    @Size(max = 45)
-    @Column(name = "status")
-    private String status;
+    @Lob
+    @Size(max = 65535)
+    @Column(name = "description")
+    private String description;
+    @Size(max = 100)
+    @Column(name = "image")
+    private String image;
     @JoinColumn(name = "idhotel", referencedColumnName = "id")
-    @ManyToOne
+    @ManyToOne(optional = false)
     private Hotel idhotel;
+    @Size(max = 45)
+    @Column(name = "maximum")
+    private String maximum;
 
     public Room() {
     }
@@ -68,12 +87,12 @@ public class Room implements Serializable {
         this.id = id;
     }
 
-    public String getRoomNumber() {
-        return roomNumber;
+    public String getPrice() {
+        return price;
     }
 
-    public void setRoomNumber(String roomNumber) {
-        this.roomNumber = roomNumber;
+    public void setPrice(String price) {
+        this.price = price;
     }
 
     public String getType() {
@@ -84,12 +103,21 @@ public class Room implements Serializable {
         this.type = type;
     }
 
-    public String getStatus() {
-        return status;
+
+    public String getDescription() {
+        return description;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public Hotel getIdhotel() {
@@ -124,5 +152,27 @@ public class Room implements Serializable {
     public String toString() {
         return "com.tt.pojos.Room[ id=" + id + " ]";
     }
+
+
+
+
+
+    public String getMaximum() {
+        return maximum;
+    }
+
+    public void setMaximum(String maximum) {
+        this.maximum = maximum;
+    }
+
+    @XmlTransient
+    public Collection<Orders> getBookingCollection() {
+        return bookingCollection;
+    }
+
+    public void setBookingCollection(Collection<Orders> bookingCollection) {
+        this.bookingCollection = bookingCollection;
+    }
+
     
 }

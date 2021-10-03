@@ -11,15 +11,19 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
+import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -33,13 +37,14 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Hotel.findById", query = "SELECT h FROM Hotel h WHERE h.id = :id"),
     @NamedQuery(name = "Hotel.findByName", query = "SELECT h FROM Hotel h WHERE h.name = :name"),
     @NamedQuery(name = "Hotel.findByAddress", query = "SELECT h FROM Hotel h WHERE h.address = :address"),
-    @NamedQuery(name = "Hotel.findByRate", query = "SELECT h FROM Hotel h WHERE h.rate = :rate")})
+    @NamedQuery(name = "Hotel.findByRate", query = "SELECT h FROM Hotel h WHERE h.rate = :rate"),
+    @NamedQuery(name = "Hotel.findByAvt", query = "SELECT h FROM Hotel h WHERE h.avt = :avt")})
 public class Hotel implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "id")
     private Integer id;
     @Size(max = 45)
@@ -51,11 +56,19 @@ public class Hotel implements Serializable {
     @Size(max = 45)
     @Column(name = "rate")
     private String rate;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "hotel")
-    private Collection<TourHotel> tourHotelCollection;
-    @OneToMany(mappedBy = "idhotel")
+    @Lob
+    @Size(max = 65535)
+    @Column(name = "description")
+    private String description;
+    @Size(max = 100)
+    @Column(name = "avt")
+    private String avt;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idhotel")
     private Collection<Room> roomCollection;
-
+    
+    @Transient
+    private MultipartFile file;
+    
     public Hotel() {
     }
 
@@ -95,13 +108,20 @@ public class Hotel implements Serializable {
         this.rate = rate;
     }
 
-    @XmlTransient
-    public Collection<TourHotel> getTourHotelCollection() {
-        return tourHotelCollection;
+    public String getDescription() {
+        return description;
     }
 
-    public void setTourHotelCollection(Collection<TourHotel> tourHotelCollection) {
-        this.tourHotelCollection = tourHotelCollection;
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getAvt() {
+        return avt;
+    }
+
+    public void setAvt(String avt) {
+        this.avt = avt;
     }
 
     @XmlTransient
@@ -137,5 +157,20 @@ public class Hotel implements Serializable {
     public String toString() {
         return "com.tt.pojos.Hotel[ id=" + id + " ]";
     }
+
+    /**
+     * @return the file
+     */
+    public MultipartFile getFile() {
+        return file;
+    }
+
+    /**
+     * @param file the file to set
+     */
+    public void setFile(MultipartFile file) {
+        this.file = file;
+    }
+    
     
 }

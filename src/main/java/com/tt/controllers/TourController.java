@@ -79,18 +79,37 @@ public class TourController {
     }
 
     @PostMapping("/addtour")
-    public String addtour(Model model,@ModelAttribute(value = "tour") @Valid Tour tour,
-            BindingResult result) {
+    public String addtour(Model model, @ModelAttribute(value = "tour") @Valid Tour tour,
+     BindingResult result
+    ) {
         if (!result.hasErrors()) {
-           
-            if (this.tourService.addOrUpdate(tour) == true) {
-                return "redirect:/";
-            }else{
-                model.addAttribute("errMsg", "Something wrong!");
-            }
+
+        if (this.tourService.addOrUpdate(tour) == true) {
+            return "redirect:/";
+        } else {
+            model.addAttribute("errMsg", "Something wrong!");
+        }
         }
 
         return "addtour";
     }
 
+    @GetMapping("/tabletour")
+    public String tableTour(Model model, @RequestParam(required = false) Map<String, String> params) {
+
+        int page = Integer.parseInt(params.getOrDefault("page", "1"));
+        model.addAttribute("tour", this.tourService.getTours(params.get("kw"), page));
+        model.addAttribute("counter", this.tourService.countTour());
+        return "tabletour";
+    }
+
+    @RequestMapping("/tabletour?delete={tourId}")
+    public String deleteTour(@PathVariable(value = "tourId") int id) {
+        boolean t;
+        t = this.tourService.deleteTour(id);
+        if (t == true) {
+            return "redirect:/";
+        }
+        return "addtour";
+    }
 }
