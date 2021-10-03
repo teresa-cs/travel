@@ -28,7 +28,6 @@ com\tt\service\RoleService.class
 com\tt\configs\SpringSecurityConfig.class
 com\tt\repository\RoleRepository.class
 com\tt\pojos\User.class
-com\tt\pojos\CmtPK_.class
 com\tt\pojos\Place.class
 com\tt\validator\TourNameValidator.class
 com\tt\service\TourService.class
@@ -41,7 +40,6 @@ com\tt\pojos\Receipt.class
 com\tt\service\impl\TourServiceImpl.class
 com\tt\pojos\Post_.class
 com\tt\pojos\TourDetail_.class
-com\tt\pojos\CmtPK.class
 com\tt\configs\TilesConfig.class
 com\tt\pojos\Post.class
 com\tt\service\impl\RoleServiceImpl.class

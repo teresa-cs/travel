@@ -6,7 +6,10 @@
 package com.tt.repository.impl;
 
 import com.tt.pojos.Hotel;
+import com.tt.pojos.Orders;
+import com.tt.pojos.Room;
 import com.tt.repository.HotelRepository;
+import com.tt.validator.WebAppValidator;
 import java.util.List;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -19,6 +22,7 @@ import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+
 /**
  *
  * @author trang
@@ -29,6 +33,8 @@ public class HotelRepositoryImpl implements HotelRepository{
 
     @Autowired
     private LocalSessionFactoryBean sessionFactory;
+    
+    
 
     @Override
     public List<Hotel> getHotels(String kw, int page) {
@@ -51,7 +57,8 @@ public class HotelRepositoryImpl implements HotelRepository{
 
     @Override
     public Hotel getHotelbyId(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Session session = this.sessionFactory.getObject().getCurrentSession();
+        return session.get(Hotel.class, id);
     }
 
     @Override
@@ -61,10 +68,35 @@ public class HotelRepositoryImpl implements HotelRepository{
         return Long.parseLong(q.getSingleResult().toString());
     }
 
+
     @Override
-    public long countDetail(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<Room> getRooms(int id) {
+         Session session = this.sessionFactory.getObject().getCurrentSession();
+        Query q = session.createQuery("SELECT t FROM Room t WHERE t.idhotel = :id");
+        q.setParameter("id", getHotelbyId(id));
+        return q.getResultList();
     }
+
+    @Override
+    public Room getRoombyId(int id) {
+        Session session = this.sessionFactory.getObject().getCurrentSession();
+        return session.get(Room.class, id);
+    }
+
+    @Override
+    public boolean addOrUpdate(Hotel hotel) {
+        Session session = this.sessionFactory.getObject().getCurrentSession();
+        try {
+            session.save(hotel);
+            return true;
+        } catch (Exception ex) {
+            System.err.println("=== ADD Hotel EER ===" + ex.getMessage());
+            ex.printStackTrace();
+        }
+        return false;
+    }
+
+    
     
    
     

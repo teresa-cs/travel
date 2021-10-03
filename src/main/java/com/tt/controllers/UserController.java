@@ -7,9 +7,7 @@ package com.tt.controllers;
 
 import com.tt.pojos.User;
 import com.tt.service.UserService;
-import javax.validation.constraints.Positive;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

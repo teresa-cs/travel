@@ -6,12 +6,21 @@
 package com.tt.service.impl;
 
 import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import com.tt.pojos.Hotel;
+import com.tt.pojos.Room;
+import com.tt.pojos.User;
 import com.tt.repository.HotelRepository;
 import com.tt.repository.TourRepository;
+import com.tt.repository.UserRepository;
 import com.tt.service.HotelService;
+import java.io.IOException;
 import java.util.List;
+import java.util.Map;
+import javax.persistence.criteria.Order;
+import javax.ws.rs.core.SecurityContext;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 /**
@@ -22,12 +31,16 @@ import org.springframework.stereotype.Service;
 public class HotelServiceImpl implements HotelService{
     @Autowired
     private HotelRepository hotelRepository;
+    
+    @Autowired
+    private UserRepository userRepository;
     @Autowired
     private Cloudinary cloudinary;
 
     
     @Override
     public List<Hotel> getHotels(String kw, int page) {
+       
         return this.hotelRepository.getHotels(kw, page);
     }
 
@@ -41,9 +54,30 @@ public class HotelServiceImpl implements HotelService{
         return this.hotelRepository.countHotel();
     }
 
+
     @Override
-    public long countDetail(int id) {
-        return this.hotelRepository.countDetail(id);
+    public List<Room> getRooms(int id) {
+        
+        return this.hotelRepository.getRooms(id);
     }
-    
+
+
+    @Override
+    public Room getRoombyId(int i) {
+        return this.hotelRepository.getRoombyId(i);
+    }
+
+    @Override
+    public boolean addOrUpdate(Hotel hotel) {
+        try {
+            Map r = this.cloudinary.uploader().upload(hotel.getFile().getBytes(),
+                    ObjectUtils.asMap("resource_type", "auto"));
+            hotel.setAvt((String) r.get("secure_url"));
+            return this.hotelRepository.addOrUpdate(hotel);
+        } catch (IOException ex) {
+            System.err.print("===ADD Hotel===" + ex.getMessage());
+        }
+        return false;
+    }
+
 }

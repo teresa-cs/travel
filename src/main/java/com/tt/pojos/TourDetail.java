@@ -31,16 +31,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "TourDetail.findAll", query = "SELECT t FROM TourDetail t"),
     @NamedQuery(name = "TourDetail.findById", query = "SELECT t FROM TourDetail t WHERE t.id = :id"),
+    @NamedQuery(name = "TourDetail.findByName", query = "SELECT t FROM TourDetail t WHERE t.name = :name"),
     @NamedQuery(name = "TourDetail.findByImage", query = "SELECT t FROM TourDetail t WHERE t.image = :image")})
 public class TourDetail implements Serializable {
-
-    @Size(max = 100)
-    @Column(name = "name")
-    private String name;
-    @Lob
-    @Size(max = 65535)
-    @Column(name = "description")
-    private String description;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -48,9 +41,16 @@ public class TourDetail implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Size(max = 45)
+    @Size(max = 100)
+    @Column(name = "name")
+    private String name;
+    @Size(max = 100)
     @Column(name = "image")
     private String image;
+    @Lob
+    @Size(max = 65535)
+    @Column(name = "description")
+    private String description;
     @JoinColumn(name = "idplace", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Place idplace;
@@ -73,12 +73,28 @@ public class TourDetail implements Serializable {
         this.id = id;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getImage() {
         return image;
     }
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Place getIdplace() {
@@ -120,22 +136,6 @@ public class TourDetail implements Serializable {
     @Override
     public String toString() {
         return "com.tt.pojos.TourDetail[ id=" + id + " ]";
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
     
 }

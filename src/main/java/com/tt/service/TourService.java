@@ -22,5 +22,5 @@ public interface TourService {
     long countDetail(int id);
     List<TourDetail> getTourDetail(int id) ;
     boolean addOrUpdate(Tour tour);
-    
+    boolean deleteTour(int id);
 }

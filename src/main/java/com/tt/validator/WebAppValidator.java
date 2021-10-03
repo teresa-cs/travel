@@ -5,10 +5,14 @@
  */
 package com.tt.validator;
 
+import com.tt.pojos.Cmt;
+import com.tt.pojos.Hotel;
+import com.tt.pojos.Orders;
+import com.tt.pojos.Post;
+import com.tt.pojos.Room;
 import com.tt.pojos.Tour;
 import java.util.Set;
 import javax.validation.ConstraintViolation;
-import org.hibernate.validator.internal.util.Contracts;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -28,7 +32,13 @@ public class WebAppValidator implements Validator{
     
     @Override
     public boolean supports(Class<?> clazz) {
-        return Tour.class.isAssignableFrom(clazz);
+        return Post.class.isAssignableFrom(clazz) ||
+                Tour.class.isAssignableFrom(clazz) ||
+                Room.class.isAssignableFrom(clazz) ||
+                Orders.class.isAssignableFrom(clazz) ||
+                Hotel.class.isAssignableFrom(clazz) ||
+                Cmt.class.isAssignableFrom(clazz);
+        
     }
 
     @Override

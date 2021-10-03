@@ -19,6 +19,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
@@ -41,7 +42,13 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "User.findByStatus", query = "SELECT u FROM User u WHERE u.status = :status")})
 public class User implements Serializable {
 
-    private static long serialVersionUID = 1L;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "iduser")
+    private Collection<Orders> bookingCollection;
+
+
+
+
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -63,15 +70,18 @@ public class User implements Serializable {
     private short status;
     @OneToMany(mappedBy = "iduser")
     private Collection<Receipt> receiptCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "iduser")
     private Collection<Cmt> cmtCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
+    private Collection<Employee> employeeCollection;
     @JoinColumn(name = "role_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Role roleId;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
+    private Collection<Customer> customerCollection;
     
     @Transient
     private String confirmPassword;
-    
     
     public User() {
     }
@@ -119,7 +129,6 @@ public class User implements Serializable {
         this.status = status;
     }
 
-
     @XmlTransient
     public Collection<Receipt> getReceiptCollection() {
         return receiptCollection;
@@ -138,12 +147,30 @@ public class User implements Serializable {
         this.cmtCollection = cmtCollection;
     }
 
+    @XmlTransient
+    public Collection<Employee> getEmployeeCollection() {
+        return employeeCollection;
+    }
+
+    public void setEmployeeCollection(Collection<Employee> employeeCollection) {
+        this.employeeCollection = employeeCollection;
+    }
+
     public Role getRoleId() {
         return roleId;
     }
 
     public void setRoleId(Role roleId) {
         this.roleId = roleId;
+    }
+
+    @XmlTransient
+    public Collection<Customer> getCustomerCollection() {
+        return customerCollection;
+    }
+
+    public void setCustomerCollection(Collection<Customer> customerCollection) {
+        this.customerCollection = customerCollection;
     }
 
     @Override
@@ -172,20 +199,6 @@ public class User implements Serializable {
     }
 
     /**
-     * @return the serialVersionUID
-     */
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
-
-    /**
-     * @param aSerialVersionUID the serialVersionUID to set
-     */
-    public static void setSerialVersionUID(long aSerialVersionUID) {
-        serialVersionUID = aSerialVersionUID;
-    }
-
-    /**
      * @return the confirmPassword
      */
     public String getConfirmPassword() {
@@ -198,5 +211,17 @@ public class User implements Serializable {
     public void setConfirmPassword(String confirmPassword) {
         this.confirmPassword = confirmPassword;
     }
+
+    @XmlTransient
+    public Collection<Orders> getBookingCollection() {
+        return bookingCollection;
+    }
+
+    public void setBookingCollection(Collection<Orders> bookingCollection) {
+        this.bookingCollection = bookingCollection;
+    }
+
+
+
     
 }

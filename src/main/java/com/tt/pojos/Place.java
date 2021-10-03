@@ -14,9 +14,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -37,10 +34,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Place.findById", query = "SELECT p FROM Place p WHERE p.id = :id"),
     @NamedQuery(name = "Place.findByName", query = "SELECT p FROM Place p WHERE p.name = :name")})
 public class Place implements Serializable {
-
-    @JoinColumn(name = "idtour", referencedColumnName = "id")
-    @ManyToMany
-    private Collection<Tour> tourCollection;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -109,15 +102,6 @@ public class Place implements Serializable {
     @Override
     public String toString() {
         return "com.tt.pojos.Place[ id=" + id + " ]";
-    }
-
-    @XmlTransient
-    public Collection<Tour> getTourCollection() {
-        return tourCollection;
-    }
-
-    public void setTourCollection(Collection<Tour> tourCollection) {
-        this.tourCollection = tourCollection;
     }
     
 }

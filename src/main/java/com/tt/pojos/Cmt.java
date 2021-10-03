@@ -5,15 +5,23 @@
  */
 package com.tt.pojos;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
+import java.util.Date;
+import javax.persistence.Basic;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -26,42 +34,45 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Cmt.findAll", query = "SELECT c FROM Cmt c"),
-    @NamedQuery(name = "Cmt.findById", query = "SELECT c FROM Cmt c WHERE c.cmtPK.id = :id"),
-    @NamedQuery(name = "Cmt.findByIduser", query = "SELECT c FROM Cmt c WHERE c.cmtPK.iduser = :iduser"),
-    @NamedQuery(name = "Cmt.findByIdpost", query = "SELECT c FROM Cmt c WHERE c.cmtPK.idpost = :idpost"),
-    @NamedQuery(name = "Cmt.findByComment", query = "SELECT c FROM Cmt c WHERE c.comment = :comment")})
+    @NamedQuery(name = "Cmt.findById", query = "SELECT c FROM Cmt c WHERE c.id = :id"),
+    @NamedQuery(name = "Cmt.findByCreatedDate", query = "SELECT c FROM Cmt c WHERE c.createdDate = :createdDate")})
 public class Cmt implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected CmtPK cmtPK;
-    @Size(max = 45)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id")
+    private Integer id;
+    @Lob
+    @Size(max = 65535)
     @Column(name = "comment")
     private String comment;
-    @JoinColumn(name = "idpost", referencedColumnName = "id", insertable = false, updatable = false)
+    @Column(name = "created_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdDate;
+    @JoinColumn(name = "idpost", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Post post;
-    @JoinColumn(name = "iduser", referencedColumnName = "id", insertable = false, updatable = false)
+    @JsonIgnore
+    private Post idpost;
+    @JoinColumn(name = "iduser", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private User user;
+    @JsonIgnore
+    private User iduser;
 
     public Cmt() {
     }
 
-    public Cmt(CmtPK cmtPK) {
-        this.cmtPK = cmtPK;
+    public Cmt(Integer id) {
+        this.id = id;
     }
 
-    public Cmt(int id, int iduser, int idpost) {
-        this.cmtPK = new CmtPK(id, iduser, idpost);
+    public Integer getId() {
+        return id;
     }
 
-    public CmtPK getCmtPK() {
-        return cmtPK;
-    }
-
-    public void setCmtPK(CmtPK cmtPK) {
-        this.cmtPK = cmtPK;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getComment() {
@@ -72,26 +83,34 @@ public class Cmt implements Serializable {
         this.comment = comment;
     }
 
-    public Post getPost() {
-        return post;
+    public Date getCreatedDate() {
+        return createdDate;
     }
 
-    public void setPost(Post post) {
-        this.post = post;
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
     }
 
-    public User getUser() {
-        return user;
+    public Post getIdpost() {
+        return idpost;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setIdpost(Post idpost) {
+        this.idpost = idpost;
+    }
+
+    public User getIduser() {
+        return iduser;
+    }
+
+    public void setIduser(User iduser) {
+        this.iduser = iduser;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (cmtPK != null ? cmtPK.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -102,7 +121,7 @@ public class Cmt implements Serializable {
             return false;
         }
         Cmt other = (Cmt) object;
-        if ((this.cmtPK == null && other.cmtPK != null) || (this.cmtPK != null && !this.cmtPK.equals(other.cmtPK))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -110,7 +129,7 @@ public class Cmt implements Serializable {
 
     @Override
     public String toString() {
-        return "com.tt.pojos.Cmt[ cmtPK=" + cmtPK + " ]";
+        return "com.tt.pojos.Cmt[ id=" + id + " ]";
     }
     
 }

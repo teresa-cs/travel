@@ -72,4 +72,9 @@ public class TourServiceImpl implements TourService {
     public long countDetail(int id) {
         return this.tourRepository.countDetail(id);
     }
+
+    @Override
+    public boolean deleteTour(int id) {
+        return this.tourRepository.deleteTour(id);
+    }
 }
