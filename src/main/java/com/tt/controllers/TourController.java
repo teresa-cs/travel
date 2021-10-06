@@ -98,18 +98,18 @@ public class TourController {
     public String tableTour(Model model, @RequestParam(required = false) Map<String, String> params) {
 
         int page = Integer.parseInt(params.getOrDefault("page", "1"));
+        String id =params.getOrDefault("id",null);
         model.addAttribute("tour", this.tourService.getTours(params.get("kw"), page));
         model.addAttribute("counter", this.tourService.countTour());
+        boolean t;       
+       if(id != null){
+        t = this.tourService.deleteTour(Integer.parseInt(id));
+        if (t == true) {
+            return "redirect:/tabletour";
+        }
+       }
         return "tabletour";
     }
 
-    @RequestMapping("/tabletour?delete={tourId}")
-    public String deleteTour(@PathVariable(value = "tourId") int id) {
-        boolean t;
-        t = this.tourService.deleteTour(id);
-        if (t == true) {
-            return "redirect:/";
-        }
-        return "addtour";
-    }
+  
 }

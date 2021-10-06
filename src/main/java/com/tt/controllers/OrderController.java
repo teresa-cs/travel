@@ -57,14 +57,23 @@ public class OrderController {
     
     @PostMapping("/hotel/order-{roomId}")
     public String add(Model model,@ModelAttribute(value = "order") @Valid Orders o,
-           BindingResult result ) {
+           BindingResult result,@PathVariable(value = "roomId") int roomId ) {
         if (!result.hasErrors()) {
-           
+            o.setIdroom(this.hotelService.getRoombyId(roomId));
+           if(this.orderService.checkDate(o.getIdroom(), o.getCheckin(), o.getCheckout())==true)
+           {
             if (this.orderService.addOrUpdate(o) == true) {
                 return "redirect:/";
             }else{
                 model.addAttribute("errMsg", "Something wrong!");
             }
+           }
+           else
+           {
+               model.addAttribute("errMsg", "Đã có người đặt!");
+               return "redirect:/hotel/order-{roomId}";
+           }
+           
         }
 
         return "order";

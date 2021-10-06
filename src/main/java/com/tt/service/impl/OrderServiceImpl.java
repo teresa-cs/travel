@@ -13,6 +13,8 @@ import com.tt.repository.HotelRepository;
 import com.tt.repository.OrderReponsitory;
 import com.tt.repository.UserRepository;
 import com.tt.service.OrderService;
+import java.util.Date;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -35,12 +37,27 @@ public class OrderServiceImpl implements OrderService{
     
     @Override
     public boolean addOrUpdate(Orders order) {
-        Room r= this.hotelRepository.getRoombyId(1);
+        
         String name= SecurityContextHolder.getContext().getAuthentication().getName();
         User u= userRepository.getUserbyName(name);
-        order.setIdroom(r);
         order.setIduser(u);
         return this.orderRepository.addOrUpdate(order);
+    }
+
+    @Override
+    public List<Orders> getOrders() {
+        return this.orderRepository.getOrders();
+    }
+
+    @Override
+    public boolean checkDate(Room r, Date checkin, Date checkout) {
+        
+        return this.orderRepository.checkDate(r, checkin, checkout);
+    }
+
+    @Override
+    public long orderByRoom(Room room) {
+        return this.orderRepository.orderByRoom(room);
     }
     
 }

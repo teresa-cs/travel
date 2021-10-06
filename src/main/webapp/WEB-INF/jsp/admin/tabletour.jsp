@@ -65,7 +65,10 @@
                                                 <td>${t.enddate}</td>
                                                 <td>${t.unitprice}</td>
                                                 <td>
-                                                    <a href="<c:url value="/tabletour?delete=${t.id}" />">
+                                                    <c:url value="/tabletour" var="tourrr"> <c:param name="id" value="${t.id}"/>
+                                                            
+                                                    </c:url>
+                                                    <a href="${tourrr}">
                                                         <button type="button"
                                                                 class="btn btn-block bg-gradient-danger">Delete</button>
                                                     </a>
