@@ -31,4 +31,6 @@ public interface TourRepository {
     boolean addOrUpdate(Tour tour);
     
     boolean deleteTour(int id);
+    
+    boolean updateTour(Tour tour);
 }

@@ -30,50 +30,32 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 public class PostController {
-    
+
     @Autowired
     private PostService postService;
     @Autowired
     private CommentService commentService;
-    
-    @Autowired
-    private PostValidator postValidator;
-    
-    @InitBinder
-    public void initBinder(WebDataBinder binder) {
-        binder.setValidator(postValidator);
-    }
-    
+
+//    @Autowired
+//    private PostValidator postValidator;
+//
+//    @InitBinder
+//    public void initBinder(WebDataBinder binder) {
+//        binder.setValidator(postValidator);
+//    }
+
     @RequestMapping("/post")
     public String post(Model model) {
         model.addAttribute("post", this.postService.getPost());
         return "post";
     }
-    
+
     @GetMapping("post/post-{postId}")
     public String postDetail(Model model, @PathVariable(value = "postId") int id) {
         Post p = this.postService.getPostbyId(id);
-        model.addAttribute("p", p);
-        model.addAttribute("post", this.postService.getComment(id));
-   
+        model.addAttribute("p", p); 
+
         return "post-detail";
     }
-    
-    @PostMapping("post/post-{postId}")
-    public String postDetail(Model model, 
-            @ModelAttribute(value = "comment")@Valid Cmt cmt
-            , BindingResult result
-    ) {
 
-        if (!result.hasErrors()) {
-
-            if (this.commentService.addOrUpdate(cmt) == true) {
-                return "redirect:/";
-            } else {
-                model.addAttribute("errMsg", "Something wrong!");
-            }
-        }
-        
-        return "post-detail";
-    }
 }

@@ -77,4 +77,17 @@ public class TourServiceImpl implements TourService {
     public boolean deleteTour(int id) {
         return this.tourRepository.deleteTour(id);
     }
+
+    @Override
+    public boolean updateTour(Tour oldTour, Tour newTour) {
+        oldTour.setName(newTour.getName());
+        oldTour.setDestination(newTour.getDestination());
+        oldTour.setBegindate(newTour.getBegindate());
+        oldTour.setEnddate(newTour.getEnddate());
+        oldTour.setMeetingplace(newTour.getMeetingplace());
+        oldTour.setUnitprice(newTour.getUnitprice());
+        oldTour.setAvt(newTour.getAvt());
+        
+        return this.tourRepository.updateTour(oldTour);
+    }
 }
