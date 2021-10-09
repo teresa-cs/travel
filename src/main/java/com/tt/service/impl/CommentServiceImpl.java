@@ -12,6 +12,7 @@ import com.tt.repository.CommentRepository;
 import com.tt.repository.PostRepository;
 import com.tt.repository.UserRepository;
 import com.tt.service.CommentService;
+import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,19 +35,19 @@ public class CommentServiceImpl implements CommentService{
         Post p = this.postRepository.getPostbyId(postId);
         User u = this.userRepository.getUserById(4);
         
-        Cmt c = new Cmt();
+        Cmt c = new Cmt(); 
         c.setComment(content);
         c.setIdpost(p);
         c.setIduser(u);
-        
+        c.setCreatedDate(new Date());
         return this.commentRepository.addComment(c);
     }
 
     @Override
     public boolean addOrUpdate(Cmt cmt) {
-        User u = this.userRepository.getUserById(4);
+        User u = this.userRepository.getUserById(1);
         Post p = this.postRepository.getPostbyId(4);
-         cmt.setIdpost(p);
+        cmt.setIdpost(p);
         cmt.setIduser(u);
         return this.commentRepository.addOrUpdate(cmt);
     }

@@ -132,4 +132,17 @@ public class TourRepositoryImpl implements TourRepository {
         return false;
 
     }
+
+    @Override
+    public boolean updateTour(Tour tour) {
+        Session session = this.sessionFactory.getObject().getCurrentSession();
+        try {
+            session.update(tour);
+            return true;
+        } catch (Exception ex) {
+            System.err.println("=== UPDATE TOUR EER ===" + ex.getMessage());
+            ex.printStackTrace();
+        }
+        return false;
+    }
 }

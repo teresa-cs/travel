@@ -1,4 +1,4 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+ <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
@@ -30,6 +30,7 @@
                                         <li><a href="<c:url value="/logout"/>"> Logout</a></li></c:if>
                                 </ul>
                             </li>
+                            
                         </ul>
                     </div>
                                 

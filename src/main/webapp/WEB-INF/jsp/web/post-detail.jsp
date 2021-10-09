@@ -7,7 +7,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<c:url value="/post/post-${postId}" var="action" />
+<%--<c:url value="/post/post-${p.id}" var="action" />--%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE HTML>
 <html>
@@ -165,30 +165,34 @@
                                 <label for="date">
                                     <h3>Comment</h3>
                                 </label>
-                                <form:form method="POST" action="${action}" modelAttribute="comment">
+                                    <form>
                                 <div class="form-field">
                            
-                                    <textarea type="text" class="form-control" placeholder="Comment..." path="comment"><textarea>
-                                    <input type="submit" class="btn btn-primary" value="Add tour" style="margin-top: 20px"/>
+                                    <textarea type="text" id="commentId" class="form-control" placeholder="Comment..."></textarea>
+                                    <input type="button" class="btn btn-primary" value="Add comment" style="margin-top: 20px"
+                                           onclick="addComment(${p.id})"/>
                                 </div>
-                                </form:form>
+                                    </form>
                                 
                             </div>
                         </div>
                         <div class="blog-entry aside-stretch-right">
-                            <div class="row">
-                                <c:forEach items="${post}" var="c">
+                            <div id="commentArea">
+                                <c:forEach items="${p.cmtCollection}" var="c">
+                            <div class="row" >
+                                
                                 <div class="col-md-12 animate-box fadeInUp animated-fast">
                                     <a href="blog.html" class="blog-post">
                                         <span class="img" style="background-image: url(../template/images/blog-4.jpg);"></span>
-                                        <div class="desc">
-                                            <span class="date">${c.createdDate}</span>
+                                        <div class="desc my-date">
+                                            <i style="color:black" > <span>${c.createdDate}</span></i>
                                             <h3>${c.comment}</h3>
                                             <span class="cat">Activities</span>
                                         </div>
                                     </a>
-                                </div>
-                                </c:forEach>
+                                </div>                                
+                            </div>
+                                </c:forEach>           
                             </div>
                         </div>
                     </div>
@@ -280,14 +284,15 @@
 
         <script>
             window.onload = function () {
-                let dates = document.querySelectorAll("");
-                for (let i = 0; i < d.length; i++) {
-                    let d = dates[i].innerText;
+                let dates = document.querySelectorAll(".my-date > i");
+                for (let i = 0; i < dates.length; i++) {
+                    let d = dates[i]
                     d.innerText = moment(d.innerText).fromNow();
                 }
             }
 
         </script>
+   
         <!-- jQuery -->
         <script src="../template/js/jquery.min.js"></script>
         <!-- jQuery Easing -->
@@ -310,6 +315,8 @@
 
         <!-- Main -->
         <script src="../template/js/main.js"></script>
+         <script src="../template/js/mainn.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 
     </body>
 

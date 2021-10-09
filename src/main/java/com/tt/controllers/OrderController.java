@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.PostMapping;
  * @author anhtu
  */
 @Controller
-@ControllerAdvice
+//@ControllerAdvice
 public class OrderController {
     
     @Autowired
@@ -37,13 +37,13 @@ public class OrderController {
     @Autowired
     private HotelService hotelService;
     
-    @Autowired
-    private WebAppValidator orderValidator;
-    
-     @InitBinder
-    public void initBinder(WebDataBinder binder) {
-        binder.setValidator(orderValidator);
-    }
+//    @Autowired
+//    private WebAppValidator orderValidator;
+//    
+//     @InitBinder
+//    public void initBinder(WebDataBinder binder) {
+//        binder.setValidator(orderValidator);
+//    }
     
     
       @GetMapping("/hotel/order-{roomId}")

@@ -84,43 +84,50 @@ public class WebApplicationContextConfig implements WebMvcConfigurer {
         return validator();
     }
 
-    @Bean
-    public WebAppValidator tourValidator() {
-        Set<Validator> springValidators = new HashSet<>();
-        springValidators.add(new TourNameValidator());
-        WebAppValidator v = new WebAppValidator();
-        v.setSpringValidator(springValidators);
-        return v;
-    }
-    
-    @Bean
-    public WebAppValidator hotelValidator() {
-        Set<Validator> springValidators = new HashSet<>();
-        springValidators.add(new HotelValidator());
-        WebAppValidator v = new WebAppValidator();
-        v.setSpringValidator(springValidators);
-        return v;
-    }
-    
-    @Bean
-    public WebAppValidator roomValidator() {
-        Set<Validator> springValidators = new HashSet<>();
-        springValidators.add(new RoomValidator());
-        WebAppValidator v = new WebAppValidator();
-        v.setSpringValidator(springValidators);
-        return v;
-    }
-    
-    @Bean
-    public WebAppValidator orderValidator() {
-        Set<Validator> springValidators = new HashSet<>();
-        springValidators.add(new OrderValidator());
-        WebAppValidator v = new WebAppValidator();
-        v.setSpringValidator(springValidators);
-        return v;
-    }
-
-
+//    @Bean
+//    public WebAppValidator tourValidator() {
+//        Set<Validator> springValidators = new HashSet<>();
+//        springValidators.add(new TourNameValidator());
+//        WebAppValidator v = new WebAppValidator();
+//        v.setSpringValidator(springValidators);
+//        return v;
+//    }
+//    
+//    @Bean
+//    public WebAppValidator hotelValidator() {
+//        Set<Validator> springValidators = new HashSet<>();
+//        springValidators.add(new HotelValidator());
+//        WebAppValidator v = new WebAppValidator();
+//        v.setSpringValidator(springValidators);
+//        return v;
+//    }
+//    
+//    @Bean
+//    public WebAppValidator roomValidator() {
+//        Set<Validator> springValidators = new HashSet<>();
+//        springValidators.add(new RoomValidator());
+//        WebAppValidator v = new WebAppValidator();
+//        v.setSpringValidator(springValidators);
+//        return v;
+//    }
+//    
+//    @Bean
+//    public WebAppValidator orderValidator() {
+//        Set<Validator> springValidators = new HashSet<>();
+//        springValidators.add(new OrderValidator());
+//        WebAppValidator v = new WebAppValidator();
+//        v.setSpringValidator(springValidators);
+//        return v;
+//    }
+//
+//    @Bean
+//    public WebAppValidator commentValidator() {
+//        Set<Validator> springValidators = new HashSet<>();
+//        springValidators.add(new CommentValidator());
+//        WebAppValidator v = new WebAppValidator();
+//        v.setSpringValidator(springValidators);
+//        return v;
+//    }
 
     @Bean
     public LocalValidatorFactoryBean validator() {

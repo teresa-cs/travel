@@ -49,7 +49,7 @@ public class Cmt implements Serializable {
     @Column(name = "comment")
     private String comment;
     @Column(name = "created_date")
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date createdDate;
     @JoinColumn(name = "idpost", referencedColumnName = "id")
     @ManyToOne(optional = false)
