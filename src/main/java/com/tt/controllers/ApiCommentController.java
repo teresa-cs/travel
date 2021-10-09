@@ -15,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,8 +32,15 @@ public class ApiCommentController {
 
     @Autowired
     private CommentService commentService;
-
-
+    
+//    @Autowired
+//    private WebAppValidator commentValidator;
+//    
+//    @InitBinder(value = "cmt")
+//    public void initBinder(WebDataBinder binder) {
+//        binder.setValidator(commentValidator);
+//    }
+    
     @PostMapping(path = "/api/add-comment", produces = {
         MediaType.APPLICATION_JSON_VALUE
     })
@@ -41,12 +50,10 @@ public class ApiCommentController {
             int idpost = Integer.parseInt(params.get("idpost"));
             
             Cmt c = this.commentService.addComment(comment, idpost);
-            
             return new ResponseEntity<>(c, HttpStatus.CREATED);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
   
         

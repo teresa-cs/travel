@@ -57,7 +57,6 @@ public class TourController {
         int page = Integer.parseInt(params.getOrDefault("page", "1"));
         model.addAttribute("tour", this.tourService.getTours(params.get("kw"), page));
         model.addAttribute("counter", this.tourService.countTour());
-        model.addAttribute("detail", "helo");
 
         return "tour";
     }
@@ -80,15 +79,15 @@ public class TourController {
 
     @PostMapping("/addtour")
     public String addtour(Model model, @ModelAttribute(value = "tour") @Valid Tour tour,
-     BindingResult result
+            BindingResult result
     ) {
         if (!result.hasErrors()) {
 
-        if (this.tourService.addOrUpdate(tour) == true) {
-            return "redirect:/";
-        } else {
-            model.addAttribute("errMsg", "Something wrong!");
-        }
+            if (this.tourService.addOrUpdate(tour) == true) {
+                return "redirect:/";
+            } else {
+                model.addAttribute("errMsg", "Something wrong!");
+            }
         }
 
         return "addtour";
@@ -96,20 +95,50 @@ public class TourController {
 
     @GetMapping("/tabletour")
     public String tableTour(Model model, @RequestParam(required = false) Map<String, String> params) {
-
         int page = Integer.parseInt(params.getOrDefault("page", "1"));
-        String id =params.getOrDefault("id",null);
+        String id = params.getOrDefault("id", null);
         model.addAttribute("tour", this.tourService.getTours(params.get("kw"), page));
         model.addAttribute("counter", this.tourService.countTour());
-        boolean t;       
-       if(id != null){
-        t = this.tourService.deleteTour(Integer.parseInt(id));
-        if (t == true) {
-            return "redirect:/tabletour";
+        Tour t = new Tour();
+        model.addAttribute("tour-update", t);
+        if (id != null) {
+            model.addAttribute("t", this.tourService.getTourbyId(Integer.parseInt(id)));
         }
-       }
         return "tabletour";
     }
 
-  
-}
+    @PostMapping("/tabletour")
+    public String tableTour(Model model, @RequestParam(required = false) Map<String, String> params,
+            @ModelAttribute(value = "tour-update") @Valid Tour tour, BindingResult result) {
+        int page = Integer.parseInt(params.getOrDefault("page", "1"));
+        model.addAttribute("tour", this.tourService.getTours(params.get("kw"), page));
+        model.addAttribute("counter", this.tourService.countTour());
+//            if (!result.hasErrors()) {
+                if (this.tourService.updateTour(this.tourService.getTourbyId(tour.getId()), tour) == true) {
+                    return "redirect:/tabletour";
+                } else {
+                    model.addAttribute("errMsg", "Something wrong!");
+//                }
+            }
+
+            return "tabletour";
+        }
+
+        @GetMapping("/tabletour-delete")
+        public String tableTourDelete
+        (Model model, @RequestParam(required = false) Map<String, String> params
+        
+            ) {
+
+        String id = params.getOrDefault("id", null);
+            boolean t;
+            if (id != null) {
+                t = this.tourService.deleteTour(Integer.parseInt(id));
+                if (t == true) {
+                    return "redirect:/tabletour";
+                }
+            }
+            return "tabletour";
+        }
+
+    }

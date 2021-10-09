@@ -82,7 +82,7 @@
                                     <li class="active"><a href="<c:url value="/"/>">Home</a></li>
                                     <li><a href="<c:url value="/tour"/>">Tours</a></li> 
                                     <li><a href="<c:url value="/hotel"/>">Hotels</a></li>
-                                    <li><a href="<c:url value="/post" />">Blog</a></li>
+                                    <li><a href="blog.html">Blog</a></li>
                                     <li><a href="about.html">About</a></li>
                                     <li><a href="contact.html">Contact</a></li>
 

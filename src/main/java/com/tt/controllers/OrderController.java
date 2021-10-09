@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.PostMapping;
  * @author anhtu
  */
 @Controller
-@ControllerAdvice
+//@ControllerAdvice
 public class OrderController {
     
     @Autowired
@@ -37,13 +37,13 @@ public class OrderController {
     @Autowired
     private HotelService hotelService;
     
-    @Autowired
-    private WebAppValidator orderValidator;
-    
-     @InitBinder
-    public void initBinder(WebDataBinder binder) {
-        binder.setValidator(orderValidator);
-    }
+//    @Autowired
+//    private WebAppValidator orderValidator;
+//    
+//     @InitBinder
+//    public void initBinder(WebDataBinder binder) {
+//        binder.setValidator(orderValidator);
+//    }
     
     
       @GetMapping("/hotel/order-{roomId}")
@@ -57,23 +57,14 @@ public class OrderController {
     
     @PostMapping("/hotel/order-{roomId}")
     public String add(Model model,@ModelAttribute(value = "order") @Valid Orders o,
-           BindingResult result,@PathVariable(value = "roomId") int roomId ) {
+           BindingResult result ) {
         if (!result.hasErrors()) {
-            o.setIdroom(this.hotelService.getRoombyId(roomId));
-           if(this.orderService.checkDate(o.getIdroom(), o.getCheckin(), o.getCheckout())==true)
-           {
+           
             if (this.orderService.addOrUpdate(o) == true) {
                 return "redirect:/";
             }else{
                 model.addAttribute("errMsg", "Something wrong!");
             }
-           }
-           else
-           {
-               model.addAttribute("errMsg", "Đã có người đặt!");
-               return "redirect:/hotel/order-{roomId}";
-           }
-           
         }
 
         return "order";

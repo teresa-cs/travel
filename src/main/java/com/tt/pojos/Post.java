@@ -63,7 +63,7 @@ public class Post implements Serializable {
     @Size(max = 65535)
     @Column(name = "intro")
     private String intro;
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY, mappedBy = "idpost")
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER, mappedBy = "idpost")
     private Collection<Cmt> cmtCollection;
 
     public Post() {
