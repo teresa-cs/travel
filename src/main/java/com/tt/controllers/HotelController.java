@@ -36,22 +36,22 @@ public class HotelController {
     @Autowired
     private HotelService hotelService;
     
-    @Autowired
-    private WebAppValidator orderValidator;
-    
-    @Autowired
-    private WebAppValidator roomValidator;
-    @Autowired
-    private WebAppValidator hotelValidator;
-    
-    
-
-    @InitBinder
-    public void initBinder(WebDataBinder binder) {
-        binder.setValidator(orderValidator);
-//        binder.setValidator(roomValidator);
-        binder.setValidator(hotelValidator);
-    }
+//    @Autowired
+//    private WebAppValidator orderValidator;
+//    
+//    @Autowired
+//    private WebAppValidator roomValidator;
+//    @Autowired
+//    private WebAppValidator hotelValidator;
+//    
+//    
+//
+//    @InitBinder
+//    public void initBinder(WebDataBinder binder) {
+//        binder.setValidator(orderValidator);
+////        binder.setValidator(roomValidator);
+//        binder.setValidator(hotelValidator);
+//    }
     
   
     @GetMapping("/hotel")

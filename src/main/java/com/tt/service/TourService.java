@@ -23,4 +23,5 @@ public interface TourService {
     List<TourDetail> getTourDetail(int id) ;
     boolean addOrUpdate(Tour tour);
     boolean deleteTour(int id);
+    boolean updateTour(Tour oldTour, Tour newTour);
 }

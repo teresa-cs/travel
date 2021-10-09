@@ -75,20 +75,20 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-xs-2">
-                                <div id="colorlib-logo"><a href="<c:url value="/"/>">Tour</a></div>
+                                <div id="colorlib-logo"><a href="<c:url value=" /" />">Tour</a></div>
                             </div>
                             <div class="col-xs-10 text-right menu-1">
                                 <ul>
-                                    <li class="active"><a href="<c:url value="/" />">Home</a></li>
-                                    <li><a href="<c:url value="/tour" />">Tours</a></li>
-                                    <li><a href="<c:url value="/hotel" />">Hotels</a></li>
-                                    <li><a href="<c:url value="/post" />">Blog</a></li>
+                                    <li class="active"><a href="<c:url value=" /" />">Home</a></li>
+                                    <li><a href="<c:url value=" /tour" />">Tours</a></li>
+                                    <li><a href="<c:url value=" /hotel" />">Hotels</a></li>
+                                    <li><a href="blog.html">Blog</a></li>
                                     <li><a href="about.html">About</a></li>
                                     <li><a href="contact.html">Contact</a></li>
 
 
                                     <c:if test="${pageContext.request.userPrincipal.name == null}">
-                                        <a href="<c:url value="/login" />">Log in</a>
+                                        <a href="<c:url value=" /login" />">Log in</a>
                                     </c:if>
                                     <li class="has-dropdown">
                                         <a href="<c:url value="
@@ -96,7 +96,7 @@
                                         <ul class="dropdown">
                                             <c:if
                                                 test="${pageContext.request.userPrincipal.name != null}">
-                                                <li><a href="<c:url value="/logout" />"> Logout</a>
+                                                <li><a href="<c:url value=" /logout" />"> Logout</a>
                                                 </li>
                                             </c:if>
                                         </ul>
@@ -148,7 +148,6 @@
                                                             <div class="col-md-6 col-sm-6">
                                                                 <div class="room-img"
                                                                      style="background-image: url(../template/images/room-1.jpg);">
-                                                                    
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6 col-sm-6">
@@ -158,11 +157,19 @@
                                                                         <span>${room.price}</span>
                                                                         <small>/ night</small>
                                                                     </p>
-                                                                    <p>Please select your days and total guests.</p>
+                                                                    <p>Even the all-powerful Pointing
+                                                                        has no control about the blind
+                                                                        texts it is an almost
+                                                                        unorthographic life One day
+                                                                        however a small line of blind
+                                                                        text by the name of Lorem Ipsum
+                                                                        decided to leave for the far
+                                                                        World of Grammar.</p>
                                                                         <c:if
                                                                             test="${pageContext.request.userPrincipal.name == null}">
                                                                         <p><a href="<c:url value="
-                                                                               /login" />" class="btn btn-primary">Book Now!</a>
+                                                                               /login" />" class="btn
+                                                                              btn-primary">Book Now!</a>
                                                                         </p>
                                                                     </c:if>
                                                                     <c:if
@@ -171,7 +178,7 @@
                                                                         <input type="submit"
                                                                                name="submit" id="submit"
                                                                                value="Book Now!"
-                                                                               class="btn btn-primary" >
+                                                                               class="btn btn-primary">
                                                                     </c:if>
                                                                 </div>
                                                             </div>
@@ -180,8 +187,6 @@
                                                 </div>
 
                                             </div>
-                                                                        
-                                                                        
 
                                         </div>
                                     </div>
@@ -192,7 +197,7 @@
                             <div class="col-md-3">
                                 <div class="sidebar-wrap">
                                     <div class="side search-wrap animate-box">
-                                        <h3 class="sidebar-heading">Your order</h3>
+                                        <h3 class="sidebar-heading">Find your room</h3>
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">
@@ -204,8 +209,7 @@
                                                                     class="form-control datetimepicker-input"
                                                                     placeholder="Check-in date"
                                                                     style="border: 1px solid white; color:white"
-                                                                    data-target="#reservationdate"
-                                                                    id="checkin"/>
+                                                                    data-target="#reservationdate" />
                                                         <form:errors path="checkin"
                                                                      cssClass="alert alert-danger"
                                                                      element="div" />
@@ -222,8 +226,7 @@
                                                                     class="form-control datetimepicker-input"
                                                                     placeholder="Check-out date"
                                                                     style="border: 1px solid white; color:white"
-                                                                    data-target="#reservationdate"
-                                                                    id="checkout"/>
+                                                                    data-target="#reservationdate" />
                                                         <form:errors path="checkout"
                                                                      cssClass="alert alert-danger"
                                                                      element="div" />
@@ -235,31 +238,19 @@
                                                     <label for="quantity"
                                                            style="color: white">Guest</label>
                                                     <div class="form-field">
-                                                        <form:select name="people" path="quantity"
-                                                                     class="form-control"
-                                                                     id="quantity"
-                                                                     style="border: 1px solid white; color:white">
-                                                            <form:option style="color:black" value="1"
-                                                                         label="1" />
-                                                            <form:option style="color:black" value="2"
-                                                                         label="2" />
-                                                            <form:option style="color:black" value="3"
-                                                                         label="3" />
-                                                            <form:option style="color:black" value="4"
-                                                                         label="4" />
-                                                            <form:option style="color:black" value="5+"
-                                                                         label="5+" />
-                                                        </form:select>
-                                                     
+                                                        <form:input type="text" path="quantity"
+                                                                    class="form-control "
+                                                                    placeholder="quantity"
+                                                                    style="border: 1px solid white; color:white"
+                                                                    />
                                                         <form:errors path="quantity"
                                                                      cssClass="alert alert-danger"
                                                                      element="div" />
                                                     </div>
                                                 </div>
                                             </div>
-                                                   
-                                                    </form:form>
-                                            
+                                            <input type="submit" class="btn btn-primary" value="Add tour"/>
+
                                         </div>
 
                                     </div>
@@ -526,6 +517,7 @@
                                     </div>
                                 </div>
                             </div>
+                        </form:form>
                     </div>
                 </div>
             </div>
@@ -664,19 +656,7 @@
 
         <!-- Main -->
         <script src="../template/js/main.js"></script>
-        <script>
-     function test(){
-         var t1= document.getElementById("checkin");
-         var t2= document.getElementById("checkout");
-         document.getElementById("checkintext").value=t1.value;
-         document.getElementById("checkouttext").value=t2.value;
-         
-         
-                
-     }
-        </script>
 
-
-</body>
+    </body>
 
 </html>

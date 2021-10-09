@@ -51,6 +51,15 @@ public class TourRepositoryImpl implements TourRepository {
         return q.getResultList();
     }
 
+//    @Override
+//    public Tour getTourbyId(int tourId) {
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//    }
+//
+//    @Override
+//    public long countTour() {
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//    }
     @Override
     public Tour getTourbyId(int id) {
         Session session = this.sessionFactory.getObject().getCurrentSession();
@@ -115,12 +124,25 @@ public class TourRepositoryImpl implements TourRepository {
         Session session = this.sessionFactory.getObject().getCurrentSession();
         try {
             Tour tour = getTourbyId(id);
-            session.delete(tour);
+            session.remove(tour);
             return true;
         } catch (Exception e) {
             e.getMessage();
         }
         return false;
 
+    }
+
+    @Override
+    public boolean updateTour(Tour tour) {
+        Session session = this.sessionFactory.getObject().getCurrentSession();
+        try {
+            session.update(tour);
+            return true;
+        } catch (Exception ex) {
+            System.err.println("=== UPDATE TOUR EER ===" + ex.getMessage());
+            ex.printStackTrace();
+        }
+        return false;
     }
 }

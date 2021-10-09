@@ -6,9 +6,6 @@
 package com.tt.repository;
 
 import com.tt.pojos.Orders;
-import com.tt.pojos.Room;
-import java.util.Date;
-import java.util.List;
 
 /**
  *
@@ -16,9 +13,4 @@ import java.util.List;
  */
 public interface OrderReponsitory {
     boolean addOrUpdate(Orders order);
-    List<Orders> getOrders();
-    boolean checkDate(Room r, Date checkin, Date checkout);
-    long orderByRoom(Room r);
-   
-    
 }

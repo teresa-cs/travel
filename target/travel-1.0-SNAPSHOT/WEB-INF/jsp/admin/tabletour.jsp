@@ -6,6 +6,10 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<c:url value="/tabletour" var="action" />
+
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -19,9 +23,102 @@
                         <div class="col-sm-6">
                             <h1>Table Tour</h1>
                         </div>
+
+                        <!-- Search -->
+                        <div class="col-sm-6">
+                            <form>
+                                <div class="input-group input-group-sm">
+                                    <input class="form-control form-control-navbar" name="kw" type="search" placeholder="Search" aria-label="Search" >
+                                    <div class="input-group-append">
+                                        <button class="btn btn-navbar" type="submit">
+                                            <i class="fas fa-search"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div><!-- /.container-fluid -->
             </section>
+            <h1>${a}</h1>
+            <!-- ======================================form ========================================== -->
+            <div class="card-body" style="margin: 0px; padding: 5px;">
+                <form:form action="${action}" method="POST" modelAttribute="tour-update" enctype="multipart/form-data" >  
+                    <div style="display: none; visibility: hidden">
+                    <form:input type="text" class="form-control" path="id" placeholder="id" value="${t.id}"/>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label for="name">Tour Name</label>
+                                <form:input type="text" class="form-control" path="name" placeholder="Tour name" value="${t.name}"/>
+                                <form:errors path="name" cssClass="text-danger" element="div"/>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label for="meetingplace">Meeting Place</label>
+                                <form:input path="meetingplace" type="text" class="form-control"  placeholder="Meeting Place" value="${t.meetingplace}"/>
+                                <form:errors path="meetingplace" cssClass="alert alert-danger" element="div"/>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label for="price">Price</label>
+                                <form:input type="text" path="unitprice" class="form-control" placeholder="Price" value="${t.unitprice}"/>
+                                <form:errors path="unitprice" cssClass="alert alert-danger" element="div"/>
+                            </div>              
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="exampleInputFile">File input</label>
+                                <div class="input-group">
+                                    <div class="custom-file">
+                                        <form:input type="file" class="custom-file-input" id="exampleInputFile" path="file" value="${t.avt}"/>
+                                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-sm-5">
+                            <div class="form-group">
+                                <label for="destination">Destination</label>
+                                <form:textarea type="text" class="form-control" path="destination" placeholder="Destinations"></form:textarea>
+                                <form:errors path="destination" cssClass="alert alert-danger" element="div"/>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Start Date:</label>
+                                <div class="input-group date" id="reservationdate" data-target-input="nearest">
+                                    <form:input type="date" path="begindate" class="form-control datetimepicker-input" data-target="#reservationdate" value="${t.begindate}"/>
+                                    <form:errors path="begindate" cssClass="alert alert-danger" element="div"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>End Date:</label>
+                                <div class="input-group date" id="reservationdate" data-target-input="nearest">
+                                    <form:input type="date" path="enddate" class="form-control datetimepicker-input" data-target="#reservationdate" value="${t.enddate}" />
+                                    <form:errors path="enddate" cssClass="alert alert-danger" element="div"/>
+
+                                </div>
+                            </div>               
+                        </div>
+                        <div >
+
+                            <input type="submit" class="btn btn-primary" value="Update" style="margin-top: 30px; margin-left: 30px;" >
+                        </div>
+                    </div>
+                </form:form>                        
+            </div>
+
+            <!-- ======================================table========================================== -->
+
             <section class="content">
                 <div class="card-body">
                     <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4">
@@ -64,18 +161,21 @@
                                                 <td>${t.begindate}</td>
                                                 <td>${t.enddate}</td>
                                                 <td>${t.unitprice}</td>
-                                                <td>
-                                                    <c:url value="/tabletour" var="tourrr"> <c:param name="id" value="${t.id}"/>
-                                                            
+                                                <td style="padding: 5px">
+                                                    <c:url value="/tabletour-delete" var="tourrr"> <c:param name="id" value="${t.id}"/>
+
                                                     </c:url>
                                                     <a href="${tourrr}">
                                                         <button type="button"
                                                                 class="btn btn-block bg-gradient-danger">Delete</button>
                                                     </a>
                                                 </td>
-                                                <td>
-                                                    <button type="button"
-                                                            class="btn btn-block bg-gradient-primary">Update</button>
+                                                <td style="padding: 5px">
+                                                    <c:url value="/tabletour" var="updatetour"> <c:param name="id" value="${t.id}"/></c:url>
+                                                    <a href="${updatetour}">
+                                                        <button type="button"
+                                                                class="btn btn-block bg-gradient-primary">Update</button>
+                                                    </a>
                                                 </td>
                                             </tr>
                                         </c:forEach>

@@ -103,5 +103,9 @@
         <put-attribute name="title" value="AddHotel" />  
         <put-attribute name="content" value="/WEB-INF/jsp/admin/addhotel.jsp" />
     </definition>
+      <definition name="addcomment" extends="admin">
+        <put-attribute name="title" value="AddCmt" />  
+        <put-attribute name="content" value="/WEB-INF/jsp/admin/addcomment.jsp" />
+    </definition>
 
 </tiles-definitions>
