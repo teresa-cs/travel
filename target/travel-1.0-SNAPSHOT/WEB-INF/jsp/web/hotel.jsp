@@ -240,7 +240,7 @@
                             <div class="row">
                                 <div class="wrap-division">
                                     <c:forEach var="t" items="${hotel}" >
-                                        <div class="col-md-6 col-sm-6 animate-box">
+                                        <div class="col-md-6 col-sm-6 animate-boxz" height: 550px margin-top: 20px>
                                             <div class="hotel-entry">
                                                 <a href="<c:url value="/hotel/hotel-${t.id}"/>" class="hotel-img" style="background-image: url(template/images/hotel-2.jpg);">
                                                     <p class="price"><span>$120</span><small> /night</small></p>

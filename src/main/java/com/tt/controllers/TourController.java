@@ -11,6 +11,7 @@ import com.tt.pojos.Place;
 import com.tt.pojos.Tour;
 import com.tt.pojos.TourDetail;
 import com.tt.service.TourService;
+import com.tt.validator.TourNameValidator;
 import com.tt.validator.WebAppValidator;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -43,13 +44,13 @@ public class TourController {
 
     @Autowired
     private TourService tourService;
-    @Autowired
-    private WebAppValidator tourValidator;
-
-    @InitBinder
-    public void initBinder(WebDataBinder binder) {
-        binder.setValidator(tourValidator);
-    }
+//    @Autowired
+//    private WebAppValidator tourValidator;
+//
+//    @InitBinder
+//    public void initBinder(WebDataBinder binder) {
+//        binder.setValidator(tourValidator);
+//    }
 
     @GetMapping("/tour")
     public String tour(Model model, @RequestParam(required = false) Map<String, String> params) {
@@ -57,6 +58,7 @@ public class TourController {
         int page = Integer.parseInt(params.getOrDefault("page", "1"));
         model.addAttribute("tour", this.tourService.getTours(params.get("kw"), page));
         model.addAttribute("counter", this.tourService.countTour());
+        model.addAttribute("detail", "helo");
 
         return "tour";
     }
@@ -79,15 +81,15 @@ public class TourController {
 
     @PostMapping("/addtour")
     public String addtour(Model model, @ModelAttribute(value = "tour") @Valid Tour tour,
-            BindingResult result
+     BindingResult result
     ) {
         if (!result.hasErrors()) {
 
-            if (this.tourService.addOrUpdate(tour) == true) {
-                return "redirect:/";
-            } else {
-                model.addAttribute("errMsg", "Something wrong!");
-            }
+        if (this.tourService.addOrUpdate(tour) == true) {
+            return "redirect:/";
+        } else {
+            model.addAttribute("errMsg", "Something wrong!");
+        }
         }
 
         return "addtour";
@@ -141,4 +143,5 @@ public class TourController {
             return "tabletour";
         }
 
-    }
+  
+}

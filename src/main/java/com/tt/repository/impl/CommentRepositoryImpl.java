@@ -45,7 +45,7 @@ public class CommentRepositoryImpl implements CommentRepository {
             session.save(cmt);
             return true;
         } catch (Exception ex) {
-            System.err.println("=== ADD TOUR EER ===" + ex.getMessage());
+            System.err.println("=== ADD COMMENT EER ===" + ex.getMessage());
             ex.printStackTrace();
         }
         return false;

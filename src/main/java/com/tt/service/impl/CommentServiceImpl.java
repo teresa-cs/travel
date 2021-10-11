@@ -31,23 +31,24 @@ public class CommentServiceImpl implements CommentService{
     private CommentRepository commentRepository;
 
     @Override
-    public Cmt addComment(String content, int postId) {
+    public Cmt addComment(String comment, int postId) {
         Post p = this.postRepository.getPostbyId(postId);
         User u = this.userRepository.getUserById(4);
         
-        Cmt c = new Cmt(); 
-        c.setComment(content);
+        Cmt c = new Cmt();
+        c.setComment(comment);
         c.setIdpost(p);
         c.setIduser(u);
         c.setCreatedDate(new Date());
+        
         return this.commentRepository.addComment(c);
     }
 
     @Override
     public boolean addOrUpdate(Cmt cmt) {
-        User u = this.userRepository.getUserById(1);
+        User u = this.userRepository.getUserById(4);
         Post p = this.postRepository.getPostbyId(4);
-        cmt.setIdpost(p);
+         cmt.setIdpost(p);
         cmt.setIduser(u);
         return this.commentRepository.addOrUpdate(cmt);
     }

@@ -10,14 +10,14 @@ import com.tt.service.CommentService;
 import com.tt.validator.CommentValidator;
 import com.tt.validator.WebAppValidator;
 import java.util.Map;
+import javax.validation.*;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author anhtu
  */
 @RestController
+//@ControllerAdvice
 public class ApiCommentController {
 
     @Autowired
@@ -36,24 +37,26 @@ public class ApiCommentController {
 //    @Autowired
 //    private WebAppValidator commentValidator;
 //    
-//    @InitBinder(value = "cmt")
+//    @InitBinder
 //    public void initBinder(WebDataBinder binder) {
 //        binder.setValidator(commentValidator);
 //    }
-    
+
+
     @PostMapping(path = "/api/add-comment", produces = {
-        MediaType.APPLICATION_JSON_VALUE
-    })
-    public ResponseEntity<Cmt> addCmt(@Valid @RequestBody Map<String, String> params) {
+        MediaType.APPLICATION_JSON_VALUE })
+    public ResponseEntity<Cmt> addComment( @RequestBody Map<String, String> params) {
         try {
             String comment = params.get("comment" );
-            int idpost = Integer.parseInt(params.get("idpost"));
+            int idpost = Integer.parseInt(params.get("postId"));
             
             Cmt c = this.commentService.addComment(comment, idpost);
+            
             return new ResponseEntity<>(c, HttpStatus.CREATED);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+        
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
   
         

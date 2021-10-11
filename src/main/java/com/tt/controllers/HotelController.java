@@ -9,6 +9,7 @@ import com.tt.pojos.Hotel;
 import com.tt.pojos.Room;
 import com.tt.pojos.Tour;
 import com.tt.service.HotelService;
+import com.tt.validator.HotelValidator;
 import com.tt.validator.WebAppValidator;
 import java.util.Map;
 import javax.validation.Valid;
@@ -31,16 +32,12 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @author trang
  */
 @Controller
-@ControllerAdvice
+//@ControllerAdvice
 public class HotelController {
     @Autowired
     private HotelService hotelService;
     
-//    @Autowired
-//    private WebAppValidator orderValidator;
 //    
-//    @Autowired
-//    private WebAppValidator roomValidator;
 //    @Autowired
 //    private WebAppValidator hotelValidator;
 //    
@@ -48,8 +45,6 @@ public class HotelController {
 //
 //    @InitBinder
 //    public void initBinder(WebDataBinder binder) {
-//        binder.setValidator(orderValidator);
-////        binder.setValidator(roomValidator);
 //        binder.setValidator(hotelValidator);
 //    }
     
