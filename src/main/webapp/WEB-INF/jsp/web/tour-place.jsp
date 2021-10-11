@@ -79,7 +79,7 @@
                             </div>
                             <div class="col-xs-10 text-right menu-1">
                                 <ul>
-                                    <li><a href="index">Home</a></li>
+                                    <li><a href="<c:url value="/"/>">Home</a></li>
                                     <li class="has-dropdown active">
                                         <a href="tour">Tours</a>
                                         <ul class="dropdown">
@@ -89,11 +89,20 @@
                                             <li><a href="#">Booking</a></li>
                                         </ul>
                                     </li>
-                                    <li><a href="hotels.html">Hotels</a></li>
+                                    <li><a href="<c:url value="/hotel"/>">Hotels</a></li>
                                     <li><a href="services.html">Services</a></li>
-                                    <li><a href="blog.html">Blog</a></li>
+                                    <li><a href="<c:url value="/post"/>">Blog</a></li>
                                     <li><a href="about.html">About</a></li>
-                                    <li><a href="login">Login</a></li>
+                                     <c:if test="${pageContext.request.userPrincipal.name == null}">
+                                <a href="login">Log in</a>
+                            </c:if>
+                            <li class="has-dropdown">
+                                <a href="<c:url value="/"/>">${pageContext.request.userPrincipal.name}</a>
+                                <ul class="dropdown">
+                                    <c:if test="${pageContext.request.userPrincipal.name != null}">
+                                        <li><a href="<c:url value="/logout"/>"> Logout</a></li></c:if>
+                                </ul>
+                            </li>
                                 </ul>
                             </div>
                         </div>

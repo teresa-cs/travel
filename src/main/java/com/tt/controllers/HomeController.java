@@ -5,7 +5,6 @@
  */
 package com.tt.controllers;
 
-import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.stereotype.Controller;
@@ -28,9 +27,7 @@ public class HomeController {
     
     
     @RequestMapping("/")
-    public String index(Model model, HttpSession session){     
-        model.addAttribute("currentUser", session.getAttribute("currentUser"));
-        
+    public String index(Model model){        
        return "index";
     }
   

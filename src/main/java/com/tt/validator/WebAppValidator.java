@@ -32,12 +32,11 @@ public class WebAppValidator implements Validator{
     
     @Override
     public boolean supports(Class<?> clazz) {
-        return Post.class.isAssignableFrom(clazz) ||
-                Tour.class.isAssignableFrom(clazz) ||
-                Room.class.isAssignableFrom(clazz) ||
-                Orders.class.isAssignableFrom(clazz) ||
-                Hotel.class.isAssignableFrom(clazz) ||
-                Cmt.class.isAssignableFrom(clazz);
+        return  
+//                Post.class.isAssignableFrom(clazz) ||
+                Tour.class.isAssignableFrom(clazz) 
+//                Cmt.class.isAssignableFrom(clazz)
+                ;
         
     }
 

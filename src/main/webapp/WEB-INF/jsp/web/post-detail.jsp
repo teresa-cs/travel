@@ -80,13 +80,13 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-xs-2">
-                                <div id="colorlib-logo"><a href="index.html">Tour</a></div>
+                                <div id="colorlib-logo"><a href="<c:url value="/"/>">Tour</a></div>
                             </div>
                             <div class="col-xs-10 text-right menu-1">
                                 <ul>
-                                    <li><a href="index.html">Home</a></li>
+                                    <li><a href="<c:url value="/"/>">Home</a></li>
                                     <li class="has-dropdown">
-                                        <a href="tours.html">Tours</a>
+                                        <a href="<c:url value="/tour"/>">Tours</a>
                                         <ul class="dropdown">
                                             <li><a href="#">Destination</a></li>
                                             <li><a href="#">Cruises</a></li>
@@ -94,11 +94,21 @@
                                             <li><a href="#">Booking</a></li>
                                         </ul>
                                     </li>
-                                    <li><a href="hotels.html">Hotels</a></li>
+                                    <li><a href="<c:url value="/hotel"/>">Hotels</a></li>
                                     <li><a href="services.html">Services</a></li>
-                                    <li><a href="blog.html">Blog</a></li>
+                                    <li><a href="<c:url value="/post"/>">Blog</a></li>
                                     <li class="active"><a href="about.html">About</a></li>
                                     <li><a href="contact.html">Contact</a></li>
+                                     <c:if test="${pageContext.request.userPrincipal.name == null}">
+                                <a href="login">Log in</a>
+                            </c:if>
+                            <li class="has-dropdown">
+                                <a href="<c:url value="/"/>">${pageContext.request.userPrincipal.name}</a>
+                                <ul class="dropdown">
+                                    <c:if test="${pageContext.request.userPrincipal.name != null}">
+                                        <li><a href="<c:url value="/logout"/>"> Logout</a></li></c:if>
+                                </ul>
+                            </li>
                                 </ul>
                             </div>
                         </div>
@@ -178,7 +188,7 @@
                         </div>
                         <div class="blog-entry aside-stretch-right">
                             <div id="commentArea">
-                                <c:forEach items="${p.cmtCollection}" var="c">
+                                <c:forEach items="${post}" var="c">
                             <div class="row" >
                                 
                                 <div class="col-md-12 animate-box fadeInUp animated-fast">

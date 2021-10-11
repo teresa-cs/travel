@@ -9,6 +9,7 @@ import com.tt.pojos.Hotel;
 import com.tt.pojos.Orders;
 import com.tt.service.HotelService;
 import com.tt.service.OrderService;
+import com.tt.validator.OrderValidator;
 import com.tt.validator.WebAppValidator;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,7 @@ import org.springframework.web.bind.annotation.PostMapping;
  * @author anhtu
  */
 @Controller
-//@ControllerAdvice
+@ControllerAdvice
 public class OrderController {
     
     @Autowired
@@ -57,14 +58,23 @@ public class OrderController {
     
     @PostMapping("/hotel/order-{roomId}")
     public String add(Model model,@ModelAttribute(value = "order") @Valid Orders o,
-           BindingResult result ) {
+           BindingResult result,@PathVariable(value = "roomId") int roomId ) {
         if (!result.hasErrors()) {
-           
+            o.setIdroom(this.hotelService.getRoombyId(roomId));
+           if(this.orderService.checkDate(o.getIdroom(), o.getCheckin(), o.getCheckout())==true)
+           {
             if (this.orderService.addOrUpdate(o) == true) {
                 return "redirect:/";
             }else{
                 model.addAttribute("errMsg", "Something wrong!");
             }
+           }
+           else
+           {
+               model.addAttribute("errMsg", "Đã có người đặt!");
+               return "redirect:/hotel/order-{roomId}";
+           }
+           
         }
 
         return "order";
