@@ -25,4 +25,6 @@ public interface HotelRepository {
     
     Room getRoombyId(int id);
     boolean addOrUpdate(Hotel hotel);
+    
+    List<Hotel> searchRate(int rate);
 }

@@ -14,6 +14,7 @@ import com.tt.repository.UserRepository;
 import com.tt.service.CommentService;
 import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 /**
@@ -31,26 +32,23 @@ public class CommentServiceImpl implements CommentService{
     private CommentRepository commentRepository;
 
     @Override
-    public Cmt addComment(String comment, int postId) {
+    public Cmt addComment(String comment, int postId, User creator) {
         Post p = this.postRepository.getPostbyId(postId);
-        User u = this.userRepository.getUserById(4);
-        
+               
         Cmt c = new Cmt();
         c.setComment(comment);
         c.setIdpost(p);
-        c.setIduser(u);
+        c.setIduser(creator);
         c.setCreatedDate(new Date());
         
         return this.commentRepository.addComment(c);
     }
 
     @Override
-    public boolean addOrUpdate(Cmt cmt) {
-        User u = this.userRepository.getUserById(4);
-        Post p = this.postRepository.getPostbyId(4);
-         cmt.setIdpost(p);
-        cmt.setIduser(u);
-        return this.commentRepository.addOrUpdate(cmt);
+    public long countCmt(int i) {
+        return this.commentRepository.countCmt(i);
     }
+
+   
     
 }

@@ -9,8 +9,10 @@ import com.tt.pojos.Cmt;
 import com.tt.pojos.Post;
 import com.tt.service.CommentService;
 import com.tt.service.PostService;
+import com.tt.service.UserService;
 import com.tt.validator.PostValidator;
 import com.tt.validator.WebAppValidator;
+import java.util.Map;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,6 +26,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  *
@@ -37,6 +40,8 @@ public class PostController {
     private PostService postService;
     @Autowired
     private CommentService commentService;
+    @Autowired
+    private UserService userService;
     
 //    @Autowired
 //    private WebAppValidator postValidator;
@@ -53,29 +58,17 @@ public class PostController {
     }
     
     @GetMapping("post/post-{postId}")
-    public String postDetail(Model model, @PathVariable(value = "postId") int id) {
+    public String postDetail(Model model, @PathVariable(value = "postId") int id,
+            @RequestParam(required = false) Map<String, String> params  ) {
+        int page = Integer.parseInt(params.getOrDefault("page", "1"));
         Post p = this.postService.getPostbyId(id);
         model.addAttribute("p", p);
-        model.addAttribute("post", this.postService.getComment(id));
-   
+        model.addAttribute("post", this.postService.getComment(id,page));
+        model.addAttribute("countCmt", this.commentService.countCmt(id));
+        
+//
+
         return "post-detail";
     }
-//    
-//    @PostMapping("post/post-{postId}")
-//    public String postDetail(Model model, 
-//            @ModelAttribute(value = "comment")Cmt cmt
-//            , BindingResult result
-//    ) {
-//
-//        if (!result.hasErrors()) {
-//
-//            if (this.commentService.addOrUpdate(cmt) == true) {
-//                return "redirect:/";
-//            } else {
-//                model.addAttribute("errMsg", "Something wrong!");
-//            }
-//        }
-//        
-//        return "post-detail";
-//    }
+
 }

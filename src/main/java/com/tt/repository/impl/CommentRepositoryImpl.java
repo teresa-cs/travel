@@ -10,6 +10,7 @@ import com.tt.repository.CommentRepository;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.stereotype.Repository;
@@ -39,16 +40,13 @@ public class CommentRepositoryImpl implements CommentRepository {
     }
 
     @Override
-    public boolean addOrUpdate(Cmt cmt) {
+    public long countCmt(int i) {
         Session session = this.sessionFactory.getObject().getCurrentSession();
-        try {
-            session.save(cmt);
-            return true;
-        } catch (Exception ex) {
-            System.err.println("=== ADD COMMENT EER ===" + ex.getMessage());
-            ex.printStackTrace();
-        }
-        return false;
+        Query q = session.createQuery("Select Count(*) From Cmt WHERE idpost.id = :id");
+        q.setParameter("id", i);
+        return Long.parseLong(q.getSingleResult().toString());
     }
+
+   
 
 }

@@ -13,5 +13,6 @@ import com.tt.pojos.Cmt;
  */
 public interface CommentRepository {
     Cmt addComment(Cmt c);
-    boolean addOrUpdate(Cmt cmt);
+    long countCmt(int postId);
+    
 }

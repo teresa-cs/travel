@@ -6,10 +6,12 @@
 package com.tt.controllers;
 
 import com.tt.pojos.Cmt;
+import com.tt.pojos.User;
 import com.tt.service.CommentService;
 import com.tt.validator.CommentValidator;
 import com.tt.validator.WebAppValidator;
 import java.util.Map;
+import javax.servlet.http.HttpSession;
 import javax.validation.*;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,17 +47,19 @@ public class ApiCommentController {
 
     @PostMapping(path = "/api/add-comment", produces = {
         MediaType.APPLICATION_JSON_VALUE })
-    public ResponseEntity<Cmt> addComment( @RequestBody Map<String, String> params) {
-        try {
-            String comment = params.get("comment" );
-            int idpost = Integer.parseInt(params.get("postId"));
-            
-            Cmt c = this.commentService.addComment(comment, idpost);
-            
-            return new ResponseEntity<>(c, HttpStatus.CREATED);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+    public ResponseEntity<Cmt> addComment( @RequestBody Map<String, String> params,HttpSession session) {
+        User u= (User) session.getAttribute("currentUser");
+        if(u != null)
+            try {
+                String comment = params.get("comment" );
+                int idpost = Integer.parseInt(params.get("postId"));
+
+                Cmt c = this.commentService.addComment(comment, idpost ,u);
+
+                return new ResponseEntity<>(c, HttpStatus.CREATED);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
         
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
   

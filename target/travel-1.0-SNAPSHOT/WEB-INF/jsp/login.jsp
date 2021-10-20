@@ -32,11 +32,8 @@
                                 <span data-id="#ff0066"><a href="<c:url value="/register"/>" >Register now</a></span>
                             </p>
                         </div>
-                            <c:if test="${param.error != null}">
-                            <div class="alert alert-danger">
-                                Da co loi xay ra!
-                            </div>
-                        </c:if>
+                               
+                       
                         <form action="${action}" method="post">
                             <div class="form-control">
                                 <h2>Login</h2>
@@ -47,6 +44,17 @@
                                         <!-- <img src="template/images/eye.svg" alt="" /> -->
                                     </div>
                                 </div>
+                                <c:if test="${param.error != null}">
+                                    <div class="alert alert-danger">
+                                        Da co loi xay ra!
+                                    </div>
+                                </c:if>
+                                <c:if test="${param.accessDenied != null}">
+                                    <div class="alert alert-danger">
+                                        Bạn không có quyền truy cập!
+                                    </div>
+                                </c:if>
+                                
                                 <input type="Submit" value="Login" />
                             </div>
                             <div class="form-control">

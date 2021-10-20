@@ -20,4 +20,5 @@ public interface HotelService {
     List<Room> getRooms(int id);
     Room getRoombyId(int id);
     boolean addOrUpdate(Hotel hotel);
+    List<Hotel> searchRate(int rate);
 }

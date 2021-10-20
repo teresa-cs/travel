@@ -7,6 +7,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
+
 <%--<c:url value="/post/post-${p.id}" var="action" />--%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE HTML>
@@ -40,6 +41,7 @@
         <link rel="stylesheet" href="../template/css/icomoon.css">
         <!-- Bootstrap  -->
         <link rel="stylesheet" href="../template/css/bootstrap.css">
+
 
         <!-- Magnific Popup -->
         <link rel="stylesheet" href="../template/css/magnific-popup.css">
@@ -100,9 +102,15 @@
                                     <li class="active"><a href="about.html">About</a></li>
                                     <li><a href="contact.html">Contact</a></li>
                                      <c:if test="${pageContext.request.userPrincipal.name == null}">
-                                <a href="login">Log in</a>
+                                <a href="<c:url value="/login"/>">Log in</a>
                             </c:if>
                             <li class="has-dropdown">
+                                <c:if test="${currentUser.avt != null}">
+                                        <img src="${currentUser.avt}" class="rounded-circle" style="width:30px;height:25px"/>
+                                    </c:if>
+                                    <c:if test="${currentUser.avt == null}">
+                                        <i class="fa fa-user" aria-hidden="true"></i>
+                                    </c:if>
                                 <a href="<c:url value="/"/>">${pageContext.request.userPrincipal.name}</a>
                                 <ul class="dropdown">
                                     <c:if test="${pageContext.request.userPrincipal.name != null}">
@@ -193,16 +201,28 @@
                                 
                                 <div class="col-md-12 animate-box fadeInUp animated-fast">
                                     <a href="blog.html" class="blog-post">
-                                        <span class="img" style="background-image: url(../template/images/blog-4.jpg);"></span>
+                                        <c:if test="${c.iduser.avt != null}">
+                                            <span class="img" style="background-image: url(${c.iduser.avt});"></span></c:if>
+                                            <c:if test="${c.iduser.avt == null}">
+                                            <span class="img" style="background-image: url(../template/images/cover-img-5.jpg);"></span></c:if>
                                         <div class="desc my-date">
                                             <i style="color:black" > <span>${c.createdDate}</span></i>
                                             <h3>${c.comment}</h3>
-                                            <span class="cat">Activities</span>
+                                            <span class="cat">${c.iduser.username}</span>
                                         </div>
                                     </a>
                                 </div>                                
                             </div>
-                                </c:forEach>           
+                                </c:forEach>      
+                                <div class="row">
+                                <div class="col-md-12 text-center">
+                                    <ul class="pagination">
+                                        <c:forEach begin="1" end="${Math.ceil(countCmt/4)}" var="i">   
+                                            <li class="active"><a class="page-link" href="<c:url value="/post/post-${p.id}"/>?page=${i}">${i}</a></li>                                            
+                                            </c:forEach>
+                                    </ul>
+                                </div>
+                            </div>
                             </div>
                         </div>
                     </div>

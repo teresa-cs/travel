@@ -34,8 +34,8 @@ public class PostServiceImpl implements PostService{
     }
 
     @Override
-    public List<Cmt> getComment(int id) {
-        return this.postRepository.getComment(id);
+    public List<Cmt> getComment(int id,int page) {
+        return this.postRepository.getComment(id, page);
     }
     
 }

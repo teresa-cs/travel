@@ -96,6 +96,14 @@ public class HotelRepositoryImpl implements HotelRepository{
         return false;
     }
 
+    @Override
+    public List<Hotel> searchRate(int rate) {
+         Session session = this.sessionFactory.getObject().getCurrentSession();
+        Query q = session.createQuery("SELECT h FROM Hotel h WHERE h.rate = :rate");
+        q.setParameter("rate", String.valueOf(rate));
+        return q.getResultList();
+    }
+
     
     
    

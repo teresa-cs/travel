@@ -11,6 +11,7 @@ import com.tt.repository.PostRepository;
 import java.util.List;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
@@ -50,10 +51,19 @@ public class PostRepositoryImpl implements PostRepository{
     }
 
     @Override
-    public List<Cmt> getComment(int id) {
-       Session  session = this.sessionFactory.getObject().getCurrentSession();
-       Query q = session.createQuery("SELECT c FROM Cmt c WHERE c.idpost = :id");
-        q.setParameter("id", getPostbyId(id));
+    public List<Cmt> getComment(int id, int page) {      
+        Session session = this.sessionFactory.getObject().getCurrentSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<Cmt> query = builder.createQuery(Cmt.class);
+        Root root = query.from(Cmt.class);
+        
+        query = query.where(builder.equal(root.get("idpost"), id));
+        query= query.orderBy(builder.desc(root.get("id")));
+        
+        Query q = session.createQuery(query);
+        int max= 4;
+        q.setMaxResults(max);
+        q.setFirstResult((page - 1) * max);
         return q.getResultList();
        
     }

@@ -22,6 +22,7 @@ com\tt\configs\HibernateConfig.class
 com\tt\pojos\Customer.class
 com\tt\pojos\Role_.class
 com\tt\validator\PostValidator.class
+com\tt\controllers\ApiSearchHotel.class
 com\tt\pojos\Tour_.class
 com\tt\repository\HotelRepository.class
 com\tt\repository\impl\TourRepositoryImpl.class
@@ -41,6 +42,7 @@ com\tt\configs\SpringSecurityConfig.class
 com\tt\repository\RoleRepository.class
 com\tt\pojos\Employee.class
 com\tt\pojos\User.class
+com\tt\configs\handlers\LoginSuccessHandler.class
 com\tt\service\impl\PostServiceImpl.class
 com\tt\validator\CommentValidator.class
 com\tt\pojos\Place.class

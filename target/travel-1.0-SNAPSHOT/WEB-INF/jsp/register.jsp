@@ -35,12 +35,13 @@
                       ${errMsg}
                   </div>
                   </c:if>
-                  <form:form  method="post" action="${action}" modelAttribute="user">
+                  <form:form  method="post" action="${action}" modelAttribute="user" enctype="multipart/form-data">
                 <div class="form-control">
                   <h2>Register</h2>
                     <form:input path="username" type="text" placeholder="Username"/>
                     <form:input path="password" type="password" placeholder="Password"/>
                     <form:input path="confirmPassword" type="password" placeholder="Confirm password"/>
+                    <form:input path="file" type="file" placeholder="Choose avatar" />
                   <input type="Submit" value="Register">
                 </div>
               

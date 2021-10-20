@@ -80,4 +80,9 @@ public class HotelServiceImpl implements HotelService{
         return false;
     }
 
+    @Override
+    public List<Hotel> searchRate(int rate) {
+        return this.hotelRepository.searchRate(rate);
+    }
+
 }

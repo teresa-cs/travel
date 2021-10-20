@@ -5,6 +5,7 @@
  */
 package com.tt.pojos;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
@@ -64,6 +65,7 @@ public class Hotel implements Serializable {
     @Column(name = "avt")
     private String avt;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idhotel")
+    @JsonIgnore
     private Collection<Room> roomCollection;
     
     @Transient

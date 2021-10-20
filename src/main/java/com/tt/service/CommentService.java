@@ -6,12 +6,13 @@
 package com.tt.service;
 
 import com.tt.pojos.Cmt;
+import com.tt.pojos.User;
 
 /**
  *
  * @author anhtu
  */
 public interface CommentService {
-    Cmt addComment(String content, int postId);
-    boolean addOrUpdate(Cmt cmt);
+    Cmt addComment(String content, int postId, User user);
+    long countCmt(int postId);
 }

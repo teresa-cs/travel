@@ -57,7 +57,6 @@ public class Cmt implements Serializable {
     private Post idpost;
     @JoinColumn(name = "iduser", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    @JsonIgnore
     private User iduser;
 
     public Cmt() {

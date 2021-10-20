@@ -16,5 +16,5 @@ import java.util.List;
 public interface PostRepository {
     List<Post> getPost();
     Post getPostbyId(int id);
-    List<Cmt> getComment(int id);
+    List<Cmt> getComment(int id, int page);
 }

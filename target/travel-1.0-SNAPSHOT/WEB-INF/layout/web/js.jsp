@@ -21,3 +21,4 @@
 <script src="template/js/jquery.stellar.min.js"></script>
 <!-- Main -->
 <script src="template/js/main.js"></script>
+<script src="template/js/mainn.js"></script>
