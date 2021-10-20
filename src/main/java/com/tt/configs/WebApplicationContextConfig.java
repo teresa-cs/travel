@@ -5,17 +5,6 @@
  */
 package com.tt.configs;
 
-import com.cloudinary.Cloudinary;
-import com.cloudinary.utils.ObjectUtils;
-import com.tt.validator.CommentValidator;
-import com.tt.validator.HotelValidator;
-import com.tt.validator.OrderValidator;
-import com.tt.validator.PostValidator;
-import com.tt.validator.RoomValidator;
-import com.tt.validator.TourNameValidator;
-import com.tt.validator.WebAppValidator;
-import java.util.HashSet;
-import java.util.Set;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -83,61 +72,6 @@ public class WebApplicationContextConfig implements WebMvcConfigurer {
     public Validator getValidator() {
         return validator();
     }
-
-    @Bean
-    public WebAppValidator tourValidator() {
-        Set<Validator> springValidators = new HashSet<>();
-        springValidators.add(new TourNameValidator());
-        WebAppValidator v = new WebAppValidator();
-        v.setSpringValidator(springValidators);
-        return v;
-    }
-    
-    @Bean
-    public WebAppValidator hotelValidator() {
-        Set<Validator> springValidators = new HashSet<>();
-        springValidators.add(new HotelValidator());
-        WebAppValidator v = new WebAppValidator();
-        v.setSpringValidator(springValidators);
-        return v;
-    }
-    
-    @Bean
-    public WebAppValidator roomValidator() {
-        Set<Validator> springValidators = new HashSet<>();
-        springValidators.add(new RoomValidator());
-        WebAppValidator v = new WebAppValidator();
-        v.setSpringValidator(springValidators);
-        return v;
-    }
-    
-    @Bean
-    public WebAppValidator orderValidator() {
-        Set<Validator> springValidators = new HashSet<>();
-        springValidators.add(new OrderValidator());
-        WebAppValidator v = new WebAppValidator();
-        v.setSpringValidator(springValidators);
-        return v;
-    }
-    
-//    @Bean
-//    public WebAppValidator commentValidator() {
-//        Set<Validator> springValidators = new HashSet<>();
-//        springValidators.add(new CommentValidator());
-//        WebAppValidator v = new WebAppValidator();
-//        v.setSpringValidator(springValidators);
-//        return v;
-//    }
-    
-    @Bean
-    public WebAppValidator postValidator() {
-        Set<Validator> springValidators = new HashSet<>();
-        springValidators.add(new PostValidator());
-        WebAppValidator v = new WebAppValidator();
-        v.setSpringValidator(springValidators);
-        return v;
-    }
-
 
 
     @Bean

@@ -44,9 +44,7 @@
                                 </ul>
                                         </c:if>
                             </li>
-                            <sec:authorize access="hasRole('6')">
-                            <li><a href="<c:url value="/admin"/>">Admin</a></li>
-                            </sec:authorize>
+                          
 
                         </ul>
                     </div>

@@ -11,8 +11,7 @@ import com.tt.pojos.Place;
 import com.tt.pojos.Tour;
 import com.tt.pojos.TourDetail;
 import com.tt.service.TourService;
-import com.tt.validator.TourNameValidator;
-import com.tt.validator.WebAppValidator;
+
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;

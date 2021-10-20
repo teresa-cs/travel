@@ -5,10 +5,7 @@
  */
 package com.tt.validator;
 
-import com.tt.pojos.Post;
-import java.util.Set;
-import javax.validation.ConstraintViolation;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.tt.pojos.Discount;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
@@ -18,15 +15,20 @@ import org.springframework.validation.Validator;
  * @author anhtu
  */
 @Component
-public class PostValidator implements Validator{
-    
+public class DiscountValidator implements Validator{
+
     @Override
     public boolean supports(Class<?> clazz) {
-        return Post.class.isAssignableFrom(clazz);
+        return Discount.class.isAssignableFrom(clazz);
     }
 
     @Override
-    public void validate(Object target, Errors err) {
-        Post t = (Post) target;
+    public void validate(Object obj, Errors err) {
+        Discount d = (Discount) obj;
+        if(d.getPercentPromotion() > 100 || d.getPercentPromotion() < 0){
+            err.rejectValue("percentPromotion", "discount.err.size");
+        }
     }
+    
+    
 }

@@ -9,7 +9,6 @@ import com.tt.pojos.Hotel;
 import com.tt.pojos.Orders;
 import com.tt.pojos.Room;
 import com.tt.repository.HotelRepository;
-import com.tt.validator.WebAppValidator;
 import java.util.List;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;

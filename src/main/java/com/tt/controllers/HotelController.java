@@ -9,8 +9,7 @@ import com.tt.pojos.Hotel;
 import com.tt.pojos.Room;
 import com.tt.pojos.Tour;
 import com.tt.service.HotelService;
-import com.tt.validator.HotelValidator;
-import com.tt.validator.WebAppValidator;
+
 import java.util.Map;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

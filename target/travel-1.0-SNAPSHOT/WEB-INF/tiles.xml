@@ -107,5 +107,9 @@
         <put-attribute name="title" value="AddCmt" />  
         <put-attribute name="content" value="/WEB-INF/jsp/admin/addcomment.jsp" />
     </definition>
+    <definition name="discount" extends="admin">
+        <put-attribute name="title" value="Discount"/>
+        <put-attribute name="content" value="/WEB-INF/jsp/admin/discount.jsp" />
+    </definition>
 
 </tiles-definitions>

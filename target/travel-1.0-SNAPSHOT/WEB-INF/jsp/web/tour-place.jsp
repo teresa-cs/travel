@@ -63,7 +63,12 @@
         <script src="../template/js/modernizr-2.6.2.min.js"></script>
         <!-- FOR IE9 below -->
 
-
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+            integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+            crossorigin="anonymous"
+            />
     </head>
     <body>
 
@@ -79,7 +84,7 @@
                             </div>
                             <div class="col-xs-10 text-right menu-1">
                                 <ul>
-                                    <li><a href="<c:url value="/"/>">Home</a></li>
+                                    <li><a href="index">Home</a></li>
                                     <li class="has-dropdown active">
                                         <a href="tour">Tours</a>
                                         <ul class="dropdown">
@@ -89,20 +94,11 @@
                                             <li><a href="#">Booking</a></li>
                                         </ul>
                                     </li>
-                                    <li><a href="<c:url value="/hotel"/>">Hotels</a></li>
+                                    <li><a href="hotels.html">Hotels</a></li>
                                     <li><a href="services.html">Services</a></li>
-                                    <li><a href="<c:url value="/post"/>">Blog</a></li>
+                                    <li><a href="blog.html">Blog</a></li>
                                     <li><a href="about.html">About</a></li>
-                                     <c:if test="${pageContext.request.userPrincipal.name == null}">
-                                <a href="login">Log in</a>
-                            </c:if>
-                            <li class="has-dropdown">
-                                <a href="<c:url value="/"/>">${pageContext.request.userPrincipal.name}</a>
-                                <ul class="dropdown">
-                                    <c:if test="${pageContext.request.userPrincipal.name != null}">
-                                        <li><a href="<c:url value="/logout"/>"> Logout</a></li></c:if>
-                                </ul>
-                            </li>
+                                    <li><a href="login">Login</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -132,423 +128,345 @@
             <div class="colorlib-wrap">
                 <div class="container">
                     <div class="row">
-                        <div class="col-md-9">
+                        <div class="col-md-8">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <div class="wrap-division">
+                                    <div class="wrap-division" id="alo">
                                         <div class="col-md-12 col-md-offset-0 heading2 animate-box">
                                             <h2>${tour.name}</h2>
                                         </div>
-                                            <div class="row">
-                                                <c:set var="day" value= "${0}"></c:set>
+                                        <div class="row">
+                                            <c:set var="day" value= "${0}"></c:set>
 
-                                                <c:forEach var="t" items="${tourdetail}" >
+                                            <c:forEach var="t" items="${tourdetail}" >
 
-                                                    <div class="col-md-12 animate-box">
-                                                        <div class="room-wrap">
-                                                            <div class="row">
-                                                                <div class="col-md-6 col-sm-6">
-                                                                    <div class="room-img" style="background-image: url(${t.image});"></div>
-                                                                </div>
-                                                                <div class="col-md-6 col-sm-6">
-                                                                    <div class="desc">
-                                                                        <c:if test="${day>day-1}">
-                                                                            <c:set var="day" value="${day+1}"></c:set>
-                                                                            <span class="day-tour">Day ${day}</span></c:if>
-                                                                        <h2>${t.name}</h2>
-                                                                        <p>${t.description}</p>
-                                                                    </div>
-                                                                </div>      
+                                                <div class="col-md-12 animate-box">
+                                                    <div class="room-wrap">
+                                                        <div class="row">
+                                                            <div class="col-md-6 col-sm-6">
+                                                                <div class="room-img" style="background-image: url(${t.image});"></div>
                                                             </div>
-                                                        </div>
-                                                    </div>
-
-                                                </c:forEach>
-
-
-
-
-                                                <div class="col-md-12 animate-box text-center">
-                                                    <p><a href="#" class="btn btn-primary">Book Now!</a></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- SIDEBAR-->
-                            <div class="col-md-3">
-                                <div class="sidebar-wrap">
-                                    <div class="side search-wrap animate-box">
-                                        <h3 class="sidebar-heading">Find your hotel</h3>
-                                        <form method="post" class="colorlib-form">
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <label for="date">Check-in:</label>
-                                                        <div class="form-field">
-                                                            <i class="icon icon-calendar2"></i>
-                                                            <input type="text" id="date" class="form-control date" placeholder="Check-in date">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <label for="date">Check-out:</label>
-                                                        <div class="form-field">
-                                                            <i class="icon icon-calendar2"></i>
-                                                            <input type="text" id="date" class="form-control date" placeholder="Check-out date">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <label for="guests">Guest</label>
-                                                        <div class="form-field">
-                                                            <i class="icon icon-arrow-down3"></i>
-                                                            <select name="people" id="people" class="form-control">
-                                                                <option value="#">1</option>
-                                                                <option value="#">2</option>
-                                                                <option value="#">3</option>
-                                                                <option value="#">4</option>
-                                                                <option value="#">5+</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-12">
-                                                    <input type="submit" name="submit" id="submit" value="Find Hotel" class="btn btn-primary btn-block">
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <div class="side animate-box">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <h3 class="sidebar-heading">Price Range</h3>
-                                                <form method="post" class="colorlib-form-2">
-                                                    <div class="row">
-                                                        <div class="col-md-6">
-                                                            <div class="form-group">
-                                                                <label for="guests">Price from:</label>
-                                                                <div class="form-field">
-                                                                    <i class="icon icon-arrow-down3"></i>
-                                                                    <select name="people" id="people" class="form-control">
-                                                                        <option value="#">1</option>
-                                                                        <option value="#">200</option>
-                                                                        <option value="#">300</option>
-                                                                        <option value="#">400</option>
-                                                                        <option value="#">1000</option>
-                                                                    </select>
+                                                            <div class="col-md-6 col-sm-6">
+                                                                <div class="desc">
+                                                                    <c:if test="${day>day-1}">
+                                                                        <c:set var="day" value="${day+1}"></c:set>
+                                                                        <span class="day-tour">Day ${day}</span></c:if>
+                                                                    <h2>${t.name}</h2>
+                                                                    <p>${t.description}</p>
                                                                 </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <div class="form-group">
-                                                                <label for="guests">Price to:</label>
-                                                                <div class="form-field">
-                                                                    <i class="icon icon-arrow-down3"></i>
-                                                                    <select name="people" id="people" class="form-control">
-                                                                        <option value="#">2000</option>
-                                                                        <option value="#">4000</option>
-                                                                        <option value="#">6000</option>
-                                                                        <option value="#">8000</option>
-                                                                        <option value="#">10000</option>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
+                                                            </div>      
                                                         </div>
                                                     </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="side animate-box">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <h3 class="sidebar-heading">Review Rating</h3>
-                                                <form method="post" class="colorlib-form-2">
-                                                    <div class="form-check">
-                                                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                                        <label class="form-check-label" for="exampleCheck1">
-                                                            <p class="rate"><span><i class="icon-star-full"></i><i class="icon-star-full"></i><i class="icon-star-full"></i><i class="icon-star-full"></i><i class="icon-star-full"></i></span></p>
-                                                        </label>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                                        <label class="form-check-label" for="exampleCheck1">
-                                                            <p class="rate"><span><i class="icon-star-full"></i><i class="icon-star-full"></i><i class="icon-star-full"></i><i class="icon-star-full"></i></span></p>
-                                                        </label>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                                        <label class="form-check-label" for="exampleCheck1">
-                                                            <p class="rate"><span><i class="icon-star-full"></i><i class="icon-star-full"></i><i class="icon-star-full"></i></span></p>
-                                                        </label>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                                        <label class="form-check-label" for="exampleCheck1">
-                                                            <p class="rate"><span><i class="icon-star-full"></i><i class="icon-star-full"></i></span></p>
-                                                        </label>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                                        <label class="form-check-label" for="exampleCheck1">
-                                                            <p class="rate"><span><i class="icon-star-full"></i></span></p>
-                                                        </label>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="side animate-box">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <h3 class="sidebar-heading">Categories</h3>
-                                                <form method="post" class="colorlib-form-2">
-                                                    <div class="form-check">
-                                                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                                        <label class="form-check-label" for="exampleCheck1">
-                                                            <h4 class="place">Apartment</h4>
-                                                        </label>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                                        <label class="form-check-label" for="exampleCheck1">
-                                                            <h4 class="place">Hotel</h4>
-                                                        </label>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                                        <label class="form-check-label" for="exampleCheck1">
-                                                            <h4 class="place">Hostel</h4>
-                                                        </label>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                                        <label class="form-check-label" for="exampleCheck1">
-                                                            <h4 class="place">Inn</h4>
-                                                        </label>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                                        <label class="form-check-label" for="exampleCheck1">
-                                                            <h4 class="place">Villa</h4>
-                                                        </label>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="side animate-box">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <h3 class="sidebar-heading">Location</h3>
-                                                <form method="post" class="colorlib-form-2">
-                                                    <div class="form-check">
-                                                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                                        <label class="form-check-label" for="exampleCheck1">
-                                                            <h4 class="place">Greece</h4>
-                                                        </label>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                                        <label class="form-check-label" for="exampleCheck1">
-                                                            <h4 class="place">Italy</h4>
-                                                        </label>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                                        <label class="form-check-label" for="exampleCheck1">
-                                                            <h4 class="place">Spain</h4>
-                                                        </label>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                                        <label class="form-check-label" for="exampleCheck1">
-                                                            <h4 class="place">Germany</h4>
-                                                        </label>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                                        <label class="form-check-label" for="exampleCheck1">
-                                                            <h4 class="place">Japan</h4>
-                                                        </label>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="side animate-box">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <h3 class="sidebar-heading">Facilities</h3>
-                                                <form method="post" class="colorlib-form-2">
-                                                    <div class="form-check">
-                                                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                                        <label class="form-check-label" for="exampleCheck1">
-                                                            <h4 class="place">Airport Transfer</h4>
-                                                        </label>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                                        <label class="form-check-label" for="exampleCheck1">
-                                                            <h4 class="place">Resto Bar</h4>
-                                                        </label>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                                        <label class="form-check-label" for="exampleCheck1">
-                                                            <h4 class="place">Restaurant</h4>
-                                                        </label>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                                        <label class="form-check-label" for="exampleCheck1">
-                                                            <h4 class="place">Swimming Pool</h4>
-                                                        </label>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                                        <label class="form-check-label" for="exampleCheck1">
-                                                            <h4 class="place">Japan</h4>
-                                                        </label>
-                                                    </div>
-                                                </form>
-                                            </div>
+                                                </div>
+
+                                            </c:forEach>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
 
-
-                <div id="colorlib-subscribe" style="background-image: url(../template/images/img_bg_2.jpg);" data-stellar-background-ratio="0.5">
-                    <div class="overlay"></div>
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-6 col-md-offset-3 text-center colorlib-heading animate-box">
-                                <h2>Sign Up for a Newsletter</h2>
-                                <p>Sign up for our mailing list to get latest updates and offers.</p>
-                                <form class="form-inline qbstp-header-subscribe">
-                                    <div class="row">
-                                        <div class="col-md-12 col-md-offset-0">
-                                            <div class="form-group">
-                                                <input type="text" class="form-control" id="email" placeholder="Enter your email">
-                                                <button type="submit" class="btn btn-primary">Subscribe</button>
+                        <!-- SIDEBAR-->
+                        <div class="col-md-4">
+                            <div class="sidebar-wrap">
+                                <div class="side search-wrap animate-box">
+                                    <h3 class="sidebar-heading">Book now</h3>
+                                    <form method="post" class="colorlib-form">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label for="date">Full name</label>
+                                                    <div class="form-field">
+                                                        <input type="text"  class="form-control" placeholder="Full name">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label for="date">Email</label>
+                                                    <div class="form-field">
+                                                        <input type="email" class="form-control" placeholder="Email">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label for="date">Phone</label>
+                                                    <div class="form-field">
+                                                        <input type="text" class="form-control" placeholder="Phone">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">		
+                                                <div class="row">	
+                                                    <div class="col-md-6">						
+                                                        <label>Adult </label>						
+                                                        <div class="form-field text-center" style="color: white;">			
+                                                            <i class="fas fa-minus-circle" id="minus-adult"></i>
+                                                            <span id="adult-ticket">1</span>
+                                                            <i class="fas fa-plus-circle" id="plus-adult"></i>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">						
+                                                        <label>Children </label>						
+                                                        <div class="form-field text-center" style="color: white;">			
+                                                            <i class="fas fa-minus-circle" id="minus-children"></i>
+                                                            <span id="children-ticket">0</span>
+                                                            <i class="fas fa-plus-circle" id="plus-children"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>									
+                                            </div>
+                                            <div class="col-md-12">		
+                                                <div class="row">	
+                                                    <div class="col-md-6">						
+                                                        <div class="form-group">
+                                                            <label for="date">Discount</label>
+                                                            <div class="form-field">
+                                                                <input type="text" id="percentPromotion" class="form-control" placeholder="Discount" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">											
+                                                        <a class="btn btn-success btn-block" id="bt-code">Apply</a>
+                                                    </div>										
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <i style="color: red;" id="notifi-code"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <table class="col-md-12" style="margin-top: 10px">
+                                                    <tr>
+                                                        <td style="color: white;">Price</td>
+                                                        <td class="text-right" style="color: white;" id="price">0</td>
+                                                    </tr>
+                                                </table>																		
+                                            </div>
+                                            <div class="col-md-12">
+                                                <input type="submit" name="submit" id="submit" value="Book now" class="btn btn-primary btn-block">
                                             </div>
                                         </div>
-                                    </div>
-                                </form>
+                                    </form>
+                                </div>
+
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <footer id="colorlib-footer" role="contentinfo">
-                    <div class="container">
-                        <div class="row row-pb-md">
-                            <div class="col-md-3 colorlib-widget">
-                                <h4>Tour Agency</h4>
-                                <p>Facilis ipsum reprehenderit nemo molestias. Aut cum mollitia reprehenderit. Eos cumque dicta adipisci architecto culpa amet.</p>
-                                <p>
-                                <ul class="colorlib-social-icons">
-                                    <li><a href="#"><i class="icon-twitter"></i></a></li>
-                                    <li><a href="#"><i class="icon-facebook"></i></a></li>
-                                    <li><a href="#"><i class="icon-linkedin"></i></a></li>
-                                    <li><a href="#"><i class="icon-dribbble"></i></a></li>
-                                </ul>
-                                </p>
-                            </div>
-                            <div class="col-md-2 colorlib-widget">
-                                <h4>Book Now</h4>
-                                <p>
-                                <ul class="colorlib-footer-links">
-                                    <li><a href="#">Flight</a></li>
-                                    <li><a href="#">Hotels</a></li>
-                                    <li><a href="#">Tour</a></li>
-                                    <li><a href="#">Car Rent</a></li>
-                                    <li><a href="#">Beach &amp; Resorts</a></li>
-                                    <li><a href="#">Cruises</a></li>
-                                </ul>
-                                </p>
-                            </div>
-                            <div class="col-md-2 colorlib-widget">
-                                <h4>Top Deals</h4>
-                                <p>
-                                <ul class="colorlib-footer-links">
-                                    <li><a href="#">Edina Hotel</a></li>
-                                    <li><a href="#">Quality Suites</a></li>
-                                    <li><a href="#">The Hotel Zephyr</a></li>
-                                    <li><a href="#">Da Vinci Villa</a></li>
-                                    <li><a href="#">Hotel Epikk</a></li>
-                                </ul>
-                                </p>
-                            </div>
-                            <div class="col-md-2">
-                                <h4>Blog Post</h4>
-                                <ul class="colorlib-footer-links">
-                                    <li><a href="#">The Ultimate Packing List For Female Travelers</a></li>
-                                    <li><a href="#">How These 5 People Found The Path to Their Dream Trip</a></li>
-                                    <li><a href="#">A Definitive Guide to the Best Dining and Drinking Venues in the City</a></li>
-                                </ul>
-                            </div>
 
-                            <div class="col-md-3 col-md-push-1">
-                                <h4>Contact Information</h4>
-                                <ul class="colorlib-footer-links">
-                                    <li>291 South 21th Street, <br> Suite 721 New York NY 10016</li>
-                                    <li><a href="tel://1234567920">+ 1235 2355 98</a></li>
-                                    <li><a href="mailto:info@yoursite.com">info@yoursite.com</a></li>
-                                    <li><a href="#">yoursite.com</a></li>
-                                </ul>
-                            </div>
+
+            <footer id="colorlib-footer" role="contentinfo">
+                <div class="container">
+                    <div class="row row-pb-md">
+                        <div class="col-md-3 colorlib-widget">
+                            <h4>Tour Agency</h4>
+                            <p>Facilis ipsum reprehenderit nemo molestias. Aut cum mollitia reprehenderit. Eos cumque dicta adipisci architecto culpa amet.</p>
+                            <p>
+                            <ul class="colorlib-social-icons">
+                                <li><a href="#"><i class="icon-twitter"></i></a></li>
+                                <li><a href="#"><i class="icon-facebook"></i></a></li>
+                                <li><a href="#"><i class="icon-linkedin"></i></a></li>
+                                <li><a href="#"><i class="icon-dribbble"></i></a></li>
+                            </ul>
+                            </p>
                         </div>
-                        <div class="row">
-                            <div class="col-md-12 text-center">
-                                <p>
-                                    <!-- Link back to Colorlib can't be removed. ../Template is licensed under CC BY 3.0. -->
-                                    Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This ../template is Brought To You By <i class="icon-heart2" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Code-Projects.Org</a>
-                                    <!-- Link back to Colorlib can't be removed. ../Template is licensed under CC BY 3.0. --></span> 
-                                    <span class="block">Demo Images: <a href="http://unsplash.co/" target="_blank">Unsplash</a> , <a href="http://pexels.com/" target="_blank">Pexels.com</a></span>
-                                </p>
-                            </div>
+                        <div class="col-md-2 colorlib-widget">
+                            <h4>Book Now</h4>
+                            <p>
+                            <ul class="colorlib-footer-links">
+                                <li><a href="#">Flight</a></li>
+                                <li><a href="#">Hotels</a></li>
+                                <li><a href="#">Tour</a></li>
+                                <li><a href="#">Car Rent</a></li>
+                                <li><a href="#">Beach &amp; Resorts</a></li>
+                                <li><a href="#">Cruises</a></li>
+                            </ul>
+                            </p>
+                        </div>
+                        <div class="col-md-2 colorlib-widget">
+                            <h4>Top Deals</h4>
+                            <p>
+                            <ul class="colorlib-footer-links">
+                                <li><a href="#">Edina Hotel</a></li>
+                                <li><a href="#">Quality Suites</a></li>
+                                <li><a href="#">The Hotel Zephyr</a></li>
+                                <li><a href="#">Da Vinci Villa</a></li>
+                                <li><a href="#">Hotel Epikk</a></li>
+                            </ul>
+                            </p>
+                        </div>
+                        <div class="col-md-2">
+                            <h4>Blog Post</h4>
+                            <ul class="colorlib-footer-links">
+                                <li><a href="#">The Ultimate Packing List For Female Travelers</a></li>
+                                <li><a href="#">How These 5 People Found The Path to Their Dream Trip</a></li>
+                                <li><a href="#">A Definitive Guide to the Best Dining and Drinking Venues in the City</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="col-md-3 col-md-push-1">
+                            <h4>Contact Information</h4>
+                            <ul class="colorlib-footer-links">
+                                <li>291 South 21th Street, <br> Suite 721 New York NY 10016</li>
+                                <li><a href="tel://1234567920">+ 1235 2355 98</a></li>
+                                <li><a href="mailto:info@yoursite.com">info@yoursite.com</a></li>
+                                <li><a href="#">yoursite.com</a></li>
+                            </ul>
                         </div>
                     </div>
-                </footer>
-            </div>
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <p>
+                                <!-- Link back to Colorlib can't be removed. ../Template is licensed under CC BY 3.0. -->
+                                Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This ../template is Brought To You By <i class="icon-heart2" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Code-Projects.Org</a>
+                                <!-- Link back to Colorlib can't be removed. ../Template is licensed under CC BY 3.0. --></span> 
+                                <span class="block">Demo Images: <a href="http://unsplash.co/" target="_blank">Unsplash</a> , <a href="http://pexels.com/" target="_blank">Pexels.com</a></span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
 
-            <div class="gototop js-top">
-                <a href="#" class="js-gotop"><i class="icon-arrow-up2"></i></a>
-            </div>
+        <div class="gototop js-top">
+            <a href="#" class="js-gotop"><i class="icon-arrow-up2"></i></a>
+        </div>
 
-            <!-- jQuery -->
-            <script src="../template/js/jquery.min.js"></script>
-            <!-- jQuery Easing -->
-            <script src="../template/js/jquery.easing.1.3.js"></script>
-            <!-- Bootstrap -->
-            <script src="../template/js/bootstrap.min.js"></script>
-            <!-- Waypoints -->
-            <script src="../template/js/jquery.waypoints.min.js"></script>
-            <!-- Flexslider -->
-            <script src="../template/js/jquery.flexslider-min.js"></script>
-            <!-- Owl carousel -->
-            <script src="../template/js/owl.carousel.min.js"></script>
-            <!-- Magnific Popup -->
-            <script src="../template/js/jquery.magnific-popup.min.js"></script>
-            <script src="../template/js/magnific-popup-options.js"></script>
-            <!-- Date Picker -->
-            <script src="../template/js/bootstrap-datepicker.js"></script>
-            <!-- Stellar Parallax -->
-            <script src="../template/js/jquery.stellar.min.js"></script>
 
-            <!-- Main -->
-            <script src="../template/js/main.js"></script>
+        <script>
+            const adultTicket = document.getElementById("adult-ticket");
+            const childrenTicket = document.getElementById("children-ticket");
+            const price = document.getElementById("price");
+            const percentPromotion = document.getElementById("percentPromotion");
 
-        </body>
-    </html>
+            function prices(adult, children, percent) {
+                if (percent) {
+                    return (adult * 1000 + children * 500) * ((100 - percent) / 100);
+                }
+                return adult * 1000 + children * 500;
+            }
+
+
+            const plusAdult = document.getElementById("plus-adult");
+            plusAdult.addEventListener("click", () => {
+                adultTicket.innerHTML = parseInt(adultTicket.innerHTML) + 1;
+                const percent = isCheck().then(res =>
+                    price.innerHTML = prices(parseInt(adultTicket.innerHTML), parseInt(childrenTicket.innerHTML), res));
+            })
+
+            const minusAdult = document.getElementById("minus-adult");
+            minusAdult.addEventListener("click", () => {
+
+                if (parseInt(adultTicket.innerHTML) > 1) {
+                    adultTicket.innerHTML = parseInt(adultTicket.innerHTML) - 1;
+                    const percent = isCheck().then(res =>
+                        price.innerHTML = prices(parseInt(adultTicket.innerHTML), parseInt(childrenTicket.innerHTML), res));
+                }
+            })
+
+
+
+            const plusChildren = document.getElementById("plus-children");
+            plusChildren.addEventListener("click", () => {
+                childrenTicket.innerHTML = parseInt(childrenTicket.innerHTML) + 1;
+                const percent = isCheck().then(res =>
+                        price.innerHTML = prices(parseInt(adultTicket.innerHTML), parseInt(childrenTicket.innerHTML), res));
+            })
+
+            const minusChildren = document.getElementById("minus-children");
+            minusChildren.addEventListener("click", () => {
+
+                if (parseInt(childrenTicket.innerHTML) > 0) {
+                    childrenTicket.innerHTML = parseInt(childrenTicket.innerHTML) - 1;
+                   const percent = isCheck().then(res =>
+                        price.innerHTML = prices(parseInt(adultTicket.innerHTML), parseInt(childrenTicket.innerHTML), res));
+                }
+            })
+
+            price.innerHTML = prices(parseInt(adultTicket.innerHTML), parseInt(childrenTicket.innerHTML));
+
+            function checkDiscount(code) {
+                let fecthDate = {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify()
+                }
+                return fetch(`http://localhost:8080/travel/api/discount/` + code, fecthDate)
+                        .then(res => res.json())
+                        .then(data => data)
+                        .catch(err => err)
+
+            }
+
+            const bt_code = document.getElementById("bt-code");
+
+            const notiCode = document.getElementById("notifi-code");
+
+
+            bt_code.addEventListener("click", () => check(percentPromotion.value.toUpperCase()));
+            async function check(code) {
+                if (code) {
+                    const discount = await checkDiscount(code);
+                    if (discount.percentPromotion) {
+                        notiCode.innerHTML = `Mã giảm giá ` + discount.percentPromotion + `%`;
+                        price.innerHTML = prices(parseInt(adultTicket.innerHTML), parseInt(childrenTicket.innerHTML), discount.percentPromotion);
+                    }else{
+                         notiCode.innerHTML = `Mã giảm giá không hợp lệ`;
+                         price.innerHTML = prices(parseInt(adultTicket.innerHTML), parseInt(childrenTicket.innerHTML));
+                    }
+
+                } else {
+                    notiCode.innerHTML = `Chưa nhập mã giảm giá`;
+                    price.innerHTML = prices(parseInt(adultTicket.innerHTML), parseInt(childrenTicket.innerHTML));
+                }
+
+            }
+
+            async function isCheck() {
+                const discout = await checkDiscount(percentPromotion.value.toUpperCase());
+                if (discout) {
+                    return discout.percentPromotion;
+                }
+                return 0;
+
+            }
+
+
+
+
+        </script>
+
+
+        <!-- jQuery -->
+        <script src="../template/js/jquery.min.js"></script>
+        <!-- jQuery Easing -->
+        <script src="../template/js/jquery.easing.1.3.js"></script>
+        <!-- Bootstrap -->
+        <script src="../template/js/bootstrap.min.js"></script>
+        <!-- Waypoints -->
+        <script src="../template/js/jquery.waypoints.min.js"></script>
+        <!-- Flexslider -->
+        <script src="../template/js/jquery.flexslider-min.js"></script>
+        <!-- Owl carousel -->
+        <script src="../template/js/owl.carousel.min.js"></script>
+        <!-- Magnific Popup -->
+        <script src="../template/js/jquery.magnific-popup.min.js"></script>
+        <script src="../template/js/magnific-popup-options.js"></script>
+        <!-- Date Picker -->
+        <script src="../template/js/bootstrap-datepicker.js"></script>
+        <!-- Stellar Parallax -->
+        <script src="../template/js/jquery.stellar.min.js"></script>
+
+        <!-- Main -->
+        <script src="../template/js/main.js"></script>
+
+    </body>
+</html>
 

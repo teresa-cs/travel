@@ -9,8 +9,7 @@ import com.tt.pojos.Hotel;
 import com.tt.pojos.Orders;
 import com.tt.service.HotelService;
 import com.tt.service.OrderService;
-import com.tt.validator.OrderValidator;
-import com.tt.validator.WebAppValidator;
+
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

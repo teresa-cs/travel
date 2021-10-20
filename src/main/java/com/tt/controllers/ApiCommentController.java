@@ -8,8 +8,6 @@ package com.tt.controllers;
 import com.tt.pojos.Cmt;
 import com.tt.pojos.User;
 import com.tt.service.CommentService;
-import com.tt.validator.CommentValidator;
-import com.tt.validator.WebAppValidator;
 import java.util.Map;
 import javax.servlet.http.HttpSession;
 import javax.validation.*;

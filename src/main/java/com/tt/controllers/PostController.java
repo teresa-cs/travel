@@ -10,8 +10,7 @@ import com.tt.pojos.Post;
 import com.tt.service.CommentService;
 import com.tt.service.PostService;
 import com.tt.service.UserService;
-import com.tt.validator.PostValidator;
-import com.tt.validator.WebAppValidator;
+
 import java.util.Map;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
