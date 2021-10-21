@@ -65,25 +65,6 @@ public class HotelController {
     }
   
     
-    @GetMapping("/addhotel")
-    public String addhotel(Model model) {
-        model.addAttribute("hotel", new Hotel());
-        return "addhotel";
-    }
     
-    @PostMapping("/addhotel")
-    public String addhotel(Model model, @ModelAttribute(value = "hotel") @Valid Hotel hotel,
-     BindingResult result) {
-        if (!result.hasErrors()) {
-
-        if (this.hotelService.addOrUpdate(hotel) == true) {
-            return "redirect:/";
-        } else {
-            model.addAttribute("errMsg", "Something wrong!");
-        }
-        }
-
-        return "addhotel";
-    }
     
 }

@@ -40,11 +40,14 @@
 
 
                                         <li><a href="<c:url value="/logout"/>" style="text-align: center"> Logout</a></li>
-                                        
-                                </ul>
-                                        </c:if>
+                                            <sec:authorize access="hasAnyAuthority('6','9')">
+                                            <li><a href="<c:url value="/admin"/>" style="text-align: center">Admin</a></li>
+                                            </sec:authorize>
+
+                                    </ul>
+                                </c:if>
                             </li>
-                          
+
 
                         </ul>
                     </div>
