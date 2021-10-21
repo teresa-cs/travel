@@ -63,7 +63,7 @@
         <put-attribute name="css" value="" />  
         <put-attribute name="js" value="" />     
     </definition>
-     <definition name="hotel" extends= "baseLayout">
+    <definition name="hotel" extends= "baseLayout">
         <put-attribute name="title" value="Hotel" />  
         <put-attribute name="content" value="/WEB-INF/jsp/web/hotel.jsp" />  
     </definition>
@@ -89,26 +89,30 @@
         <put-attribute name="title" value="" /> 
         <put-attribute name="content" value="" /> 
         <put-attribute name="header" value="/WEB-INF/layout/admin/header.jsp" />
-        <put-attribute name="menu" value="/WEB-INF/layout/admin/menu.jsp" />  
+        <put-attribute name="menu" value="/WEB-INF/layout/admin/admin.jsp" />  
     </definition>
     <definition name="addtour" extends="admin">
         <put-attribute name="title" value="AddTour" />  
         <put-attribute name="content" value="/WEB-INF/jsp/admin/addtour.jsp" />
+        <put-attribute name="menu" value="/WEB-INF/layout/admin/sub-menu.jsp" />
     </definition>
     <definition name="tabletour" extends="admin">
         <put-attribute name="title" value="TableTour"/>
+        <put-attribute name="menu" value="/WEB-INF/layout/admin/sub-menu.jsp" />
         <put-attribute name="content" value="/WEB-INF/jsp/admin/tabletour.jsp" />
     </definition>
     <definition name="addhotel" extends="admin">
-        <put-attribute name="title" value="AddHotel" />  
+        <put-attribute name="title" value="AddHotel" /> 
+        <put-attribute name="menu" value="/WEB-INF/layout/admin/sub-menu.jsp" />
         <put-attribute name="content" value="/WEB-INF/jsp/admin/addhotel.jsp" />
     </definition>
-      <definition name="addcomment" extends="admin">
+    <definition name="addcomment" extends="admin">
         <put-attribute name="title" value="AddCmt" />  
         <put-attribute name="content" value="/WEB-INF/jsp/admin/addcomment.jsp" />
     </definition>
     <definition name="discount" extends="admin">
         <put-attribute name="title" value="Discount"/>
+        <put-attribute name="menu" value="/WEB-INF/layout/admin/sub-menu.jsp" />
         <put-attribute name="content" value="/WEB-INF/jsp/admin/discount.jsp" />
     </definition>
 

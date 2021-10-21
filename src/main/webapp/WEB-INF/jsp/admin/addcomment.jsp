@@ -44,3 +44,6 @@
 
     </div>
 </div>
+<script src="../template/js/jquery.min.admin.js"></script>
+        <!-- AdminLTE App -->
+        <script src="../template/js/adminlte.js"></script>

@@ -48,7 +48,7 @@ public class UserServiceImpl implements UserService{
         try {
             String pass = user.getPassword();
             Role r = new Role();
-            r.setId(User.KH);
+            r.setId(Integer.parseInt(User.KH));
             user.setPassword(this.passwordEncoder.encode(pass));
             user.setRoleId(r);
             Map map = this.cloudinary.uploader().upload(user.getFile().getBytes(),
@@ -75,7 +75,8 @@ public class UserServiceImpl implements UserService{
         User u = users.get(0);
         Role r= u.getRoleId();
         Set<GrantedAuthority> authorities = new HashSet<>();
-        authorities.add(new SimpleGrantedAuthority(String.valueOf(r.getId())));
+        String roleId= Integer.toString(r.getId());
+        authorities.add(new SimpleGrantedAuthority(roleId));
         
         return new org.springframework.security.core.userdetails.User(
                 u.getUsername(), u.getPassword(), authorities);

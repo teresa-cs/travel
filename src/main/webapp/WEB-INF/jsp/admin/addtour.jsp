@@ -7,7 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<c:url value="/addtour" var="action" />
+<c:url value="/admin/addtour" var="action" />
 
 
 <div class="content-wrapper">
@@ -100,3 +100,4 @@
 
     </div>
 </div>
+
