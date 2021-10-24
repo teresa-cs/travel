@@ -33,7 +33,7 @@
             </div>
         </div><!-- /.container-fluid -->
     </section>
-    <h1>aaaa ${a.id}</h1>
+
     <!-- ======================================form ========================================== -->
     <div class="card-body" style="margin: 0px; padding: 5px;">
         <form:form action="${action}" method="POST" modelAttribute="discount">  
@@ -45,7 +45,7 @@
                         <form:errors path="code" cssClass="text-danger" element="div"/>
                     </div>
                 </div>
-                    <div class="col-sm-5">
+                <div class="col-sm-5">
                     <div class="form-group">
                         <label for="name">Promotion</label>
                         <form:input type="text" class="form-control" path="promotion" placeholder="Promontion"/>
@@ -88,10 +88,7 @@
                         <table id="example2" class="table table-bordered table-hover dataTable" role="grid"
                                aria-describedby="example2_info">
                             <thead style="text-align: center">
-                                <tr role="row">
-                                    <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1"
-                                        colspan="1">
-                                        Id</th>
+                                <tr role="row">             
                                     <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1"
                                         colspan="1">
                                         Code</th>
@@ -110,17 +107,18 @@
                             <tbody>
                                 <c:forEach var="d" items="${discounts}">
                                     <tr role="row" class="odd">
-                                        <td class="col-sm-1">${d.id}</td>
                                         <td class="col-sm-2">${d.code}</td>
                                         <td class="col-sm-4">${d.promotion}</td>
                                         <td>${d.percentPromotion}</td>
                                         <td style="padding: 5px" class="col-sm-2">
+
                                             <button type="button"
-                                                    class="btn btn-block bg-gradient-danger">Delete</button>
-                                        </td>
+                                                    class="btn btn-block bg-gradient-danger" onclick="deleteDiscountById(${d.id})">Delete</button>
+
                                         <td style="padding: 5px" class="col-sm-2">
                                             <button type="button"
                                                     class="btn btn-block bg-gradient-primary">Update</button>
+                                        </td>
                                         </td>
                                     </tr>
                                 </c:forEach>
@@ -141,9 +139,9 @@
                                        class="page-link">Previous</a>
                                 </li>
 
-                                 <c:forEach begin="1" end="${Math.ceil(counter/10)}" var="i">   
-                                            <li class="paginate_button page-item active"><a class="page-link" href="<c:url value="/admin/discount"/>?page=${i}">${i}</a></li>                                            
-                                            </c:forEach>
+                                <c:forEach begin="1" end="${Math.ceil(counter/4)}" var="i">   
+                                    <li class="paginate_button page-item active" onclick="sessionPage(${i})"><a class="page-link"  href="<c:url value="/admin/discount"/>?page=${i}">${i}</a></li>                                            
+                                    </c:forEach>
 
 
                                 <li class="paginate_button page-item next" id="example2_next"><a href="#"
@@ -156,5 +154,67 @@
 
             </div>
         </div>
-    </section>
+    </section>    
 </div>
+<script>
+    function getListDiscount(page) {
+        let fecthDate = {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify()
+        }
+        return fetch(`http://localhost:8080/travel/api/listdiscount/` + page, fecthDate)
+                .then(res => res.json())
+                .then(data => data)
+                .catch(err => err)
+
+    }
+
+    function deleteDiscounts(id) {
+        let fecthDate = {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify()
+        }
+        return fetch(`http://localhost:8080/travel/api/discounts/` + id, fecthDate)
+                .then(res => res.json())
+                .then(data => data)
+                .catch(err => err)
+    }
+
+    function pageDiscount(page) {
+        getListDiscount(page).then(res => console.log(res));
+    }
+    function deleteDiscountById(id) {
+        let r = confirm("You want delete ?")
+        if (r == true) {
+            deleteDiscounts(id).then(res => {
+                let page = sessionStorage.getItem('page');
+                getListDiscount(page).then(res => {
+                    if(res.length > 0){
+                         window.location.href = "http://localhost:8080/travel/admin/discount?page=" + page;
+                    }else{
+                        if(page > 1){
+                            window.location.href = "http://localhost:8080/travel/admin/discount?page=" + (page - 1);
+                        }else{
+                            window.location.href = "http://localhost:8080/travel/admin/discount" ;
+                        }
+                    }                                        
+                })
+               
+            })
+            
+
+        }
+    }
+
+    function sessionPage(page){
+        sessionStorage.setItem('page', page);
+    }
+    
+    
+</script>

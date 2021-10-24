@@ -83,14 +83,11 @@ public class TourController {
      BindingResult result
     ) {
         if (!result.hasErrors()) {
-
         if (this.tourService.addOrUpdate(tour) == true) {
             return "redirect:/";
         } else {
             model.addAttribute("errMsg", "Something wrong!");
-        }
-        }
-
+        }}
         return "addtour";
     }
 

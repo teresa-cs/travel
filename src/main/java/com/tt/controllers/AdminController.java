@@ -45,10 +45,9 @@ public class AdminController {
     @GetMapping("/discount")
     public String discount(Model model, @RequestParam(required = false) Map<String, String> params){
         int page = Integer.parseInt(params.getOrDefault("page", "1"));
-        model.addAttribute("discounts", this.discountService.getDiscounts(params.get("kw"), page));
+        model.addAttribute("discount", new Discount());          
         model.addAttribute("counter", this.discountService.countDiscount());
-        model.addAttribute("discount", new Discount());
-        model.addAttribute("a", this.discountService.getDiscountByCode("HTEL4F"));
+        model.addAttribute("discounts", this.discountService.getDiscounts(params.get("kw"), page));
         return "discount";
     }
     
@@ -57,7 +56,7 @@ public class AdminController {
             BindingResult result){
         if(!result.hasErrors()){
             if(this.discountService.addDiscount(discount) == true){
-                return "redirect:/";
+                return "redirect:/admin/discount";
             }
         }
         return "discount";

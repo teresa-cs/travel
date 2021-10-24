@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 public class ApiSearchHotel {
-     @Autowired
+    @Autowired
     private HotelService hotelService;
      
      @GetMapping(path = "/api/rate-{rate}", produces = {

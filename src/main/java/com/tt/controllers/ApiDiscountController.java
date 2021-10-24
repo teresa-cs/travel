@@ -27,9 +27,9 @@ public class ApiDiscountController {
     @Autowired
     private DiscountService discountService;
 
-    @GetMapping("/api/discounts")
-    public ResponseEntity<List<Discount>> listDiscounts() {
-        List<Discount> discounts = this.discountService.getDiscounts("", 1);
+    @GetMapping("/api/listdiscount/{page}")
+    public ResponseEntity<List<Discount>> listDiscounts(@PathVariable(value = "page") Integer page) {
+        List<Discount> discounts = this.discountService.getDiscounts("", page);
 
         return new ResponseEntity<>(discounts, HttpStatus.OK);
     }
