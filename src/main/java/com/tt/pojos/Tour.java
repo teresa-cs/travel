@@ -12,6 +12,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -48,6 +49,9 @@ import org.springframework.web.multipart.MultipartFile;
     @NamedQuery(name = "Tour.findByAvt", query = "SELECT t FROM Tour t WHERE t.avt = :avt")})
 public class Tour implements Serializable {
 
+    @Column(name = "price")
+    private Integer price;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -79,7 +83,7 @@ public class Tour implements Serializable {
     @Size(max = 200)
     @Column(name = "avt")
     private String avt;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idtour")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idtour", fetch = FetchType.EAGER )
     private Collection<TourDetail> tourDetailCollection;
     @OneToMany(mappedBy = "idtour")
     private Collection<Receipt> receiptCollection;
@@ -222,5 +226,15 @@ public class Tour implements Serializable {
     public void setFile(MultipartFile file) {
         this.file = file;
     }
+
+    public Integer getPrice() {
+        return price;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
+    }
+
+
 
 }

@@ -8,12 +8,13 @@ import javax.persistence.metamodel.CollectionAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="EclipseLink-2.7.7.v20200504-rNA", date="2021-10-21T21:15:25")
+@Generated(value="EclipseLink-2.7.7.v20200504-rNA", date="2021-10-24T14:22:20")
 @StaticMetamodel(Tour.class)
 public class Tour_ { 
 
     public static volatile SingularAttribute<Tour, Date> begindate;
     public static volatile SingularAttribute<Tour, Date> enddate;
+    public static volatile SingularAttribute<Tour, Integer> price;
     public static volatile SingularAttribute<Tour, String> destination;
     public static volatile SingularAttribute<Tour, String> name;
     public static volatile SingularAttribute<Tour, Integer> days;

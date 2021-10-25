@@ -5,17 +5,22 @@
  */
 package com.tt.pojos;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -38,40 +43,64 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "OrderTour.findByTotal", query = "SELECT o FROM OrderTour o WHERE o.total = :total")})
 public class OrderTour implements Serializable {
 
+    @JoinColumn(name = "iddiscount", referencedColumnName = "id")
+    @ManyToOne
+    @JsonIgnore
+    private Discount iddiscount;
+
+
+
+    @Column(name = "created_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdDate;
+
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "id")
     private Integer id;
-    @Size(max = 100)
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
     @Column(name = "fullname")
     private String fullname;
     @Size(max = 45)
     @Column(name = "gmail")
     private String gmail;
     // @Pattern(regexp="^\\(?(\\d{3})\\)?[- ]?(\\d{3})[- ]?(\\d{4})$", message="Invalid phone/fax format, should be as xxx-xxx-xxxx")//if the field contains phone or fax number consider using this annotation to enforce field validation
-    @Size(max = 15)
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 15)
     @Column(name = "phone")
     private String phone;
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "adult")
-    private Integer adult;
+    private int adult;
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "children")
-    private Integer children;
+    private int children;
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "total")
-    private Integer total;
-    @JoinColumn(name = "iddiscount", referencedColumnName = "id")
-    @ManyToOne(optional = false,  fetch = FetchType.EAGER)
-    private Discount iddiscount;
-    @JoinColumn(name = "idtour", referencedColumnName = "id")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    private Tour idtour;
+    private int total;
 
     public OrderTour() {
     }
 
     public OrderTour(Integer id) {
         this.id = id;
+    }
+
+    public OrderTour(Integer id, String fullname, String phone, int adult, int children, int total) {
+        this.id = id;
+        this.fullname = fullname;
+        this.phone = phone;
+        this.adult = adult;
+        this.children = children;
+        this.total = total;
     }
 
     public Integer getId() {
@@ -106,44 +135,28 @@ public class OrderTour implements Serializable {
         this.phone = phone;
     }
 
-    public Integer getAdult() {
+    public int getAdult() {
         return adult;
     }
 
-    public void setAdult(Integer adult) {
+    public void setAdult(int adult) {
         this.adult = adult;
     }
 
-    public Integer getChildren() {
+    public int getChildren() {
         return children;
     }
 
-    public void setChildren(Integer children) {
+    public void setChildren(int children) {
         this.children = children;
     }
 
-    public Integer getTotal() {
+    public int getTotal() {
         return total;
     }
 
-    public void setTotal(Integer total) {
+    public void setTotal(int total) {
         this.total = total;
-    }
-
-    public Discount getIddiscount() {
-        return iddiscount;
-    }
-
-    public void setIddiscount(Discount iddiscount) {
-        this.iddiscount = iddiscount;
-    }
-
-    public Tour getIdtour() {
-        return idtour;
-    }
-
-    public void setIdtour(Tour idtour) {
-        this.idtour = idtour;
     }
 
     @Override
@@ -170,5 +183,23 @@ public class OrderTour implements Serializable {
     public String toString() {
         return "com.tt.pojos.OrderTour[ id=" + id + " ]";
     }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public Discount getIddiscount() {
+        return iddiscount;
+    }
+
+    public void setIddiscount(Discount iddiscount) {
+        this.iddiscount = iddiscount;
+    }
+
+
     
 }
