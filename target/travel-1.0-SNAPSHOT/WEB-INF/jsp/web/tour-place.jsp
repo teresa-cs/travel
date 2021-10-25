@@ -177,7 +177,7 @@
                                                 <div class="form-group">
                                                     <label for="date">Full name</label>
                                                     <div class="form-field">
-                                                        <input type="text"  class="form-control" placeholder="Full name">
+                                                        <input type="text"  class="form-control" placeholder="Full name" id="fullname">
                                                     </div>
                                                 </div>
                                             </div>
@@ -185,7 +185,7 @@
                                                 <div class="form-group">
                                                     <label for="date">Email</label>
                                                     <div class="form-field">
-                                                        <input type="email" class="form-control" placeholder="Email">
+                                                        <input type="email" class="form-control" placeholder="Email" id="gmail">
                                                     </div>
                                                 </div>
                                             </div>
@@ -193,7 +193,7 @@
                                                 <div class="form-group">
                                                     <label for="date">Phone</label>
                                                     <div class="form-field">
-                                                        <input type="text" class="form-control" placeholder="Phone">
+                                                        <input type="text" class="form-control" placeholder="Phone" id="phone">
                                                     </div>
                                                 </div>
                                             </div>
@@ -246,7 +246,7 @@
                                                 </table>																		
                                             </div>
                                             <div class="col-md-12">
-                                                <input type="submit" name="submit" id="submit" value="Book now" class="btn btn-primary btn-block">
+                                                <a  id="bt_booknow" value="Book now" class="btn btn-primary btn-block">Book now</a>
                                             </div>
                                         </div>
                                     </form>
@@ -346,16 +346,16 @@
 
             function prices(adult, children, percent) {
                 if (percent) {
-                    return (adult * 1000 + children * 500) * ((100 - percent) / 100);
+                    return (adult * ${tour.price} + children * 500) * ((100 - percent) / 100);
                 }
-                return adult * 1000 + children * 500;
+                return adult * ${tour.price} + children * 500;
             }
 
 
             const plusAdult = document.getElementById("plus-adult");
             plusAdult.addEventListener("click", () => {
                 adultTicket.innerHTML = parseInt(adultTicket.innerHTML) + 1;
-                const percent = isCheck().then(res =>
+                isCheck().then(res =>
                     price.innerHTML = prices(parseInt(adultTicket.innerHTML), parseInt(childrenTicket.innerHTML), res));
             })
 
@@ -364,7 +364,7 @@
 
                 if (parseInt(adultTicket.innerHTML) > 1) {
                     adultTicket.innerHTML = parseInt(adultTicket.innerHTML) - 1;
-                    const percent = isCheck().then(res =>
+                    isCheck().then(res =>
                         price.innerHTML = prices(parseInt(adultTicket.innerHTML), parseInt(childrenTicket.innerHTML), res));
                 }
             })
@@ -374,8 +374,8 @@
             const plusChildren = document.getElementById("plus-children");
             plusChildren.addEventListener("click", () => {
                 childrenTicket.innerHTML = parseInt(childrenTicket.innerHTML) + 1;
-                const percent = isCheck().then(res =>
-                        price.innerHTML = prices(parseInt(adultTicket.innerHTML), parseInt(childrenTicket.innerHTML), res));
+                isCheck().then(res =>
+                    price.innerHTML = prices(parseInt(adultTicket.innerHTML), parseInt(childrenTicket.innerHTML), res));
             })
 
             const minusChildren = document.getElementById("minus-children");
@@ -383,7 +383,7 @@
 
                 if (parseInt(childrenTicket.innerHTML) > 0) {
                     childrenTicket.innerHTML = parseInt(childrenTicket.innerHTML) - 1;
-                   const percent = isCheck().then(res =>
+                    isCheck().then(res =>
                         price.innerHTML = prices(parseInt(adultTicket.innerHTML), parseInt(childrenTicket.innerHTML), res));
                 }
             })
@@ -417,13 +417,13 @@
                     if (discount.percentPromotion) {
                         notiCode.innerHTML = `Mã giảm giá ` + discount.percentPromotion + `%`;
                         price.innerHTML = prices(parseInt(adultTicket.innerHTML), parseInt(childrenTicket.innerHTML), discount.percentPromotion);
-                    }else{
-                         notiCode.innerHTML = `Mã giảm giá không hợp lệ`;
-                         price.innerHTML = prices(parseInt(adultTicket.innerHTML), parseInt(childrenTicket.innerHTML));
+                    } else {
+                        notiCode.innerHTML = `Mã giảm giá không hợp lệ`;
+                        price.innerHTML = prices(parseInt(adultTicket.innerHTML), parseInt(childrenTicket.innerHTML));
                     }
 
                 } else {
-                    notiCode.innerHTML = `Chưa nhập mã giảm giá`;
+                    notiCode.innerHTML = ``;
                     price.innerHTML = prices(parseInt(adultTicket.innerHTML), parseInt(childrenTicket.innerHTML));
                 }
 
@@ -432,15 +432,74 @@
             async function isCheck() {
                 const discout = await checkDiscount(percentPromotion.value.toUpperCase());
                 if (discout) {
-                    return discout.percentPromotion;
+                    return  discout.percentPromotion;
                 }
                 return 0;
-
             }
 
+            async function getId() {
+                const discout = await checkDiscount(percentPromotion.value.toUpperCase());
+                if (discout) {
+                    return  discout.id;
+                }
+                return 0;
+            }
 
+            function addOrderTour(fullname, gmail, phone, adult, children, total, iddiscount) {
+                let fecthDate = {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({"fullname": fullname,
+                        "gmail": gmail,
+                        "phone": phone,
+                        "adult": adult,
+                        "children": children,
+                        "total": total,
+                        "iddiscount": iddiscount})
+                }
+                return fetch(`http://localhost:8080/travel/api/ordertour`, fecthDate)
+                        .then(res => res.json())
+                        .then(data => data)
+                        .catch(err => err)
+            }
+            
+            
+            function deleteInfo(){
+                document.getElementById("fullname").value = "";
+                document.getElementById("gmail").value = "";
+                document.getElementById("phone").value = "";
+                adultTicket.innerHTML = "1";
+                childrenTicket.innerHTML = "0";
+                price.innerHTML = "${tour.price}";
+            }
+                
 
+            const btBookNow = document.getElementById("bt_booknow");
+            btBookNow.addEventListener("click", () => {
+                let fullname = document.getElementById("fullname").value;
+                let gmail = document.getElementById("gmail").value;
+                let phone = document.getElementById("phone").value;
+                let adult = parseInt(adultTicket.innerHTML);
+                let children = parseInt(childrenTicket.innerHTML);
+                let total = parseInt(price.innerHTML);
+                if (percentPromotion.value.toUpperCase().length > 0) {
+                    getId().then(res => {
+                        if (res != undefined) {
+                            addOrderTour(fullname, gmail, phone, adult, children, total, res).then(res => res);
+                            deleteInfo();
+                        } else {
+                            notiCode.innerHTML = `Mã giảm giá không hợp lệ`;
+                        }
+                    })
 
+                } else {
+                    addOrderTour(fullname, gmail, phone, adult, children, total, null).then(res => res);
+                    deleteInfo();
+                }
+
+            })
         </script>
 
 
