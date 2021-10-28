@@ -6,6 +6,7 @@
 package com.tt.service;
 
 import com.tt.pojos.OrderTour;
+import com.tt.pojos.Tour;
 
 /**
  *
@@ -13,7 +14,7 @@ import com.tt.pojos.OrderTour;
  */
 public interface OrderTourService {
     OrderTour addOrderTour(String fullname, String gmail, String phone, 
-            Integer adult, Integer children, Integer total, Integer iddsicount);
+            Integer adult, Integer children, Integer total, Integer iddsicount,Tour t);
     OrderTour addOrderTour(String fullname, String gmail, String phone, 
-            Integer adult, Integer children, Integer total);
+            Integer adult, Integer children, Integer total, Tour t);
 }

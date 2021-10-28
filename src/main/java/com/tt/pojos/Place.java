@@ -11,6 +11,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -35,6 +36,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Place.findByName", query = "SELECT p FROM Place p WHERE p.name = :name")})
 public class Place implements Serializable {
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPlace")
+    private Collection<Tour> tourCollection;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,8 +48,6 @@ public class Place implements Serializable {
     @Size(max = 45)
     @Column(name = "name")
     private String name;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idplace")
-    private Collection<TourDetail> tourDetailCollection;
 
     public Place() {
     }
@@ -68,15 +70,6 @@ public class Place implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    @XmlTransient
-    public Collection<TourDetail> getTourDetailCollection() {
-        return tourDetailCollection;
-    }
-
-    public void setTourDetailCollection(Collection<TourDetail> tourDetailCollection) {
-        this.tourDetailCollection = tourDetailCollection;
     }
 
     @Override
@@ -102,6 +95,15 @@ public class Place implements Serializable {
     @Override
     public String toString() {
         return "com.tt.pojos.Place[ id=" + id + " ]";
+    }
+
+    @XmlTransient
+    public Collection<Tour> getTourCollection() {
+        return tourCollection;
+    }
+
+    public void setTourCollection(Collection<Tour> tourCollection) {
+        this.tourCollection = tourCollection;
     }
     
 }

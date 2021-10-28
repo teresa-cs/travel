@@ -84,7 +84,7 @@
                             </div>
                             <div class="col-xs-10 text-right menu-1">
                                 <ul>
-                                    <li><a href="index">Home</a></li>
+                                    <li><a href="<c:url value="/"/>">Home</a></li>
                                     <li class="has-dropdown active">
                                         <a href="tour">Tours</a>
                                         <ul class="dropdown">
@@ -94,11 +94,11 @@
                                             <li><a href="#">Booking</a></li>
                                         </ul>
                                     </li>
-                                    <li><a href="hotels.html">Hotels</a></li>
+                                    <li><a href="<c:url value="/hotel"/>">Hotels</a></li>
                                     <li><a href="services.html">Services</a></li>
-                                    <li><a href="blog.html">Blog</a></li>
+                                    <li><a href="<c:url value="/post"/>">Blog</a></li>
                                     <li><a href="about.html">About</a></li>
-                                    <li><a href="login">Login</a></li>
+                                    <li><a href="<c:url value="/login"/>">Login</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -445,7 +445,7 @@
                 return 0;
             }
 
-            function addOrderTour(fullname, gmail, phone, adult, children, total, iddiscount) {
+            function addOrderTour(fullname, gmail, phone, adult, children, total, iddiscount,tourId) {
                 let fecthDate = {
                     method: 'POST',
                     headers: {
@@ -459,7 +459,7 @@
                         "total": total,
                         "iddiscount": iddiscount})
                 }
-                return fetch(`http://localhost:8080/travel/api/ordertour`, fecthDate)
+                return fetch(`http://localhost:8080/travel/api/ordertour-${tourId}`, fecthDate)
                         .then(res => res.json())
                         .then(data => data)
                         .catch(err => err)
@@ -487,7 +487,7 @@
                 if (percentPromotion.value.toUpperCase().length > 0) {
                     getId().then(res => {
                         if (res != undefined) {
-                            addOrderTour(fullname, gmail, phone, adult, children, total, res).then(res => res);
+                            addOrderTour(fullname, gmail, phone, adult, children, total,${tour.id}, res).then(res => res);
                             deleteInfo();
                         } else {
                             notiCode.innerHTML = `Mã giảm giá không hợp lệ`;
@@ -495,7 +495,7 @@
                     })
 
                 } else {
-                    addOrderTour(fullname, gmail, phone, adult, children, total, null).then(res => res);
+                    addOrderTour(fullname, gmail, phone, adult, children, total, null,${tour.id}).then(res => res);
                     deleteInfo();
                 }
 

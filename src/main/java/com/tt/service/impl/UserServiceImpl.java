@@ -48,7 +48,7 @@ public class UserServiceImpl implements UserService{
         try {
             String pass = user.getPassword();
             Role r = new Role();
-            r.setId(Integer.parseInt(User.KH));
+            r.setId(User.KH);
             user.setPassword(this.passwordEncoder.encode(pass));
             user.setRoleId(r);
             Map map = this.cloudinary.uploader().upload(user.getFile().getBytes(),

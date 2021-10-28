@@ -115,5 +115,21 @@
         <put-attribute name="menu" value="/WEB-INF/layout/admin/sub-menu.jsp" />
         <put-attribute name="content" value="/WEB-INF/jsp/admin/discount.jsp" />
     </definition>
+    <definition name="stats-place" extends="admin">
+        <put-attribute name="title" value="Statistic by places"/>
+        <put-attribute name="menu" value="/WEB-INF/layout/admin/sub-menu.jsp" />
+        <put-attribute name="content" value="/WEB-INF/jsp/admin/stats-place.jsp" />
+    </definition>
+    <definition name="total-revenue" extends="admin">
+        <put-attribute name="title" value="Statistic by places"/>
+        <put-attribute name="menu" value="/WEB-INF/layout/admin/sub-menu.jsp" />
+        <put-attribute name="content" value="/WEB-INF/jsp/admin/total-revenue.jsp" />
+    </definition>
+    
+    <definition name="total-month" extends="admin">
+        <put-attribute name="title" value="Statistic revenue by months"/>
+        <put-attribute name="menu" value="/WEB-INF/layout/admin/sub-menu.jsp" />
+        <put-attribute name="content" value="/WEB-INF/jsp/admin/total-month.jsp" />
+    </definition>
 
 </tiles-definitions>

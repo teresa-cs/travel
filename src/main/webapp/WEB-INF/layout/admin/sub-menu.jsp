@@ -130,6 +130,38 @@
                         </li>
                     </ul>
                 </li>
+                
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-table"></i>
+                        <p>
+                            Statistics 
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="<c:url value="/admin/stats-place" />" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Total Tours by Places</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<c:url value="/admin/total-revenue" />" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Total revenue</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<c:url value="/admin/total-month" />" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Total by Month</p>
+                            </a>
+                        </li>
+                        
+                    </ul>
+                </li>
 
             </ul>
         </nav>

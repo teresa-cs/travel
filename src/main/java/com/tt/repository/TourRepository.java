@@ -33,4 +33,6 @@ public interface TourRepository {
     boolean deleteTour(int id);
     
     boolean updateTour(Tour tour);
+    List<Tour> bestTour();
+
 }

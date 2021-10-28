@@ -44,12 +44,12 @@ import org.springframework.web.multipart.MultipartFile;
     @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password"),
     @NamedQuery(name = "User.findByStatus", query = "SELECT u FROM User u WHERE u.status = :status")})
 public class User implements Serializable {
-    public static final String QTV="6";
-    public static final String KH="5";
-    public static final String ADMIN="1";
-    public static final String CSKH="7";
-    public static final String HDV="8";
-    public static final String QL="9";
+    public static final int QTV=6;
+    public static final int KH=5;
+    public static final int ADMIN=1;
+    public static final int CSKH=7;
+    public static final int HDV=8;
+    public static final int QL=9;
     
     @Size(max = 100)
     @Column(name = "avt")
@@ -93,6 +93,7 @@ public class User implements Serializable {
     private Collection<Employee> employeeCollection;
     @JoinColumn(name = "role_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
+    @JsonIgnore
     private Role roleId;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
     @JsonIgnore

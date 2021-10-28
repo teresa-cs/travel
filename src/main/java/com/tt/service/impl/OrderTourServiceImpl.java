@@ -7,6 +7,7 @@ package com.tt.service.impl;
 
 import com.tt.pojos.Discount;
 import com.tt.pojos.OrderTour;
+import com.tt.pojos.Tour;
 import com.tt.repository.DiscountRepository;
 import com.tt.repository.OrderTourRepository;
 import com.tt.repository.TourRepository;
@@ -32,7 +33,7 @@ public class OrderTourServiceImpl implements OrderTourService {
 
     @Override
     public OrderTour addOrderTour(String fullname, String gmail, String phone,
-            Integer adult, Integer children, Integer total, Integer iddiscount) {
+            Integer adult, Integer children, Integer total, Integer iddiscount,Tour t) {
         Discount d = this.discountRepository.getDiscountById(iddiscount);
         OrderTour ot = new OrderTour();
         ot.setFullname(fullname);
@@ -42,6 +43,7 @@ public class OrderTourServiceImpl implements OrderTourService {
         ot.setChildren(children);
         ot.setTotal(total);
         ot.setCreatedDate(new Date());
+        ot.setIdtour(t);
         
         ot.setIddiscount(d);
 
@@ -51,7 +53,7 @@ public class OrderTourServiceImpl implements OrderTourService {
 
     @Override
     public OrderTour addOrderTour(String fullname, String gmail, String phone,
-            Integer adult, Integer children, Integer total) {
+            Integer adult, Integer children, Integer total, Tour t) {
 
         OrderTour ot = new OrderTour();
         ot.setFullname(fullname);
@@ -61,7 +63,7 @@ public class OrderTourServiceImpl implements OrderTourService {
         ot.setChildren(children);
         ot.setTotal(total);
         ot.setCreatedDate(new Date());
-
+        ot.setIdtour(t);
 //        ot.setIdtour(this.tourRepository.getTourbyId(3));
         return this.orderTourRepository.addOrderTour(ot);
     }

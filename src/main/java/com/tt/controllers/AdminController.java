@@ -10,9 +10,13 @@ import com.tt.pojos.Hotel;
 import com.tt.pojos.Tour;
 import com.tt.service.DiscountService;
 import com.tt.service.HotelService;
+import com.tt.service.StatsService;
 import com.tt.service.TourService;
 import com.tt.validator.DiscountValidator;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +47,8 @@ public class AdminController {
 
     @Autowired
     private HotelService hotelService;
+    @Autowired
+    private StatsService statsService;
 
 //    @Autowired
 //    private DiscountValidator discountValidator;
@@ -160,5 +166,62 @@ public class AdminController {
         }
 
         return "addhotel";
+    }
+    
+    ////////////////////////////Statistic//////////////////////
+     @GetMapping("/stats-place")
+    public String statsPlace(Model model) {
+        model.addAttribute("statsplace", this.statsService.placeStats());
+        model.addAttribute("size", this.statsService.placeStats().size());
+        return "stats-place";
+    }
+
+    @GetMapping("/total-revenue")
+    public String total(Model model, @RequestParam(required = false) Map<String, String> params) throws ParseException {
+        String kw = params.getOrDefault("kw", null);
+        SimpleDateFormat d = new SimpleDateFormat("yyyy-MM-dd");
+
+        Date fromDate = null;
+        Date toDate = null;
+        try{
+            String f = params.getOrDefault("fromDate", null);
+        if (f != null) {
+            fromDate = d.parse(f);
+        }
+
+        String to = params.getOrDefault("toDate", null);
+        if (to != null) {
+            toDate = d.parse(to);
+        }
+        }catch(ParseException ex){
+            ex.printStackTrace();
+        } model.addAttribute("totalrevenue", this.statsService.totalRevenue(kw, fromDate, toDate));
+        return "total-revenue";
+
+    }
+    
+    @GetMapping("/total-month")
+    public String totalmonth(Model model, @RequestParam(required = false) Map<String, String> params) {
+        String kw = params.getOrDefault("kw", null);
+        SimpleDateFormat d = new SimpleDateFormat("yyyy-MM-dd");
+
+        Date fromDate = null;
+        Date toDate = null;
+        try{
+            String f = params.getOrDefault("fromDate", null);
+        if (f != null) {
+            fromDate = d.parse(f);
+        }
+
+        String to = params.getOrDefault("toDate", null);
+        if (to != null) {
+            toDate = d.parse(to);
+        }
+        }catch(ParseException ex){
+            ex.printStackTrace();
+        }
+        model.addAttribute("totalbyMonth", this.statsService.totalbyMonth(kw, fromDate, toDate));
+        return "total-month";
+
     }
 }
