@@ -39,11 +39,7 @@
                 <form:input type="text" class="form-control col-sm-8" path="name" placeholder="Tour name"/>
                 <form:errors path="name" cssClass="text-danger" element="div"/>
             </div>
-            <div class="form-group">
-                <label for="destination">Destination</label>
-                <form:textarea type="text" class="form-control col-sm-8" path="destination" placeholder="Destinations"></form:textarea>
-                <form:errors path="destination" cssClass="alert alert-danger" element="div"/>
-            </div>
+            
 
 
             <div class="row mb-2">
@@ -78,8 +74,8 @@
 
             <div class="form-group">
                 <label for="price">Price</label>
-                <form:input type="text" path="unitprice" class="form-control col-sm-8" placeholder="Price"/>
-                <form:errors path="unitprice" cssClass="alert alert-danger" element="div"/>
+                <form:input type="text" path="price" class="form-control col-sm-8" placeholder="Price"/>
+                <form:errors path="price" cssClass="alert alert-danger" element="div"/>
             </div>
 
             <div class="form-group">

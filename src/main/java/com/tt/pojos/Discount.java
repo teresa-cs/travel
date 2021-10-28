@@ -37,12 +37,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Discount.findByCode", query = "SELECT d FROM Discount d WHERE d.code = :code")})
 public class Discount implements Serializable {
 
-    @OneToMany(mappedBy = "iddiscount", fetch = FetchType.EAGER)
-    @JsonIgnore
-    private Collection<OrderTour> orderTourCollection;
-
-
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -57,6 +51,9 @@ public class Discount implements Serializable {
     @Size(max = 100)
     @Column(name = "promotion")
     private String promotion;
+    @OneToMany(mappedBy = "iddiscount", fetch = FetchType.EAGER)
+    @JsonIgnore
+    private Collection<OrderTour> orderTourCollection;
 
     
     public Discount() {

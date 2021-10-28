@@ -43,16 +43,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "OrderTour.findByTotal", query = "SELECT o FROM OrderTour o WHERE o.total = :total")})
 public class OrderTour implements Serializable {
 
-    @JoinColumn(name = "iddiscount", referencedColumnName = "id")
-    @ManyToOne
-    @JsonIgnore
-    private Discount iddiscount;
-
-
-
-    @Column(name = "created_date")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createdDate;
+    @JoinColumn(name = "idtour", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Tour idtour;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -86,21 +79,30 @@ public class OrderTour implements Serializable {
     @NotNull
     @Column(name = "total")
     private int total;
+    @Column(name = "created_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdDate;
+    @JoinColumn(name = "iddiscount", referencedColumnName = "id")
+    @ManyToOne
+    @JsonIgnore
+    private Discount iddiscount;
 
     public OrderTour() {
+        this.createdDate= new Date();
     }
 
     public OrderTour(Integer id) {
         this.id = id;
     }
 
-    public OrderTour(Integer id, String fullname, String phone, int adult, int children, int total) {
+    public OrderTour(Integer id, String fullname, String phone, int adult, int children, int total,Tour idtour) {
         this.id = id;
         this.fullname = fullname;
         this.phone = phone;
         this.adult = adult;
         this.children = children;
         this.total = total;
+        this.idtour = idtour;
     }
 
     public Integer getId() {
@@ -198,6 +200,14 @@ public class OrderTour implements Serializable {
 
     public void setIddiscount(Discount iddiscount) {
         this.iddiscount = iddiscount;
+    }
+
+    public Tour getIdtour() {
+        return idtour;
+    }
+
+    public void setIdtour(Tour idtour) {
+        this.idtour = idtour;
     }
 
 

@@ -65,8 +65,8 @@
                         <div class="col-sm-2">
                             <div class="form-group">
                                 <label for="price">Price</label>
-                                <form:input type="text" path="unitprice" class="form-control" placeholder="Price" value="${t.unitprice}"/>
-                                <form:errors path="unitprice" cssClass="alert alert-danger" element="div"/>
+                                <form:input type="text" path="price" class="form-control" placeholder="Price" value="${t.price}"/>
+                                <form:errors path="price" cssClass="alert alert-danger" element="div"/>
                             </div>              
                         </div>
                         <div class="col-sm-4">
@@ -82,14 +82,7 @@
                         </div>
                     </div>
 
-                    <div class="row mb-3">
-                        <div class="col-sm-5">
-                            <div class="form-group">
-                                <label for="destination">Destination</label>
-                                <form:textarea type="text" class="form-control" path="destination" placeholder="Destinations"></form:textarea>
-                                <form:errors path="destination" cssClass="alert alert-danger" element="div"/>
-                            </div>
-                        </div>
+                 
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label>Start Date:</label>
@@ -160,7 +153,7 @@
                                                 <td>${t.name}</td>
                                                 <td>${t.begindate}</td>
                                                 <td>${t.enddate}</td>
-                                                <td>${t.unitprice}</td>
+                                                <td>${t.price}</td>
                                                 <td style="padding: 5px">
                                                     <c:url value="/tabletour-delete" var="tourrr"> <c:param name="id" value="${t.id}"/>
 
@@ -211,6 +204,5 @@
                     </div>
                 </div>
             </section>
-        </div>
     </body>
 </html>

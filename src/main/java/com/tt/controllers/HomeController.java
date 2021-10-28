@@ -5,6 +5,7 @@
  */
 package com.tt.controllers;
 
+import com.tt.service.TourService;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
@@ -27,6 +28,8 @@ public class HomeController {
     
     @Autowired
     private LocalSessionFactoryBean sessionFactory;
+     @Autowired
+    private TourService tourService;
     
 //    @ModelAttribute
 //    public void common(Model model ){
@@ -36,6 +39,7 @@ public class HomeController {
     @RequestMapping("/")
     public String index(Model model, HttpSession session){       
         model.addAttribute("currentUser", session.getAttribute("currentUser"));
+        model.addAttribute("besttour", this.tourService.bestTour());
        return "index";
     }
  

@@ -5,13 +5,20 @@
  */
 package com.tt.repository.impl;
 
+import com.tt.pojos.OrderTour;
+import com.tt.pojos.OrderTour_;
 import com.tt.pojos.Place;
 import com.tt.pojos.Tour;
 import com.tt.pojos.TourDetail;
+import com.tt.pojos.Tour_;
 import com.tt.repository.TourRepository;
+import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.criteria.CollectionJoin;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.JoinType;
+import javax.persistence.criteria.ListJoin;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import org.hibernate.Session;
@@ -136,4 +143,25 @@ public class TourRepositoryImpl implements TourRepository {
         }
         return false;
     }
+
+    @Override
+    public List<Tour> bestTour() {
+        Session s = this.sessionFactory.getObject().getCurrentSession();
+        CriteriaBuilder b = s.getCriteriaBuilder();
+        CriteriaQuery q = b.createQuery(Tour.class);
+        Root r = q.from(Tour.class);
+        CollectionJoin<Tour, OrderTour> orders =r.join(Tour_.orderTourCollection,JoinType.INNER);
+
+        q = q.select(r)
+                .groupBy(orders.get(OrderTour_.idtour))
+                .orderBy(b.desc(b.count(orders.get(OrderTour_.idtour))));
+
+        Query query = s.createQuery(q);
+
+        query.setMaxResults(6);
+
+        return query.getResultList();
+
+    }
+
 }

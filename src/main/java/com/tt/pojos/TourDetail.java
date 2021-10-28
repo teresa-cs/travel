@@ -9,6 +9,7 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -51,9 +52,6 @@ public class TourDetail implements Serializable {
     @Size(max = 65535)
     @Column(name = "description")
     private String description;
-    @JoinColumn(name = "idplace", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private Place idplace;
     @JoinColumn(name = "idtour", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Tour idtour;
@@ -95,14 +93,6 @@ public class TourDetail implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Place getIdplace() {
-        return idplace;
-    }
-
-    public void setIdplace(Place idplace) {
-        this.idplace = idplace;
     }
 
     public Tour getIdtour() {
