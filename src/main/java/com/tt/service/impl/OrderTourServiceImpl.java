@@ -14,6 +14,7 @@ import com.tt.repository.TourRepository;
 import com.tt.service.DiscountService;
 import com.tt.service.OrderTourService;
 import java.util.Date;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -66,6 +67,11 @@ public class OrderTourServiceImpl implements OrderTourService {
         ot.setIdtour(t);
 //        ot.setIdtour(this.tourRepository.getTourbyId(3));
         return this.orderTourRepository.addOrderTour(ot);
+    }
+
+    @Override
+    public List<OrderTour> getListOrderTour(String kw, int page) {
+        return this.orderTourRepository.getListOrderTour(kw, page);
     }
 
 }

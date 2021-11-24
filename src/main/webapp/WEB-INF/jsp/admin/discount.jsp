@@ -14,11 +14,11 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Table Tour</h1>
+                    <h1>Discount Manage</h1>
                 </div>
 
                 <!-- Search -->
-                <div class="col-sm-6">
+                <div class="col-sm-5">
                     <form>
                         <div class="input-group input-group-sm">
                             <input class="form-control form-control-navbar" name="kw" type="search" placeholder="Search" aria-label="Search" >
@@ -30,42 +30,58 @@
                         </div>
                     </form>
                 </div>
+                <div >
+                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-lg-add">Add Discount</button>
+                </div>
+
             </div>
         </div><!-- /.container-fluid -->
     </section>
+    <!-- ======================================form add========================================== -->
+    <div class="modal fade" id="modal-lg-add">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Discount</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form:form action="${action}" method="POST" modelAttribute="discount">  
+                    <div class="modal-body">
+
+                        <div class="form-group"  style="display: none; visibility: hidden">
+                            <label>Code</label>
+                            <form:input type="text" class="form-control" path="code" placeholder="Code" id="code"/>
+                            <form:errors path="code" cssClass="text-danger" element="div"/>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="name">Promotion</label>
+                            <form:input type="text" class="form-control" path="promotion" placeholder="Promontion"/>
+                            <form:errors path="promotion" cssClass="text-danger" element="div"/>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="name">Percent</label>
+                            <form:input type="number" class="form-control" path="percentPromotion" placeholder="Percent"/>
+                            <form:errors path="percentPromotion" cssClass="text-danger" element="div"/>
+                        </div>
+                        
+                    </div>
+
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <input type="submit" class="btn btn-primary" value="Save"  id="randomcode" />
+                    </div>
+                </form:form> 
+            </div>
+        </div>
+    </div>
+
+
 
     <!-- ======================================form ========================================== -->
-    <div class="card-body" style="margin: 0px; padding: 5px;">
-        <form:form action="${action}" method="POST" modelAttribute="discount">  
-            <div class="row mb-3">
-                <div class="col-sm-3"  style="display: none; visibility: hidden">
-                    <div class="form-group">
-                        <label>Code</label>
-                        <form:input type="text" class="form-control" path="code" placeholder="Code" id="code"/>
-                        <form:errors path="code" cssClass="text-danger" element="div"/>
-                    </div>
-                </div>
-                <div class="col-sm-5">
-                    <div class="form-group">
-                        <label for="name">Promotion</label>
-                        <form:input type="text" class="form-control" path="promotion" placeholder="Promontion"/>
-                        <form:errors path="promotion" cssClass="text-danger" element="div"/>
-                    </div>
-                </div>
-                <div class="col-sm-1">
-                    <div class="form-group">
-                        <label for="name">Percent</label>
-                        <form:input type="number" class="form-control" path="percentPromotion" placeholder="Percent"/>
-                        <form:errors path="percentPromotion" cssClass="text-danger" element="div"/>
-                    </div>
-                </div>
-                <div>
-                    <input type="submit" class="btn btn-primary" value="Submit" style="margin-top: 30px; margin-left: 30px;" id="randomcode" >
-                </div>
-
-            </div>
-        </form:form> 
-    </div>
     <script>
         const random = document.getElementById("randomcode");
         const code = document.getElementById("code");
@@ -134,19 +150,14 @@
                     <div class="col-sm-12 col-md-7">
                         <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
                             <ul class="pagination">
-                                <li class="paginate_button page-item previous disabled" id="example2_previous">
-                                    <a href="#" aria-controls="example2" data-dt-idx="0" tabindex="0"
-                                       class="page-link">Previous</a>
-                                </li>
 
-                                <c:forEach begin="1" end="${Math.ceil(counter/4)}" var="i">   
+
+                                <c:forEach begin="1" end="${Math.ceil(counter/10)}" var="i">   
                                     <li class="paginate_button page-item active" onclick="sessionPage(${i})"><a class="page-link"  href="<c:url value="/admin/discount"/>?page=${i}">${i}</a></li>                                            
                                     </c:forEach>
 
 
-                                <li class="paginate_button page-item next" id="example2_next"><a href="#"
-                                                                                                 aria-controls="example2" data-dt-idx="7" tabindex="0"
-                                                                                                 class="page-link">Next</a></li>
+
                             </ul>
                         </div>
                     </div>
@@ -195,26 +206,26 @@
             deleteDiscounts(id).then(res => {
                 let page = sessionStorage.getItem('page');
                 getListDiscount(page).then(res => {
-                    if(res.length > 0){
-                         window.location.href = "http://localhost:8080/travel/admin/discount?page=" + page;
-                    }else{
-                        if(page > 1){
+                    if (res.length > 0) {
+                        window.location.href = "http://localhost:8080/travel/admin/discount?page=" + page;
+                    } else {
+                        if (page > 1) {
                             window.location.href = "http://localhost:8080/travel/admin/discount?page=" + (page - 1);
-                        }else{
-                            window.location.href = "http://localhost:8080/travel/admin/discount" ;
+                        } else {
+                            window.location.href = "http://localhost:8080/travel/admin/discount";
                         }
-                    }                                        
+                    }
                 })
-               
+
             })
-            
+
 
         }
     }
 
-    function sessionPage(page){
+    function sessionPage(page) {
         sessionStorage.setItem('page', page);
     }
-    
-    
+
+
 </script>

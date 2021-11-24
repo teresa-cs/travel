@@ -242,7 +242,7 @@
 
 
                                             <div class="tour">
-                                                <a href="<c:url value="/tour/tour-${t.id}"/>" class="tour-img" style="background-image: url(template/images/tour-1.jpg);">
+                                                <a href="<c:url value="/tour/tour-${t.id}"/>" class="tour-img" style="background-image: url(${t.avt});">
                                                     <p class="price"><span>${t.price}$</span> <small>/ ${t.days} days</small></p>
                                                 </a>
 
@@ -263,7 +263,7 @@
                                 <div class="col-md-12 text-center">
 
                                     <ul class="pagination">
-                                        <c:forEach begin="1" end="${Math.ceil(counter/4)}" var="i">   
+                                        <c:forEach begin="1" end="${Math.ceil(counter/10)}" var="i">   
                                             <li class="active"><a class="page-link" href="<c:url value="/tour"/>?page=${i}">${i}</a></li>                                            
                                             </c:forEach>
                                     </ul>

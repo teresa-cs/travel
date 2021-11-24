@@ -7,8 +7,10 @@ package com.tt.pojos;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,12 +20,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -42,6 +46,13 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "OrderTour.findByChildren", query = "SELECT o FROM OrderTour o WHERE o.children = :children"),
     @NamedQuery(name = "OrderTour.findByTotal", query = "SELECT o FROM OrderTour o WHERE o.total = :total")})
 public class OrderTour implements Serializable {
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idordertour")
+    private Collection<Receipt> receiptCollection;
+
+    @Size(max = 45)
+    @Column(name = "status")
+    private String status;
 
     @JoinColumn(name = "idtour", referencedColumnName = "id")
     @ManyToOne(optional = false)
@@ -208,6 +219,23 @@ public class OrderTour implements Serializable {
 
     public void setIdtour(Tour idtour) {
         this.idtour = idtour;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    @XmlTransient
+    public Collection<Receipt> getReceiptCollection() {
+        return receiptCollection;
+    }
+
+    public void setReceiptCollection(Collection<Receipt> receiptCollection) {
+        this.receiptCollection = receiptCollection;
     }
 
 

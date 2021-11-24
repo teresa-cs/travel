@@ -28,19 +28,19 @@ import org.springframework.stereotype.Service;
  * @author trang
  */
 @Service
-public class HotelServiceImpl implements HotelService{
+public class HotelServiceImpl implements HotelService {
+
     @Autowired
     private HotelRepository hotelRepository;
-    
+
     @Autowired
     private UserRepository userRepository;
     @Autowired
     private Cloudinary cloudinary;
 
-    
     @Override
     public List<Hotel> getHotels(String kw, int page) {
-       
+
         return this.hotelRepository.getHotels(kw, page);
     }
 
@@ -54,13 +54,11 @@ public class HotelServiceImpl implements HotelService{
         return this.hotelRepository.countHotel();
     }
 
-
     @Override
     public List<Room> getRooms(int id) {
-        
+
         return this.hotelRepository.getRooms(id);
     }
-
 
     @Override
     public Room getRoombyId(int i) {
@@ -83,6 +81,22 @@ public class HotelServiceImpl implements HotelService{
     @Override
     public List<Hotel> searchRate(int rate) {
         return this.hotelRepository.searchRate(rate);
+    }
+
+    @Override
+    public boolean deleteHotelById(int id) {
+        return this.hotelRepository.deleteHotelById(id);
+    }
+
+    @Override
+    public boolean updateHotel(Hotel newHotel, Hotel oldHotel) {
+
+        oldHotel.setName(newHotel.getName());
+        oldHotel.setAddress(newHotel.getAddress());
+        oldHotel.setRate(newHotel.getRate());
+        oldHotel.setDescription(newHotel.getDescription());
+
+        return this.hotelRepository.updateHotel(oldHotel);
     }
 
 }

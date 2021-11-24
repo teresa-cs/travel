@@ -6,9 +6,8 @@
 package com.tt.controllers;
 
 import com.tt.pojos.Hotel;
-import com.tt.pojos.Orders;
+import com.tt.pojos.OrderHotel;
 import com.tt.service.HotelService;
-import com.tt.service.OrderService;
 
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +21,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import com.tt.service.OrderService;
 
 /**
  *
@@ -46,9 +46,9 @@ public class OrderController {
 //    }
     
     
-      @GetMapping("/hotel/order-{roomId}")
+    @GetMapping("/hotel/order-{roomId}")
     public String order(Model model, @PathVariable(value = "roomId") int roomId) {
-        model.addAttribute("order", new Orders());
+        model.addAttribute("order", new OrderHotel());
         model.addAttribute("room", this.hotelService.getRoombyId(roomId));
         return "order";
     }
@@ -56,7 +56,7 @@ public class OrderController {
 
     
     @PostMapping("/hotel/order-{roomId}")
-    public String add(Model model,@ModelAttribute(value = "order") @Valid Orders o,
+    public String add(Model model,@ModelAttribute(value = "order") @Valid OrderHotel o,
            BindingResult result,@PathVariable(value = "roomId") int roomId ) {
         if (!result.hasErrors()) {
             o.setIdroom(this.hotelService.getRoombyId(roomId));
@@ -79,5 +79,9 @@ public class OrderController {
         return "order";
     }
     
+    @GetMapping("/order")
+    public String order(Model model){
+        return "historyorder";
+    }
 
 }

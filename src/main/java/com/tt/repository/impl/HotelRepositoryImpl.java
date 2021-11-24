@@ -6,7 +6,7 @@
 package com.tt.repository.impl;
 
 import com.tt.pojos.Hotel;
-import com.tt.pojos.Orders;
+import com.tt.pojos.OrderHotel;
 import com.tt.pojos.Room;
 import com.tt.repository.HotelRepository;
 import java.util.List;
@@ -21,19 +21,16 @@ import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-
 /**
  *
  * @author trang
  */
 @Repository
 @Transactional
-public class HotelRepositoryImpl implements HotelRepository{
+public class HotelRepositoryImpl implements HotelRepository {
 
     @Autowired
     private LocalSessionFactoryBean sessionFactory;
-    
-    
 
     @Override
     public List<Hotel> getHotels(String kw, int page) {
@@ -47,7 +44,7 @@ public class HotelRepositoryImpl implements HotelRepository{
             Predicate p = builder.like(root.get("name").as(String.class), String.format("%%%s%%", kw));
             query = query.where(p);
         }
-        int max = 4;
+        int max = 10;
         Query q = session.createQuery(query);
         q.setMaxResults(max);
         q.setFirstResult((page - 1) * max);
@@ -67,10 +64,9 @@ public class HotelRepositoryImpl implements HotelRepository{
         return Long.parseLong(q.getSingleResult().toString());
     }
 
-
     @Override
     public List<Room> getRooms(int id) {
-         Session session = this.sessionFactory.getObject().getCurrentSession();
+        Session session = this.sessionFactory.getObject().getCurrentSession();
         Query q = session.createQuery("SELECT t FROM Room t WHERE t.idhotel = :id");
         q.setParameter("id", getHotelbyId(id));
         return q.getResultList();
@@ -97,14 +93,36 @@ public class HotelRepositoryImpl implements HotelRepository{
 
     @Override
     public List<Hotel> searchRate(int rate) {
-         Session session = this.sessionFactory.getObject().getCurrentSession();
+        Session session = this.sessionFactory.getObject().getCurrentSession();
         Query q = session.createQuery("SELECT h FROM Hotel h WHERE h.rate = :rate");
         q.setParameter("rate", String.valueOf(rate));
         return q.getResultList();
     }
 
+    @Override
+    public boolean deleteHotelById(int id) {
+        Session session = this.sessionFactory.getObject().getCurrentSession();
+        try {
+            Hotel hotel = getHotelbyId(id);
+            session.delete(hotel);
+            return true;
+        } catch (Exception e) {
+            e.getMessage();
+        }
+        return false;
+    }
     
-    
-   
-    
+    @Override
+    public boolean updateHotel(Hotel hotel) {
+        Session session = this.sessionFactory.getObject().getCurrentSession();
+        try {
+            session.update(hotel);
+            return true;
+        } catch (Exception ex) {
+            System.err.println("=== UPDATE HOTEL EER ===" + ex.getMessage());
+            ex.printStackTrace();
+        }
+        return false;
+    }
+
 }

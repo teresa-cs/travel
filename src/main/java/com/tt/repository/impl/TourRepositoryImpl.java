@@ -150,11 +150,11 @@ public class TourRepositoryImpl implements TourRepository {
         CriteriaBuilder b = s.getCriteriaBuilder();
         CriteriaQuery q = b.createQuery(Tour.class);
         Root r = q.from(Tour.class);
-        CollectionJoin<Tour, OrderTour> orders =r.join(Tour_.orderTourCollection,JoinType.INNER);
-
-        q = q.select(r)
-                .groupBy(orders.get(OrderTour_.idtour))
-                .orderBy(b.desc(b.count(orders.get(OrderTour_.idtour))));
+//        CollectionJoin<Tour, OrderTour> orders =r.join(Tour_.orderTourCollection,JoinType.INNER);
+//
+//        q = q.select(r)
+//                .groupBy(orders.get(OrderTour_.idtour))
+//                .orderBy(b.desc(b.count(orders.get(OrderTour_.idtour))));
 
         Query query = s.createQuery(q);
 

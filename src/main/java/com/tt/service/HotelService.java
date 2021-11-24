@@ -15,10 +15,20 @@ import java.util.List;
  */
 public interface HotelService {
     List<Hotel> getHotels(String kw, int page);
+    
     Hotel getHotelbyId(int id);
+    
     long countHotel();
+    
     List<Room> getRooms(int id);
+    
     Room getRoombyId(int id);
+    
     boolean addOrUpdate(Hotel hotel);
+    
     List<Hotel> searchRate(int rate);
+    
+    boolean deleteHotelById(int id);
+    
+    boolean updateHotel(Hotel newHotel, Hotel oldHotel);
 }

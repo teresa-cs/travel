@@ -73,19 +73,19 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="<c:url value="/admin/tablehotel"/>" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Hotel</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="<c:url value="/admin/tablepost"/>" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Post</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="discount" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Discount</p>
                             </a>
@@ -125,6 +125,24 @@
                             <a href="<c:url value="/admin/discount" />" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Discout</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<c:url value="/admin/tableordertour" />" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>OrderTour</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<c:url value="/admin/tableorderhotel" />" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>OrderHotel</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Receipt</p>
                             </a>
                         </li>
                     </ul>

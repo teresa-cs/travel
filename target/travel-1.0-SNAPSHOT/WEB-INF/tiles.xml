@@ -54,7 +54,10 @@
         <put-attribute name="title" value="Tour" />  
         <put-attribute name="content" value="/WEB-INF/jsp/web/post.jsp" />  
     </definition>
-    
+    <definition name="contact" extends="baseLayout">
+        <put-attribute name="title" value="Contact" />  
+        <put-attribute name="content" value="/WEB-INF/jsp/web/contact.jsp" />  
+    </definition>
     <definition name="post-detail" extends= "baseLayout">
         <put-attribute name="title" value="Tour-place" />  
         <put-attribute name="content" value="/WEB-INF/jsp/web/post-detail.jsp" />  
@@ -67,7 +70,10 @@
         <put-attribute name="title" value="Hotel" />  
         <put-attribute name="content" value="/WEB-INF/jsp/web/hotel.jsp" />  
     </definition>
-    
+    <definition name="historyorder" extends= "baseLayout">
+        <put-attribute name="title" value="Order" />  
+        <put-attribute name="content" value="/WEB-INF/jsp/web/historyorder.jsp" />  
+    </definition>
     <definition name="room" extends= "baseLayout">
         <put-attribute name="title" value="Room" />  
         <put-attribute name="content" value="/WEB-INF/jsp/web/room.jsp" />  
@@ -91,24 +97,15 @@
         <put-attribute name="header" value="/WEB-INF/layout/admin/header.jsp" />
         <put-attribute name="menu" value="/WEB-INF/layout/admin/admin.jsp" />  
     </definition>
-    <definition name="addtour" extends="admin">
-        <put-attribute name="title" value="AddTour" />  
-        <put-attribute name="content" value="/WEB-INF/jsp/admin/addtour.jsp" />
-        <put-attribute name="menu" value="/WEB-INF/layout/admin/sub-menu.jsp" />
-    </definition>
     <definition name="tabletour" extends="admin">
         <put-attribute name="title" value="TableTour"/>
         <put-attribute name="menu" value="/WEB-INF/layout/admin/sub-menu.jsp" />
         <put-attribute name="content" value="/WEB-INF/jsp/admin/tabletour.jsp" />
     </definition>
-    <definition name="addhotel" extends="admin">
-        <put-attribute name="title" value="AddHotel" /> 
+    <definition name="tabletourdetails" extends="admin">
+        <put-attribute name="title" value="TableTourDetails"/>
         <put-attribute name="menu" value="/WEB-INF/layout/admin/sub-menu.jsp" />
-        <put-attribute name="content" value="/WEB-INF/jsp/admin/addhotel.jsp" />
-    </definition>
-    <definition name="addcomment" extends="admin">
-        <put-attribute name="title" value="AddCmt" />  
-        <put-attribute name="content" value="/WEB-INF/jsp/admin/addcomment.jsp" />
+        <put-attribute name="content" value="/WEB-INF/jsp/admin/tabletourdetails.jsp" />
     </definition>
     <definition name="discount" extends="admin">
         <put-attribute name="title" value="Discount"/>
@@ -124,12 +121,51 @@
         <put-attribute name="title" value="Statistic by places"/>
         <put-attribute name="menu" value="/WEB-INF/layout/admin/sub-menu.jsp" />
         <put-attribute name="content" value="/WEB-INF/jsp/admin/total-revenue.jsp" />
-    </definition>
-    
+    </definition>    
     <definition name="total-month" extends="admin">
         <put-attribute name="title" value="Statistic revenue by months"/>
         <put-attribute name="menu" value="/WEB-INF/layout/admin/sub-menu.jsp" />
         <put-attribute name="content" value="/WEB-INF/jsp/admin/total-month.jsp" />
     </definition>
-
+    <definition name="tablehotel" extends="admin">
+        <put-attribute name="title" value="TableHotel"/>
+        <put-attribute name="menu" value="/WEB-INF/layout/admin/sub-menu.jsp" />
+        <put-attribute name="content" value="/WEB-INF/jsp/admin/tablehotel.jsp" />
+    </definition>
+    <definition name="room" extends="admin">
+        <put-attribute name="title" value="Room"/>
+        <put-attribute name="menu" value="/WEB-INF/layout/admin/sub-menu.jsp" />
+        <put-attribute name="content" value="/WEB-INF/jsp/admin/room.jsp" />
+    </definition>
+    <definition name="tablepost" extends="admin">
+        <put-attribute name="title" value="Post"/>
+        <put-attribute name="menu" value="/WEB-INF/layout/admin/sub-menu.jsp" />
+        <put-attribute name="content" value="/WEB-INF/jsp/admin/tablepost.jsp" />
+    </definition>
+    <definition name="tableordertour" extends="admin">
+        <put-attribute name="title" value="OderTour"/>
+        <put-attribute name="menu" value="/WEB-INF/layout/admin/sub-menu.jsp" />
+        <put-attribute name="content" value="/WEB-INF/jsp/admin/tableordertour.jsp" />
+    </definition>
+    <definition name="tableorderhotel" extends="admin">
+        <put-attribute name="title" value="OderTour"/>
+        <put-attribute name="menu" value="/WEB-INF/layout/admin/sub-menu.jsp" />
+        <put-attribute name="content" value="/WEB-INF/jsp/admin/tableorderhotel.jsp" />
+    </definition>
+    <definition name="tablereceipt" extends="admin">
+        <put-attribute name="title" value="Receipt"/>
+        <put-attribute name="menu" value="/WEB-INF/layout/admin/sub-menu.jsp" />
+        <put-attribute name="content" value="/WEB-INF/jsp/admin/receipt.jsp" />
+    </definition>
+    <definition name="tablereceipt" extends="admin">
+        <put-attribute name="title" value="Receipt"/>
+        <put-attribute name="menu" value="/WEB-INF/layout/admin/sub-menu.jsp" />
+        <put-attribute name="content" value="/WEB-INF/jsp/admin/receipt.jsp" />
+    </definition>
+    <definition name="account" extends="admin">
+        <put-attribute name="title" value="Account"/>
+        <put-attribute name="menu" value="/WEB-INF/layout/admin/sub-menu.jsp" />
+        <put-attribute name="content" value="/WEB-INF/jsp/admin/account.jsp" />
+    </definition>
+    
 </tiles-definitions>

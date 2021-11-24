@@ -48,5 +48,9 @@ public class HomeController {
         return "admin";
     }
     
+    @RequestMapping("/contact")
+    public String contact(Model model){
+        return "contact";
+    }
    
 }

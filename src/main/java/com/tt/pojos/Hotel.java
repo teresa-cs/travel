@@ -12,6 +12,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -64,11 +65,12 @@ public class Hotel implements Serializable {
     @Size(max = 100)
     @Column(name = "avt")
     private String avt;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idhotel")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idhotel", fetch = FetchType.EAGER, orphanRemoval = true)
     @JsonIgnore
     private Collection<Room> roomCollection;
     
     @Transient
+    @JsonIgnore
     private MultipartFile file;
     
     public Hotel() {

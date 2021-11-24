@@ -23,6 +23,6 @@ public interface TourService {
     List<TourDetail> getTourDetail(int id) ;
     boolean addOrUpdate(Tour tour);
     boolean deleteTour(int id);
-    boolean updateTour(Tour oldTour, Tour newTour);
+    boolean updateTour(Tour newTour, Tour oldTour);
     List<Tour> bestTour();
 }

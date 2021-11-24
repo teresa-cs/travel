@@ -5,12 +5,14 @@
  */
 package com.tt.pojos;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -21,9 +23,11 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -41,10 +45,8 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Room implements Serializable {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idroom")
-    private Collection<Orders> bookingCollection;
-
-    
-
+    @JsonIgnore
+    private Collection<OrderHotel> bookingCollection;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -65,12 +67,18 @@ public class Room implements Serializable {
     @Size(max = 100)
     @Column(name = "image")
     private String image;
+    
     @JoinColumn(name = "idhotel", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @JsonIgnore
     private Hotel idhotel;
     @Size(max = 45)
     @Column(name = "maximum")
     private String maximum;
+
+    @Transient
+    @JsonIgnore
+    private MultipartFile file;
 
     public Room() {
     }
@@ -102,7 +110,6 @@ public class Room implements Serializable {
     public void setType(String type) {
         this.type = type;
     }
-
 
     public String getDescription() {
         return description;
@@ -153,10 +160,6 @@ public class Room implements Serializable {
         return "com.tt.pojos.Room[ id=" + id + " ]";
     }
 
-
-
-
-
     public String getMaximum() {
         return maximum;
     }
@@ -166,13 +169,26 @@ public class Room implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Orders> getBookingCollection() {
+    public Collection<OrderHotel> getBookingCollection() {
         return bookingCollection;
     }
 
-    public void setBookingCollection(Collection<Orders> bookingCollection) {
+    public void setBookingCollection(Collection<OrderHotel> bookingCollection) {
         this.bookingCollection = bookingCollection;
     }
 
-    
+    /**
+     * @return the file
+     */
+    public MultipartFile getFile() {
+        return file;
+    }
+
+    /**
+     * @param file the file to set
+     */
+    public void setFile(MultipartFile file) {
+        this.file = file;
+    }
+
 }

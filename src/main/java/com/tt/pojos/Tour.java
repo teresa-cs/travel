@@ -5,6 +5,7 @@
  */
 package com.tt.pojos;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Collection;
@@ -50,13 +51,6 @@ import org.springframework.web.multipart.MultipartFile;
     @NamedQuery(name = "Tour.findByAvt", query = "SELECT t FROM Tour t WHERE t.avt = :avt")})
 public class Tour implements Serializable {
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idtour")
-    private Collection<OrderTour> orderTourCollection;
-
-    @JoinColumn(name = "id_place", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private Place idPlace;
-
     @Column(name = "price")
     private Integer price;
 
@@ -75,10 +69,12 @@ public class Tour implements Serializable {
     @Column(name = "begindate")
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd", shape = JsonFormat.Shape.STRING)
     private Date begindate;
     @Column(name = "enddate")
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd", shape = JsonFormat.Shape.STRING)
     private Date enddate;
     @Size(max = 45)
     @Column(name = "meetingplace")
@@ -86,12 +82,18 @@ public class Tour implements Serializable {
     @Size(max = 200)
     @Column(name = "avt")
     private String avt;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idtour", fetch = FetchType.LAZY)
+
+    @OneToMany(mappedBy = "idtour", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private Collection<TourDetail> tourDetailCollection;
-    @OneToMany(mappedBy = "idtour", fetch = FetchType.LAZY)
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idtour")
     @JsonIgnore
-    private Collection<Receipt> receiptCollection;
+    private Collection<OrderTour> orderTourCollection;
+
+    @JoinColumn(name = "id_place", referencedColumnName = "id")
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    private Place idPlace;
 
     @Transient
     private MultipartFile file;
@@ -99,7 +101,7 @@ public class Tour implements Serializable {
     public Tour() {
     }
 
-    public Tour(Collection<OrderTour> orderTourCollection, Place idPlace, Integer price, Integer id, String name, Integer days, Date begindate, Date enddate, String meetingplace, String avt, Collection<TourDetail> tourDetailCollection, Collection<Receipt> receiptCollection, MultipartFile file) {
+    public Tour(Collection<OrderTour> orderTourCollection, Place idPlace, Integer price, Integer id, String name, Integer days, Date begindate, Date enddate, String meetingplace, String avt, Collection<TourDetail> tourDetailCollection, MultipartFile file) {
         this.orderTourCollection = orderTourCollection;
         this.idPlace = idPlace;
         this.price = price;
@@ -111,12 +113,8 @@ public class Tour implements Serializable {
         this.meetingplace = meetingplace;
         this.avt = avt;
         this.tourDetailCollection = tourDetailCollection;
-        this.receiptCollection = receiptCollection;
         this.file = file;
     }
-    
-    
-    
 
     public Tour(Integer id) {
         this.id = id;
@@ -187,15 +185,6 @@ public class Tour implements Serializable {
         this.tourDetailCollection = tourDetailCollection;
     }
 
-    @XmlTransient
-    public Collection<Receipt> getReceiptCollection() {
-        return receiptCollection;
-    }
-
-    public void setReceiptCollection(Collection<Receipt> receiptCollection) {
-        this.receiptCollection = receiptCollection;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -259,7 +248,5 @@ public class Tour implements Serializable {
     public void setOrderTourCollection(Collection<OrderTour> orderTourCollection) {
         this.orderTourCollection = orderTourCollection;
     }
-
-
 
 }

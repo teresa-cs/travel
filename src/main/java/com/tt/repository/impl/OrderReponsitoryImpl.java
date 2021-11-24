@@ -5,10 +5,9 @@
  */
 package com.tt.repository.impl;
 
-import com.tt.pojos.Hotel;
-import com.tt.pojos.Orders;
+
+import com.tt.pojos.OrderHotel;
 import com.tt.pojos.Room;
-import com.tt.repository.OrderReponsitory;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -20,6 +19,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import com.tt.repository.OrderReponsitory;
+import javax.persistence.criteria.Predicate;
 
 /**
  *
@@ -33,13 +34,13 @@ public class OrderReponsitoryImpl implements OrderReponsitory{
     private LocalSessionFactoryBean sessionFactory;
 
     @Override
-    public boolean addOrUpdate(Orders order) {
+    public boolean addOrUpdate(OrderHotel order) {
         Session session = this.sessionFactory.getObject().getCurrentSession();
         try {
             session.save(order);
             return true;
         } catch (Exception ex) {
-            System.err.println("=== ADD Order EER ===" + ex.getMessage());
+            System.err.println("=== ADD ORDERHOTEL EER ===" + ex.getMessage());
             ex.printStackTrace();
         }
         return false;
@@ -47,11 +48,11 @@ public class OrderReponsitoryImpl implements OrderReponsitory{
     
 
     @Override
-    public List<Orders> getOrders() {
+    public List<OrderHotel> getOrders() {
         Session session = this.sessionFactory.getObject().getCurrentSession();
         CriteriaBuilder builder = session.getCriteriaBuilder();
-        CriteriaQuery<Orders> query = builder.createQuery(Orders.class);
-        Root root = query.from(Orders.class);
+        CriteriaQuery<OrderHotel> query = builder.createQuery(OrderHotel.class);
+        Root root = query.from(OrderHotel.class);
         query = query.select(root);
         Query q = session.createQuery(query);       
         return q.getResultList();
@@ -61,12 +62,12 @@ public class OrderReponsitoryImpl implements OrderReponsitory{
     public boolean checkDate(Room r, Date checkin, Date checkout) {
         boolean kqua;
         Session session = this.sessionFactory.getObject().getCurrentSession();
-        Query q = session.createQuery("SELECT b FROM Orders b WHERE b.idroom = :id AND"
+        Query q = session.createQuery("SELECT b FROM OrderHotel b WHERE b.idroom = :id AND"
                 + " b.checkin > :checkout OR b.checkout < :checkin ");
         q.setParameter("id",r);
         q.setParameter("checkin",checkin);
         q.setParameter("checkout",checkout);
-        List<Orders> listOrders = q.getResultList();
+        List<OrderHotel> listOrders = q.getResultList();
         
         if(listOrders.size()==this.orderByRoom(r))
         {
@@ -82,9 +83,28 @@ public class OrderReponsitoryImpl implements OrderReponsitory{
     @Override
     public long orderByRoom(Room r) {
         Session session = this.sessionFactory.getObject().getCurrentSession();
-        Query q = session.createQuery("Select Count(*) FROM Orders t WHERE t.idroom = :id");
+        Query q = session.createQuery("Select Count(*) FROM OrderHotel t WHERE t.idroom = :id");
         q.setParameter("id", r);
         return Long.parseLong(q.getSingleResult().toString());
+    }
+
+    @Override
+    public List<OrderHotel> getOrderHotelByPage(String kw, int page) {
+        Session session = this.sessionFactory.getObject().getCurrentSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<OrderHotel> query = builder.createQuery(OrderHotel.class);
+        Root root = query.from(OrderHotel.class);
+        query = query.select(root);
+
+        if (kw != null) {
+            Predicate p = builder.like(root.get("fullname").as(String.class), String.format("%%%s%%", kw));
+            query = query.where(p);
+        }
+        int max = 10;
+        Query q = session.createQuery(query);
+        q.setMaxResults(max);
+        q.setFirstResult((page - 1) * max);
+        return q.getResultList();
     }
     
 }

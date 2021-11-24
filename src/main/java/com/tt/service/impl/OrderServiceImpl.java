@@ -6,18 +6,18 @@
 package com.tt.service.impl;
 
 import com.tt.pojos.Hotel;
-import com.tt.pojos.Orders;
+import com.tt.pojos.OrderHotel;
 import com.tt.pojos.Room;
 import com.tt.pojos.User;
 import com.tt.repository.HotelRepository;
-import com.tt.repository.OrderReponsitory;
 import com.tt.repository.UserRepository;
-import com.tt.service.OrderService;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import com.tt.service.OrderService;
+import com.tt.repository.OrderReponsitory;
 
 /**
  *
@@ -36,7 +36,7 @@ public class OrderServiceImpl implements OrderService{
     private UserRepository userRepository;
     
     @Override
-    public boolean addOrUpdate(Orders order) {
+    public boolean addOrUpdate(OrderHotel order) {
         
         String name= SecurityContextHolder.getContext().getAuthentication().getName();
         User u= userRepository.getUserbyName(name);
@@ -45,7 +45,7 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
-    public List<Orders> getOrders() {
+    public List<OrderHotel> getOrders() {
         return this.orderRepository.getOrders();
     }
 
@@ -58,6 +58,11 @@ public class OrderServiceImpl implements OrderService{
     @Override
     public long orderByRoom(Room room) {
         return this.orderRepository.orderByRoom(room);
+    }
+
+    @Override
+    public List<OrderHotel> getOrderHotelByPage(String kw, int page) {
+        return this.orderRepository.getOrderHotelByPage(kw, page);
     }
     
 }

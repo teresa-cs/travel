@@ -13,9 +13,17 @@ import org.springframework.security.core.userdetails.UserDetailsService;
  *
  * @author trang
  */
-public interface UserService extends UserDetailsService{
+public interface UserService extends UserDetailsService {
+
     boolean addUser(User user);
+
     List<User> getUsers(String username);
+
     User getUserById(int userId);
-     User getUserbyName(String name);
+
+    User getUserbyName(String name);
+    
+    boolean addManage(User user);
+    
+    List<User> getUserOfManage(String kw, int page);
 }

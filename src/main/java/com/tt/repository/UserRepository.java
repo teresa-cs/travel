@@ -13,8 +13,14 @@ import java.util.List;
  * @author trang
  */
 public interface UserRepository {
+
     boolean addUser(User user);
+
     List<User> getUsers(String username);
+
     User getUserById(int userId);
-     User getUserbyName(String name);
+
+    User getUserbyName(String name);
+    
+    List<User> getUserOfManage(String kw, int page);
 }

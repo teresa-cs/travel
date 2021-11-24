@@ -7,14 +7,19 @@ package com.tt.service;
 
 import com.tt.pojos.OrderTour;
 import com.tt.pojos.Tour;
+import java.util.List;
 
 /**
  *
  * @author anhtu
  */
 public interface OrderTourService {
-    OrderTour addOrderTour(String fullname, String gmail, String phone, 
-            Integer adult, Integer children, Integer total, Integer iddsicount,Tour t);
-    OrderTour addOrderTour(String fullname, String gmail, String phone, 
+
+    OrderTour addOrderTour(String fullname, String gmail, String phone,
+            Integer adult, Integer children, Integer total, Integer iddsicount, Tour t);
+
+    OrderTour addOrderTour(String fullname, String gmail, String phone,
             Integer adult, Integer children, Integer total, Tour t);
+    
+    List<OrderTour> getListOrderTour(String kw, int page) ;
 }

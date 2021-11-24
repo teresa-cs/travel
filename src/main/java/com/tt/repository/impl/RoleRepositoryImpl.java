@@ -34,14 +34,9 @@ public class RoleRepositoryImpl implements RoleRepository{
     @Override
     @Transactional   
     public List<Role> getRoles() {
-        Session session = sessionFactory.getObject().getCurrentSession();
-        CriteriaBuilder cb = session.getCriteriaBuilder();
-        CriteriaQuery < Role > cq = cb.createQuery(Role.class);
-        Root < Role > root = cq.from(Role.class);
-        cq.select(root);
-        Query query = session.createQuery(cq);
-        return query.getResultList();
-
+         Session session = this.sessionFactory.getObject().getCurrentSession();
+        org.hibernate.query.Query q = session.createQuery("From Role");
+        return q.getResultList();
     }
 
     @Override

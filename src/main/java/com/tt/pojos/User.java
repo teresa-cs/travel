@@ -58,7 +58,7 @@ public class User implements Serializable {
     
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "iduser")
-    private Collection<Orders> bookingCollection;
+    private Collection<OrderHotel> bookingCollection;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -234,11 +234,11 @@ public class User implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Orders> getBookingCollection() {
+    public Collection<OrderHotel> getBookingCollection() {
         return bookingCollection;
     }
 
-    public void setBookingCollection(Collection<Orders> bookingCollection) {
+    public void setBookingCollection(Collection<OrderHotel> bookingCollection) {
         this.bookingCollection = bookingCollection;
     }
 

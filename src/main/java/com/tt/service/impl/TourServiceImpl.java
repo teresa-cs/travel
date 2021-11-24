@@ -79,13 +79,15 @@ public class TourServiceImpl implements TourService {
     }
 
     @Override
-    public boolean updateTour(Tour oldTour, Tour newTour) {
+    public boolean updateTour(Tour newTour, Tour oldTour) {
+        
         oldTour.setName(newTour.getName());
         oldTour.setBegindate(newTour.getBegindate());
         oldTour.setEnddate(newTour.getEnddate());
+        oldTour.setDays(newTour.getDays());
         oldTour.setMeetingplace(newTour.getMeetingplace());
         oldTour.setPrice(newTour.getPrice());
-        oldTour.setAvt(newTour.getAvt());
+        oldTour.setIdPlace(newTour.getIdPlace());
         
         return this.tourRepository.updateTour(oldTour);
     }

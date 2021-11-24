@@ -95,4 +95,24 @@ public class UserServiceImpl implements UserService{
         return this.userRepository.getUserbyName(arg0);
     }
 
+    @Override
+    public boolean addManage(User user) {
+        try {
+            String pass = user.getPassword();
+            user.setPassword(this.passwordEncoder.encode(pass));
+            Map map = this.cloudinary.uploader().upload(user.getFile().getBytes(),
+                    ObjectUtils.asMap("resource_type", "auto"));
+            user.setAvt((String) map.get("secure_url"));
+             return this.userRepository.addUser(user);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+       return false;
+    }
+
+    @Override
+    public List<User> getUserOfManage(String kw, int page) {
+        return this.userRepository.getUserOfManage(kw, page);
+    }
+
 }

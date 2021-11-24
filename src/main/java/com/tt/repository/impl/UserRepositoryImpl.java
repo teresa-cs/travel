@@ -5,6 +5,7 @@
  */
 package com.tt.repository.impl;
 
+import com.tt.pojos.Tour;
 import com.tt.pojos.User;
 import com.tt.repository.UserRepository;
 import java.util.List;
@@ -72,6 +73,27 @@ public class UserRepositoryImpl implements UserRepository {
         Query q = session.createQuery("SELECT u FROM User u WHERE u.username = :username");
         q.setParameter("username", name);
         return (User) q.getSingleResult();
+    }
+
+    @Override
+    public List<User> getUserOfManage(String kw, int page) {
+        Session session = this.sessionFactory.getObject().getCurrentSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<User> query = builder.createQuery(User.class);
+        Root root = query.from(User.class);
+        
+        query = query.select(root);
+
+        if (kw != null) {
+            Predicate p = builder.like(root.get("username").as(String.class), String.format("%%%s%%", kw));
+           
+            query = query.where(p);
+        }
+        int max = 10;
+        Query q = session.createQuery(query);
+        q.setMaxResults(max);
+        q.setFirstResult((page - 1) * max);
+        return q.getResultList();
     }
 
     

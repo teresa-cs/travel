@@ -5,6 +5,7 @@
  */
 package com.tt.pojos;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
@@ -37,6 +38,7 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Place implements Serializable {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPlace")
+    @JsonIgnore
     private Collection<Tour> tourCollection;
 
     private static final long serialVersionUID = 1L;

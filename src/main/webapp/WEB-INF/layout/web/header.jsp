@@ -15,11 +15,11 @@
                     <div class="col-xs-10 text-right menu-1">
                         <ul>
                             <li class="active"><a href="<c:url value="/"/>">Home</a></li>
-                            <li><a href="tour">Tours</a></li> 
+                            <li><a href="<c:url value="/tour"/>">Tours</a></li> 
                             <li><a href="hotel">Hotels</a></li>
                             <li><a href="post">Blog</a></li>
-                            <li><a href="about.html">About</a></li>
-                            <li><a href="contact.html">Contact</a></li>
+                            <li><a href="order">Order</a></li>
+                            <li><a href="contact">Contact</a></li>
 
 
                             <c:if test="${pageContext.request.userPrincipal.name == null}">

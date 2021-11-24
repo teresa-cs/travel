@@ -55,7 +55,7 @@ public class DiscountRepositoryImpl implements DiscountRepository {
             Predicate p = builder.like(root.get("code").as(String.class), String.format("%%%s%%", kw));
             query = query.where(p);
         }
-        int max = 4;
+        int max = 10;
         Query q = session.createQuery(query);
         q.setMaxResults(max);
         q.setFirstResult((page - 1) * max);
