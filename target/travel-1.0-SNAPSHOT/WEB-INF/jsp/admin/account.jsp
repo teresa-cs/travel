@@ -90,46 +90,7 @@
             </div>
         </div>
 
-        <!-- ======================================Update ========================================== -->
-        <div class="modal fade" id="modal-lg-update">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Detail</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-
-                        <form>
-                            <div class="form-group">
-                                <label for="name">Room Name</label>
-                                <input type="text" class="form-control" placeholder="RoomName" id ="typeRoom" value=""/>
-                            </div>
-                            <div class="form-group">
-                                <label for="destination">Description</label>
-                                <textarea type="text" class="form-control" placeholder="Description" id="descriptionRoom"></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label for="maximum">Maximum</label>
-                                <input type="number" class="form-control" placeholder="Maximum" id ="maximumRoom" value=""/>
-                            </div>
-                            <div class="form-group">
-                                <label for="price">Price</label>
-                                <input type="number" class="form-control" placeholder="Price" id ="priceRoom" value=""/>
-                            </div>
-                        </form> 
-
-                    </div>
-                    <div class="modal-footer justify-content-between">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="updateRoom()">Save</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
+     
         <!-- ======================================table========================================== -->
 
         <section class="content">
@@ -149,15 +110,10 @@
                                             Username</th>
                                         <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1"
                                             colspan="1">
-                                            Fullname</th>
+                                            Role_id</th>
                                         <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1"
                                             colspan="1">
-                                            Max</th>
-                                        <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1"
-                                            colspan="1">
-                                            Price</th>
-                                        <th class="sorting" tabindex="0" aria-controls="example2" rowspan="2"
-                                            colspan="1">
+                                         
                                             Delete</th>
                                         <th class="sorting" tabindex="0" aria-controls="example2" rowspan="2"
                                             colspan="1">
@@ -169,15 +125,16 @@
                                     <tr role="row" class="odd">
                                         <td><img src="${u.avt}" height="50px" width="50px" style="border-radius: 50%"/></td>
                                         
-                                        <td style="padding: 5px" class="col-sm-2">
+                                        <td style="padding: 5px" class="col-sm-2">${u.username}</td>
+                                        
+                                        <td style="padding: 5px" class="col-sm-2">${u.roleId.id}</td>
 
-                                            <button type="button"
-                                                    class="btn btn-block bg-gradient-danger">Delete</button>
+                                        <td style="padding: 5px" class="col-sm-2">    <button type="button"
+                                                        class="btn btn-block bg-gradient-danger">Delete</button></td>
 
                                         <td style="padding: 5px" class="col-sm-2">
                                             <button type="button"
                                                     class="btn btn-block bg-gradient-primary">Update</button>
-                                        </td>
                                         </td>
                                     </tr>
                                 </c:forEach>

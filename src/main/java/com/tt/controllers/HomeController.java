@@ -5,7 +5,9 @@
  */
 package com.tt.controllers;
 
+import com.tt.service.HotelService;
 import com.tt.service.TourService;
+import java.util.Map;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
@@ -14,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 
@@ -30,6 +33,8 @@ public class HomeController {
     private LocalSessionFactoryBean sessionFactory;
      @Autowired
     private TourService tourService;
+      @Autowired
+    private HotelService hotelService;
     
 //    @ModelAttribute
 //    public void common(Model model ){
@@ -37,9 +42,12 @@ public class HomeController {
 //    }
     
     @RequestMapping("/")
-    public String index(Model model, HttpSession session){       
+    public String index(Model model, HttpSession session, @RequestParam(required = false) Map<String, String> params){       
+        int page = Integer.parseInt(params.getOrDefault("page", "1"));
         model.addAttribute("currentUser", session.getAttribute("currentUser"));
         model.addAttribute("besttour", this.tourService.bestTour());
+        model.addAttribute("hotel", this.hotelService.getHotels(params.get(params.get("kw")), page));
+        
        return "index";
     }
  

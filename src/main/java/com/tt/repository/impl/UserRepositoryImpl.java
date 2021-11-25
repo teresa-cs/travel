@@ -5,6 +5,7 @@
  */
 package com.tt.repository.impl;
 
+import com.tt.pojos.Role;
 import com.tt.pojos.Tour;
 import com.tt.pojos.User;
 import com.tt.repository.UserRepository;
@@ -67,6 +68,7 @@ public class UserRepositoryImpl implements UserRepository {
         
         return session.get(User.class, id);
     }
+    
      @Override
     public User getUserbyName(String name) {
         Session session = this.sessionFactory.getObject().getCurrentSession();
@@ -86,14 +88,27 @@ public class UserRepositoryImpl implements UserRepository {
 
         if (kw != null) {
             Predicate p = builder.like(root.get("username").as(String.class), String.format("%%%s%%", kw));
-           
-            query = query.where(p);
+           Predicate p1 = builder.equal(root.get("roleId"), getRolebyId(6));
+            query = query.where(builder.and(p1, p));
         }
+        else
+        {
+        Predicate p1 = builder.equal(root.get("roleId"), getRolebyId(6));
+            query = query.where(p1);
+        }
+        
         int max = 10;
         Query q = session.createQuery(query);
         q.setMaxResults(max);
         q.setFirstResult((page - 1) * max);
         return q.getResultList();
+    }
+
+    @Override
+    public Role getRolebyId(int id) {
+         Session session = this.sessionFactory.getObject().getCurrentSession();
+        
+        return session.get(Role.class, id);
     }
 
     

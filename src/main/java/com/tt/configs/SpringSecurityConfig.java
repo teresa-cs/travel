@@ -63,7 +63,6 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
-    
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -74,13 +73,13 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .failureUrl("/login?error");
         http.formLogin().successHandler(this.loginSuccessHandler);
         http.logout().logoutSuccessUrl("/login");
-//        http.exceptionHandling()
-//                .accessDeniedPage("/login?accessDenied");
-//        http.authorizeRequests().antMatchers("/").permitAll()
-//                                .antMatchers("/admin/**").access("hasAnyAuthority('6','9')");
+        http.exceptionHandling()
+                .accessDeniedPage("/login?accessDenied");
+        http.authorizeRequests().antMatchers("/").permitAll()
+                .antMatchers("/admin/**").access("hasAnyAuthority('6','9')")
+                .antMatchers("/admin/stats-place").access("hasAuthority('9')");
         http.csrf().disable();
-      
-    }
 
+    }
 
 }

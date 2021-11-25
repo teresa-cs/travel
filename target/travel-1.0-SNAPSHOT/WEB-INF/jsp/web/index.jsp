@@ -35,8 +35,8 @@
                     <span class="desc">
                         <p class="star"><span><i class="icon-star-full"></i><i class="icon-star-full"></i><i class="icon-star-full"></i><i class="icon-star-full"></i><i class="icon-star-full"></i></span> 545 Reviews</p>
  
-                        <span class="city">Athens, Greece</span>
-                        <span class="price">$450</span>
+                        <span class="city">${t.name}</span>
+                        <span class="price">${t.price}$</span>
                     </span>
                 </a>
                 </c:forEach>
@@ -58,58 +58,21 @@
                 <div class="row">
                     <div class="col-md-12 animate-box">
                         <div class="owl-carousel">
+                            <c:forEach var="t" items="${hotel}" >
                             <div class="item">
                                 <div class="hotel-entry">
-                                    <a href="hotels.html" class="hotel-img" style="background-image: url(template/images/hotel-1.jpg);">
+                                    <a href="hotels.html" class="hotel-img" style="background-image: url(${t.avt});">
                                         <p class="price"><span>$120</span><small> /night</small></p>
                                     </a>
                                     <div class="desc">
                                         <p class="star"><span><i class="icon-star-full"></i><i class="icon-star-full"></i><i class="icon-star-full"></i><i class="icon-star-full"></i><i class="icon-star-full"></i></span> 545 Reviews</p>
-                                        <h3><a href="#">Hotel Edison</a></h3>
-                                        <span class="place">New York, USA</span>
-                                        <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+                                        <h3><a href="#">${t.name}</a></h3>
+                                        <span class="place">${t.address}</span>
+                                        <p>${t.description}</p>
                                     </div>
                                 </div>
                             </div>
-                            <div class="item">
-                                <div class="hotel-entry">
-                                    <a href="hotels.html" class="hotel-img" style="background-image: url(template/images/hotel-2.jpg);">
-                                        <p class="price"><span>$120</span><small> /night</small></p>
-                                    </a>
-                                    <div class="desc">
-                                        <p class="star"><span><i class="icon-star-full"></i><i class="icon-star-full"></i><i class="icon-star-full"></i><i class="icon-star-full"></i><i class="icon-star-full"></i></span> 545 Reviews</p>
-                                        <h3><a href="#">Hotel Edison</a></h3>
-                                        <span class="place">New York, USA</span>
-                                        <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="hotel-entry">
-                                    <a href="hotels.html" class="hotel-img" style="background-image: url(template/images/hotel-3.jpg);">
-                                        <p class="price"><span>$120</span><small> /night</small></p>
-                                    </a>
-                                    <div class="desc">
-                                        <p class="star"><span><i class="icon-star-full"></i><i class="icon-star-full"></i><i class="icon-star-full"></i><i class="icon-star-full"></i><i class="icon-star-full"></i></span> 545 Reviews</p>
-                                        <h3><a href="#">Hotel Edison</a></h3>
-                                        <span class="place">New York, USA</span>
-                                        <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="hotel-entry">
-                                    <a href="hotels.html" class="hotel-img" style="background-image: url(template/images/hotel-4.jpg);">
-                                        <p class="price"><span>$120</span><small> /night</small></p>
-                                    </a>
-                                    <div class="desc">
-                                        <p class="star"><span><i class="icon-star-full"></i><i class="icon-star-full"></i><i class="icon-star-full"></i><i class="icon-star-full"></i><i class="icon-star-full"></i></span> 545 Reviews</p>
-                                        <h3><a href="#">Hotel Edison</a></h3>
-                                        <span class="place">New York, USA</span>
-                                        <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-                                    </div>
-                                </div>
-                            </div>
+                            </c:forEach>
                         </div>
                     </div>
                 </div>

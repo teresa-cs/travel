@@ -5,6 +5,7 @@
  */
 package com.tt.repository;
 
+import com.tt.pojos.Role;
 import com.tt.pojos.User;
 import java.util.List;
 
@@ -19,6 +20,8 @@ public interface UserRepository {
     List<User> getUsers(String username);
 
     User getUserById(int userId);
+    
+    Role getRolebyId(int id);
 
     User getUserbyName(String name);
     

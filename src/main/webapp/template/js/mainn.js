@@ -64,7 +64,7 @@ function getRate(rate) {
                             `
                                         <div class="col-md-6 col-sm-6 animate-box" style="height: 550px;  margin-top: 20px" >
                                             <div class="hotel-entry">
-                                                <a href="<c:url value='/hotel/hotel-${data[i].id}'/>" class="hotel-img" style="background-image: url(template/images/hotel-2.jpg);">
+                                                <a href="<c:url value='/hotel/hotel-${data[i].id}'/>" class="hotel-img" style="background-image: url(${data[i].avt});">
                                                     <p class="price"><span>$120</span><small> /night</small></p>
                                                 </a>
                                                 <div class="desc">
