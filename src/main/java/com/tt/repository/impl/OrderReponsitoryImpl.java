@@ -8,6 +8,7 @@ package com.tt.repository.impl;
 
 import com.tt.pojos.OrderHotel;
 import com.tt.pojos.Room;
+import com.tt.pojos.User;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -104,6 +105,14 @@ public class OrderReponsitoryImpl implements OrderReponsitory{
         Query q = session.createQuery(query);
         q.setMaxResults(max);
         q.setFirstResult((page - 1) * max);
+        return q.getResultList();
+    }
+
+    @Override
+    public List<OrderHotel> getOrderHotelByUserid(User user) {
+        Session session = this.sessionFactory.getObject().getCurrentSession();
+        Query q = session.createQuery("SELECT o FROM OrderHotel o WHERE o.iduser = :id");
+        q.setParameter("id", user);
         return q.getResultList();
     }
     

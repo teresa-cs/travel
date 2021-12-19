@@ -18,7 +18,7 @@
                             <li><a href="<c:url value="/tour"/>">Tours</a></li> 
                             <li><a href="hotel">Hotels</a></li>
                             <li><a href="post">Blog</a></li>
-                            <li><a href="order">Order</a></li>
+                            
                             <li><a href="contact">Contact</a></li>
 
 
@@ -43,6 +43,7 @@
                                             <sec:authorize access="hasAnyAuthority('6','9')">
                                             <li><a href="<c:url value="/admin"/>" style="text-align: center">Admin</a></li>
                                             </sec:authorize>
+                                        <li><a href="orderhistory" style="text-align: center">Your Order</a></li>
 
                                     </ul>
                                 </c:if>

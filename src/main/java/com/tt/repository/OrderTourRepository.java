@@ -6,6 +6,7 @@
 package com.tt.repository;
 
 import com.tt.pojos.OrderTour;
+import com.tt.pojos.User;
 import java.util.List;
 
 /**
@@ -18,5 +19,5 @@ public interface OrderTourRepository {
 
     List<OrderTour> getListOrderTour(String kw, int page);
     
-    List<OrderTour> getListOrderTourByIdUser(int iduser);
+    List<OrderTour> getListOrderTourByIdUser(User user);
 }

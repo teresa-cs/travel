@@ -8,6 +8,7 @@ package com.tt.service.impl;
 import com.tt.pojos.Discount;
 import com.tt.pojos.OrderTour;
 import com.tt.pojos.Tour;
+import com.tt.pojos.User;
 import com.tt.repository.DiscountRepository;
 import com.tt.repository.OrderTourRepository;
 import com.tt.repository.TourRepository;
@@ -72,6 +73,11 @@ public class OrderTourServiceImpl implements OrderTourService {
     @Override
     public List<OrderTour> getListOrderTour(String kw, int page) {
         return this.orderTourRepository.getListOrderTour(kw, page);
+    }
+
+    @Override
+    public List<OrderTour> getListOrderTourByIdUser(User user) {
+        return this.orderTourRepository.getListOrderTourByIdUser(user);
     }
 
 }

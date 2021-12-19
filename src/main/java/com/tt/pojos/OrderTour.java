@@ -97,6 +97,11 @@ public class OrderTour implements Serializable {
     @ManyToOne
     @JsonIgnore
     private Discount iddiscount;
+    
+    @JoinColumn(name = "iduser", referencedColumnName = "id")
+    @ManyToOne
+    private User iduser;
+ 
 
     public OrderTour() {
         this.createdDate= new Date();

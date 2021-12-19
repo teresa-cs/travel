@@ -7,6 +7,7 @@ package com.tt.service;
 
 import com.tt.pojos.OrderTour;
 import com.tt.pojos.Tour;
+import com.tt.pojos.User;
 import java.util.List;
 
 /**
@@ -22,4 +23,5 @@ public interface OrderTourService {
             Integer adult, Integer children, Integer total, Tour t);
     
     List<OrderTour> getListOrderTour(String kw, int page) ;
+    List<OrderTour> getListOrderTourByIdUser(User user);
 }

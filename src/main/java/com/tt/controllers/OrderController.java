@@ -7,6 +7,7 @@ package com.tt.controllers;
 
 import com.tt.pojos.Hotel;
 import com.tt.pojos.OrderHotel;
+import com.tt.pojos.User;
 import com.tt.service.HotelService;
 
 import javax.validation.Valid;
@@ -22,6 +23,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import com.tt.service.OrderService;
+import com.tt.service.OrderTourService;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -36,6 +39,10 @@ public class OrderController {
     
     @Autowired
     private HotelService hotelService;
+    
+    @Autowired
+    private OrderTourService orderTourService;
+
     
 //    @Autowired
 //    private WebAppValidator orderValidator;
@@ -79,9 +86,14 @@ public class OrderController {
         return "order";
     }
     
-    @GetMapping("/order")
-    public String order(Model model){
+    @GetMapping("/orderhistory")
+    public String order(Model model, HttpSession session){
+        User currentUser= (User) session.getAttribute("currentUser");
+        model.addAttribute("yourorderT", this.orderTourService.getListOrderTourByIdUser(currentUser));
+        model.addAttribute("yourorderH", this.orderService.getOrderHotelByUserid(currentUser));
+
         return "historyorder";
+        
     }
 
 }
