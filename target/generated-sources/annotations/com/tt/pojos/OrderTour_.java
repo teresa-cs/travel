@@ -3,17 +3,19 @@ package com.tt.pojos;
 import com.tt.pojos.Discount;
 import com.tt.pojos.Receipt;
 import com.tt.pojos.Tour;
+import com.tt.pojos.User;
 import java.util.Date;
 import javax.annotation.Generated;
 import javax.persistence.metamodel.CollectionAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="EclipseLink-2.7.7.v20200504-rNA", date="2021-11-24T16:53:35")
+@Generated(value="EclipseLink-2.7.7.v20200504-rNA", date="2021-12-18T21:59:35")
 @StaticMetamodel(OrderTour.class)
 public class OrderTour_ { 
 
     public static volatile SingularAttribute<OrderTour, String> gmail;
+    public static volatile SingularAttribute<OrderTour, User> iduser;
     public static volatile SingularAttribute<OrderTour, Integer> total;
     public static volatile SingularAttribute<OrderTour, Date> createdDate;
     public static volatile SingularAttribute<OrderTour, String> phone;

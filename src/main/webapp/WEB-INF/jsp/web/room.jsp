@@ -140,7 +140,7 @@
                                                     <div class="room-wrap">
                                                         <div class="row">
                                                             <div class="col-md-6 col-sm-6">
-                                                                <div class="room-img" style="background-image: url(../template/images/room-1.jpg);"></div>
+                                                                <div class="room-img" style="background-image: url(${t.image});"></div>
                                                             </div>
                                                             <div class="col-md-6 col-sm-6">
                                                                 <div class="desc">

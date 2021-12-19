@@ -64,5 +64,10 @@ public class OrderServiceImpl implements OrderService{
     public List<OrderHotel> getOrderHotelByPage(String kw, int page) {
         return this.orderRepository.getOrderHotelByPage(kw, page);
     }
+
+    @Override
+    public List<OrderHotel> getOrderHotelByUserid(User user) {
+        return this.orderRepository.getOrderHotelByUserid(user);
+    }
     
 }

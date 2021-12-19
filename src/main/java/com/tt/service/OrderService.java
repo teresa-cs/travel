@@ -7,6 +7,7 @@ package com.tt.service;
 
 import com.tt.pojos.OrderHotel;
 import com.tt.pojos.Room;
+import com.tt.pojos.User;
 import java.util.Date;
 import java.util.List;
 
@@ -25,4 +26,5 @@ public interface OrderService {
     long orderByRoom(Room r);
     
     List<OrderHotel> getOrderHotelByPage(String kw, int page);
+    List<OrderHotel> getOrderHotelByUserid(User user);
 }

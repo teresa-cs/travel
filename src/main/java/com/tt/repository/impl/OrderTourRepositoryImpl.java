@@ -7,6 +7,7 @@ package com.tt.repository.impl;
 
 import com.tt.pojos.Hotel;
 import com.tt.pojos.OrderTour;
+import com.tt.pojos.User;
 import com.tt.repository.OrderTourRepository;
 import java.util.List;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -26,11 +27,11 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Repository
 @Transactional
-public class OrderTourRepositoryImpl implements OrderTourRepository{
-    
+public class OrderTourRepositoryImpl implements OrderTourRepository {
+
     @Autowired
     private LocalSessionFactoryBean sessionFactory;
-    
+
     @Override
     public OrderTour addOrderTour(OrderTour orderTour) {
         Session session = this.sessionFactory.getObject().getCurrentSession();
@@ -64,11 +65,11 @@ public class OrderTourRepositoryImpl implements OrderTourRepository{
     }
 
     @Override
-    public List<OrderTour> getListOrderTourByIdUser(int iduser) {
+    public List<OrderTour> getListOrderTourByIdUser(User user) {
         Session session = this.sessionFactory.getObject().getCurrentSession();
-        Query q = session.createQuery("SELECT o FROM OrderTour o WHERE o.id = :id");
-//        q.setParameter("id", getHotelbyId(id));
+        Query q = session.createQuery("SELECT o FROM OrderTour o WHERE o.iduser = :id");
+        q.setParameter("id", user);
         return q.getResultList();
     }
-    
+
 }
