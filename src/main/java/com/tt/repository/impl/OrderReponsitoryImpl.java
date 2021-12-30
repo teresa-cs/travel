@@ -63,14 +63,15 @@ public class OrderReponsitoryImpl implements OrderReponsitory{
     public boolean checkDate(Room r, Date checkin, Date checkout) {
         boolean kqua;
         Session session = this.sessionFactory.getObject().getCurrentSession();
-        Query q = session.createQuery("SELECT b FROM OrderHotel b WHERE b.idroom = :id AND"
-                + " b.checkin > :checkout OR b.checkout < :checkin ");
+        Query q = session.createQuery("SELECT Count(*) FROM OrderHotel b WHERE b.idroom = :id AND"
+                + " (b.checkin > :checkout OR b.checkout < :checkin)");
         q.setParameter("id",r);
         q.setParameter("checkin",checkin);
         q.setParameter("checkout",checkout);
-        List<OrderHotel> listOrders = q.getResultList();
+//        List<OrderHotel> listOrders = q.getResultList();
+        long kq= Long.parseLong(q.getSingleResult().toString());
         
-        if(listOrders.size()==this.orderByRoom(r))
+        if(kq==this.orderByRoom(r))
         {
              kqua=true;
         }
