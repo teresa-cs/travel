@@ -77,6 +77,7 @@
         <div class="colorlib-loader"></div>
 
         <div id="page">
+
             <nav class="colorlib-nav" role="navigation">
                 <div class="top-menu">
                     <div class="container-fluid">
@@ -101,58 +102,59 @@
                                     <li><a href="<c:url value="/post"/>">Blog</a></li>
                                     <li class="active"><a href="about.html">About</a></li>
                                     <li><a href="contact.html">Contact</a></li>
-                                     <c:if test="${pageContext.request.userPrincipal.name == null}">
-                                <a href="<c:url value="/login"/>">Log in</a>
-                            </c:if>
-                            <li class="has-dropdown">
-                                <c:if test="${currentUser.avt != null}">
-                                        <img src="${currentUser.avt}" class="rounded-circle" style="width:30px;height:25px"/>
+                                        <c:if test="${pageContext.request.userPrincipal.name == null}">
+                                        <a href="<c:url value="/login"/>">Log in</a>
                                     </c:if>
-                                    <c:if test="${currentUser.avt == null}">
-                                        <i class="fa fa-user" aria-hidden="true"></i>
-                                    </c:if>
-                                <a href="<c:url value="/"/>">${pageContext.request.userPrincipal.name}</a>
-                                <ul class="dropdown">
-                                    <c:if test="${pageContext.request.userPrincipal.name != null}">
-                                        <li><a href="<c:url value="/logout"/>"> Logout</a></li></c:if>
-                                </ul>
-                            </li>
-                                </ul>
+                                    <li class="has-dropdown">
+                                        <c:if test="${currentUser.avt != null}">
+                                            <img src="${currentUser.avt}" class="rounded-circle" style="width:30px;height:25px"/>
+                                        </c:if>
+                                        <c:if test="${currentUser.avt == null}">
+                                            <i class="fa fa-user" aria-hidden="true"></i>
+                                        </c:if>
+                                        <a href="<c:url value="/"/>">${pageContext.request.userPrincipal.name}</a>
+                                        <ul class="dropdown">
+                                            <c:if test="${pageContext.request.userPrincipal.name != null}">
+                                                <li><a href="<c:url value="/logout"/>"> Logout</a></li></c:if>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </nav>
-            <aside id="colorlib-hero">
-                <div class="flexslider">
-                    <ul class="slides">
-                        <li style="background-image: url(../template/images/cover-img-5.jpg);">
-                            <div class="overlay"></div>
-                            <div class="container-fluid">
-                                <div class="row">
-                                    <div class="col-md-6 col-md-offset-3 col-sm-12 col-xs-12 slider-text">
-                                        <div class="slider-text-inner text-center">
-                                            <h2>by colorlib.com</h2>
-                                            <h1>About us</h1>
+                </nav>
+
+                <aside id="colorlib-hero">
+                    <div class="flexslider">
+                        <ul class="slides">
+                            <li style="background-image: url(../template/images/cover-img-5.jpg);">
+                                <div class="overlay"></div>
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-md-6 col-md-offset-3 col-sm-12 col-xs-12 slider-text">
+                                            <div class="slider-text-inner text-center">
+                                                <h2>by colorlib.com</h2>
+                                                <h1>About us</h1>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </aside>
+                            </li>
+                        </ul>
+                    </div>
+                </aside>
 
-            <div id="colorlib-about">
-                <div class="container">
-                    <div class="row">
-                        <div class="about-flex">
-                            <div class="col-three-forth animate-box">
-                                <h2>History</h2>
-                                <div class="row">
-                                    <div class="col-md-12">
+                <div id="colorlib-about">
+                    <div class="container">
+                        <div class="row">
+                            <div class="about-flex">
+                                <div class="col-three-forth animate-box">
+                                    <h2>History</h2>
+                                    <div class="row">
+                                        <div class="col-md-12">
 
-                                        <p>${p.title}</p>
+                                            <p>${p.title}</p>
 
 
 
@@ -183,38 +185,42 @@
                                 <label for="date">
                                     <h3>Comment</h3>
                                 </label>
-                                    <form>
-                                <div class="form-field">
-                           
-                                    <textarea type="text" id="commentId" class="form-control" placeholder="Comment..."></textarea>
-                                    <input type="button" class="btn btn-primary" value="Add comment" style="margin-top: 20px"
-                                           onclick="addComment(${p.id})"/>
-                                </div>
-                                    </form>
-                                
+                                <form>
+                                    <div class="form-field">
+
+                                        <textarea type="text" id="commentId" class="form-control" placeholder="Comment..."></textarea>
+                                        <input type="button" class="btn btn-primary" value="Add comment" style="margin-top: 20px"
+                                               onclick="addComment(${p.id})"/>
+                                    </div>
+                                </form>
+
                             </div>
                         </div>
                         <div class="blog-entry aside-stretch-right">
                             <div id="commentArea">
-                                <c:forEach items="${post}" var="c">
-                            <div class="row" >
-                                
-                                <div class="col-md-12 animate-box fadeInUp animated-fast">
-                                    <a href="blog.html" class="blog-post">
-                                        <c:if test="${c.iduser.avt != null}">
-                                            <span class="img" style="background-image: url(${c.iduser.avt});"></span></c:if>
-                                            <c:if test="${c.iduser.avt == null}">
-                                            <span class="img" style="background-image: url(../template/images/cover-img-5.jpg);"></span></c:if>
-                                        <div class="desc my-date">
-                                            <i style="color:black" > <span>${c.createdDate}</span></i>
-                                            <h3>${c.comment}</h3>
-                                            <span class="cat">${c.iduser.username}</span>
-                                        </div>
-                                    </a>
-                                </div>                                
+                                <c:forEach items="${posts}" var="c">
+                                    <div class="row" >
+
+                                        <div class="col-md-12 animate-box fadeInUp animated-fast">
+                                            <a href="blog.html" class="blog-post">
+                                                <c:if test="${c.iduser.avt != null}">
+                                                    <span class="img" style="background-image: url(${c.iduser.avt});"></span>
+                                                </c:if>
+                                                <c:if test="${c.iduser.avt == null}">
+                                                    <span class="img" style="background-image: url(../template/images/cover-img-5.jpg);"></span>
+                                                </c:if>
+                                                <div class="desc my-date">
+                                                    <i style="color:black" > <span>${c.createdDate}</span></i>
+                                                    <h3>${c.comment}</h3>
+                                                    <span class="cat">${c.iduser.username}</span>
+                                                </div>
+                                            </a>
+                                        </div>                                
+                                    </div>
+                                </c:forEach>     
                             </div>
-                                </c:forEach>      
-                                <div class="row">
+
+                            <div class="row">
                                 <div class="col-md-12 text-center">
                                     <ul class="pagination">
                                         <c:forEach begin="1" end="${Math.ceil(countCmt/4)}" var="i">   
@@ -222,7 +228,6 @@
                                             </c:forEach>
                                     </ul>
                                 </div>
-                            </div>
                             </div>
                         </div>
                     </div>
@@ -322,7 +327,7 @@
             }
 
         </script>
-   
+
         <!-- jQuery -->
         <script src="../template/js/jquery.min.js"></script>
         <!-- jQuery Easing -->
@@ -345,7 +350,7 @@
 
         <!-- Main -->
         <script src="../template/js/main.js"></script>
-         <script src="../template/js/mainn.js"></script>
+        <script src="../template/js/mainn.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 
     </body>

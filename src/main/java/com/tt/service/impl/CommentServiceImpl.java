@@ -45,7 +45,7 @@ public class CommentServiceImpl implements CommentService{
     }
 
     @Override
-    public long countCmt(int i) {
+    public long countCmt(Post i) {
         return this.commentRepository.countCmt(i);
     }
 

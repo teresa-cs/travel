@@ -6,6 +6,7 @@
 package com.tt.service;
 
 import com.tt.pojos.Cmt;
+import com.tt.pojos.Post;
 import com.tt.pojos.User;
 
 /**
@@ -14,5 +15,5 @@ import com.tt.pojos.User;
  */
 public interface CommentService {
     Cmt addComment(String content, int postId, User user);
-    long countCmt(int postId);
+    long countCmt(Post postId);
 }

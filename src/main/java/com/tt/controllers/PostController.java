@@ -62,8 +62,8 @@ public class PostController {
         int page = Integer.parseInt(params.getOrDefault("page", "1"));
         Post p = this.postService.getPostbyId(id);
         model.addAttribute("p", p);
-        model.addAttribute("post", this.postService.getComment(id,page));
-        model.addAttribute("countCmt", this.commentService.countCmt(id));
+        model.addAttribute("posts", this.postService.getComment(id,page));
+        model.addAttribute("countCmt", this.commentService.countCmt(p));
         
 //
 

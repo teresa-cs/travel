@@ -57,7 +57,7 @@ public class PostRepositoryImpl implements PostRepository{
         CriteriaQuery<Cmt> query = builder.createQuery(Cmt.class);
         Root root = query.from(Cmt.class);
         
-        query = query.where(builder.equal(root.get("idpost"), id));
+        query = query.where(builder.equal(root.get("idpost"), this.getPostbyId(id)));
         query= query.orderBy(builder.desc(root.get("id")));
         
         Query q = session.createQuery(query);

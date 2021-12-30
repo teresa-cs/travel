@@ -6,6 +6,7 @@
 package com.tt.repository.impl;
 
 import com.tt.pojos.Cmt;
+import com.tt.pojos.Post;
 import com.tt.repository.CommentRepository;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -40,9 +41,9 @@ public class CommentRepositoryImpl implements CommentRepository {
     }
 
     @Override
-    public long countCmt(int i) {
+    public long countCmt(Post i) {
         Session session = this.sessionFactory.getObject().getCurrentSession();
-        Query q = session.createQuery("Select Count(*) From Cmt WHERE idpost.id = :id");
+        Query q = session.createQuery("Select Count(*) From Cmt c WHERE c.idpost = :id");
         q.setParameter("id", i);
         return Long.parseLong(q.getSingleResult().toString());
     }

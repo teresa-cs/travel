@@ -20,19 +20,20 @@ function addComment(postId) {
     }).then(function (data) {
         console.info(data);
         let area = document.getElementById("commentArea");
-        area.innerHTML = `
-                            <div class="row" >                              
+        area.innerHTML = `<div class="row" >
+                                
                                 <div class="col-md-12 animate-box fadeInUp animated-fast">
                                     <a href="blog.html" class="blog-post">
-                                        <span class="img" style="background-image: url(${data.iduser.avt});"></span>
+                                        <c:if test="${data.iduser.avt != null}">
+                                            <span class="img" style="background-image: url(${data.iduser.avt});"></span></c:if>
+                                            <c:if test="${data.iduser.avt == null}">
+                                            <span class="img" style="background-image: url(../template/images/cover-img-5.jpg);"></span></c:if>
                                         <div class="desc my-date">
                                             <i style="color:black" > <span>${moment(data.createdDate).fromNow()}</span></i>
                                             <h3>${data.comment}</h3>
-                                            <span class="cat">Activities</span>
+                                            <span class="cat">${data.iduser.username}</span>
                                         </div>
-                                    </a>
-                                </div>                                
-                            </div>` + area.innerHTML;
+                                    </a>` + area.innerHTML;
     });
 }
 

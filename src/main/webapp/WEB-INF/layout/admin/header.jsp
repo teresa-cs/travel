@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
@@ -42,6 +43,6 @@
                 </form>
             </div>
         </li>
-        <button type="button" class="btn btn-block btn-default btn-flat">Logout</button>
+        <a href="<c:url value="/logout"/>"> <button type="button" class="btn btn-block btn-default btn-flat">Logout</button></a>
     </ul>
 </nav>

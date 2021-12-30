@@ -6,6 +6,7 @@
 package com.tt.repository;
 
 import com.tt.pojos.Cmt;
+import com.tt.pojos.Post;
 
 /**
  *
@@ -13,6 +14,6 @@ import com.tt.pojos.Cmt;
  */
 public interface CommentRepository {
     Cmt addComment(Cmt c);
-    long countCmt(int postId);
+    long countCmt(Post postId);
     
 }

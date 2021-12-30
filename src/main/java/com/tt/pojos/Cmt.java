@@ -57,7 +57,7 @@ public class Cmt implements Serializable {
     @JsonIgnore
     private Post idpost;
     @JoinColumn(name = "iduser", referencedColumnName = "id")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     @JsonIgnore
     private User iduser;
 
