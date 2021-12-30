@@ -60,40 +60,36 @@ public class OrderController {
         return "order";
     }
     
-
-    
     @PostMapping("/hotel/order-{roomId}")
-    public String add(Model model,@ModelAttribute(value = "order") @Valid OrderHotel o,
-           BindingResult result,@PathVariable(value = "roomId") int roomId ) {
+    public String add(Model model, @ModelAttribute(value = "order") @Valid OrderHotel o,
+            BindingResult result, @PathVariable(value = "roomId") int roomId) {
         if (!result.hasErrors()) {
             o.setIdroom(this.hotelService.getRoombyId(roomId));
-           if(this.orderService.checkDate(o.getIdroom(), o.getCheckin(), o.getCheckout())==true)
-           {
-            if (this.orderService.addOrUpdate(o) == true) {
-                return "redirect:/";
-            }else{
-                model.addAttribute("errMsg", "Something wrong!");
+            boolean kq= this.orderService.checkDate(o.getIdroom(), o.getCheckin(), o.getCheckout()) ;
+            if (kq == true) {
+                if (this.orderService.addOrUpdate(o) == true) {
+                    return "redirect:/";
+                } else {
+                    model.addAttribute("errMsg", "Something wrong!");
+                }
+            } else {
+                model.addAttribute("errMsg", "Đã có người đặt!");
+                return "redirect:/hotel/order-{roomId}";
             }
-           }
-           else
-           {
-               model.addAttribute("errMsg", "Đã có người đặt!");
-               return "redirect:/hotel/order-{roomId}";
-           }
-           
+
         }
 
         return "order";
     }
-    
+
     @GetMapping("/orderhistory")
-    public String order(Model model, HttpSession session){
-        User currentUser= (User) session.getAttribute("currentUser");
+    public String order(Model model, HttpSession session) {
+        User currentUser = (User) session.getAttribute("currentUser");
         model.addAttribute("yourorderT", this.orderTourService.getListOrderTourByIdUser(currentUser));
         model.addAttribute("yourorderH", this.orderService.getOrderHotelByUserid(currentUser));
 
         return "historyorder";
-        
+
     }
 
 }

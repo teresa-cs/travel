@@ -250,7 +250,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <input type="submit" class="btn btn-primary" value="Add tour"/>
+                                                        <input type="submit" class="btn btn-primary" value="Add tour"/>
 
                                         </div>
 
